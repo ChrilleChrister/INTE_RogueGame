@@ -19,4 +19,8 @@ public class Character {
     public int getLevel() {
         return level;
     }
+
+    public String getName() {
+        return race;
+    }
 }

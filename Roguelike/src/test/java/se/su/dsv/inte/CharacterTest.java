@@ -28,4 +28,9 @@ public class CharacterTest {
         new Character(DEFAULT_RACE, 101);
     }
 
+    @Test
+    public void testCtrUsesRaceAsNameIfNameNotSpecified() {
+        Character character = new Character(DEFAULT_RACE, DEFAULT_LEVEL);
+        assertEquals(DEFAULT_RACE, character.getName());
+    }
 }
