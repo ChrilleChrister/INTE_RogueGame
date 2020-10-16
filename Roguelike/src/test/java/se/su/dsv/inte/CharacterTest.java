@@ -12,14 +12,15 @@ public class CharacterTest {
     public void testDefaultCharacterCtr() {
         // No default constructor currently (level has to be specified)
         // Do we need unique id for each Character?
+        // Test character level scaling to player level
         Character character = new Character(DEFAULT_RACE, DEFAULT_LEVEL);
         assertEquals(DEFAULT_RACE, character.getRace());
         assertEquals(DEFAULT_LEVEL, character.getLevel());
     }
 
-    @Test
-    public void tests() {
-        // Test character level scaling to player level
+    @Test(expected = IllegalArgumentException.class)
+    public void testLevelBelowOneThrowsIAE() {
+        new Character(DEFAULT_RACE, -1);
     }
 
 }
