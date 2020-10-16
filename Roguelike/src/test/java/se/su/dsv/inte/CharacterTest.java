@@ -60,4 +60,11 @@ public class CharacterTest {
         assertEquals(DEFAULT_RACE.getBaseMovementSpeed() - 1, character.getMovementSpeed());
     }
 
+    @Test
+    public void testMovementSpeedCanNotGoBelowZero() {
+        Character character = new Character(DEFAULT_RACE, DEFAULT_LEVEL, DEFAULT_NAME);
+        character.changeMovementSpeedModifier(-6);
+        assertEquals(0, character.getMovementSpeed());
+    }
+
 }

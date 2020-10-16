@@ -38,7 +38,10 @@ public class Character {
         return race.getBaseMovementSpeed() + movementSpeedModifier;
     }
 
+    // Not thread safe?
     public void changeMovementSpeedModifier(int movementSpeedModifier) {
         this.movementSpeedModifier += movementSpeedModifier;
+        if (getMovementSpeed() < 0)
+            this.movementSpeedModifier = -race.getBaseMovementSpeed();
     }
 }
