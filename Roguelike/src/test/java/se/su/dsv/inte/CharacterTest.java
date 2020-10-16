@@ -9,7 +9,10 @@ public class CharacterTest {
     private final int DEFAULT_LEVEL = 1;
     private final String DEFAULT_NAME = "Frodo Baggins";
 
-    // Test Enums? Character(RACES.dwarf, 1, Gimli)
+    // Movement speed
+    // Equipment, stats
+    // Inventory slots
+    // Level (Language)
 
     @Test
     public void testCtrSetsAttributes() {
@@ -20,6 +23,7 @@ public class CharacterTest {
         assertEquals(DEFAULT_RACE, character.getRace());
         assertEquals(DEFAULT_LEVEL, character.getLevel());
         assertEquals(DEFAULT_NAME, character.getName());
+
     }
 
     @Test(expected = IllegalArgumentException.class)
