@@ -23,6 +23,7 @@ public class CharacterTest {
         assertEquals(DEFAULT_RACE, character.getRace());
         assertEquals(DEFAULT_LEVEL, character.getLevel());
         assertEquals(DEFAULT_NAME, character.getName());
+        assertEquals(DEFAULT_RACE.getBaseMovementSpeed(), character.getMovementSpeed());
 
     }
 

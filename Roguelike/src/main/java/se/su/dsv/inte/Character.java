@@ -1,9 +1,10 @@
 package se.su.dsv.inte;
 
 public class Character {
-    private Race race;
+    private Race race; // Race change? Modifies attributes!
     private int level;
     private String name;
+    private int movementSpeedModifier;
     // private Item[] inventory = new Item[getInventorySize()]; // Inventory for player character (move to subclass later)
 
     // Declare throws?
@@ -32,4 +33,12 @@ public class Character {
     public String getName() {
         return name;
     }
+
+    public int getMovementSpeed() {
+        return race.getBaseMovementSpeed() + movementSpeedModifier;
+    }
+
+//    public void setMovementSpeed(int newMovementSpeedModifier) {
+//        this.movementSpeedModifier += newMovementSpeedModifier;
+//    }
 }
