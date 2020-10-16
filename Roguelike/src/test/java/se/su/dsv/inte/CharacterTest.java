@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class CharacterTest {
-    private final String DEFAULT_RACE = "Hobbit";
+    private final Race DEFAULT_RACE = Race.HOBBIT;
     private final int DEFAULT_LEVEL = 1;
     private final String DEFAULT_NAME = "Frodo Baggins";
 
@@ -35,7 +35,7 @@ public class CharacterTest {
     @Test
     public void testCtrUsesRaceAsNameIfNameNotSpecified() {
         Character character = new Character(DEFAULT_RACE, DEFAULT_LEVEL);
-        assertEquals(DEFAULT_RACE, character.getName());
+        assertEquals(DEFAULT_RACE.getName(), character.getName());
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -43,11 +43,9 @@ public class CharacterTest {
         new Character(null, DEFAULT_LEVEL, DEFAULT_NAME);
     }
 
-
     @Test(expected = IllegalArgumentException.class)
     public void testCtrThrowsIAEIfNameIsNull() {
         new Character(DEFAULT_RACE, DEFAULT_LEVEL, null);
     }
-
 
 }

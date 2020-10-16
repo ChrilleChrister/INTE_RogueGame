@@ -1,17 +1,17 @@
 package se.su.dsv.inte;
 
 public class Character {
-    private String race;
+    private Race race;
     private int level;
     private String name;
     // private Item[] inventory = new Item[getInventorySize()]; // Inventory for player character (move to subclass later)
 
     // Declare throws?
-    public Character(String race, int level) {
-        this(race, level, race);
+    public Character(Race race, int level) {
+        this(race, level, race.getName());
     }
 
-    public Character(String race, int level, String name) {
+    public Character(Race race, int level, String name) {
         if (level < 1 || level > 100)
             throw new IllegalArgumentException("Level not in allowed range (1-100)");
         if (name == null || race == null)
@@ -21,7 +21,7 @@ public class Character {
         this.name = name;
     }
 
-    public String getRace() {
+    public Race getRace() {
         return race;
     }
 
