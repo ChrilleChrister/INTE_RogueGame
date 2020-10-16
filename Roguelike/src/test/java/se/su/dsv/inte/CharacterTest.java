@@ -53,4 +53,11 @@ public class CharacterTest {
         new Character(DEFAULT_RACE, DEFAULT_LEVEL, null);
     }
 
+    @Test
+    public void testChangeMovementSpeedModifier() {
+        Character character = new Character(DEFAULT_RACE, DEFAULT_LEVEL, DEFAULT_NAME);
+        character.changeMovementSpeedModifier(-1);
+        assertEquals(DEFAULT_RACE.getBaseMovementSpeed() - 1, character.getMovementSpeed());
+    }
+
 }

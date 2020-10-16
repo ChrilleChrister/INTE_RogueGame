@@ -38,7 +38,7 @@ public class Character {
         return race.getBaseMovementSpeed() + movementSpeedModifier;
     }
 
-//    public void setMovementSpeed(int newMovementSpeedModifier) {
-//        this.movementSpeedModifier += newMovementSpeedModifier;
-//    }
+    public void changeMovementSpeedModifier(int movementSpeedModifier) {
+        this.movementSpeedModifier += movementSpeedModifier;
+    }
 }
