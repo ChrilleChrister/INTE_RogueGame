@@ -9,7 +9,7 @@ public class CharacterTest {
     private final int DEFAULT_LEVEL = 1;
 
     @Test
-    public void testDefaultCharacterCtr() {
+    public void testDefaultCharacterCtrSetsRaceAndLevel() {
         // No default constructor currently (level has to be specified)
         // Do we need unique id for each Character?
         // Test character level scaling to player level
@@ -21,6 +21,11 @@ public class CharacterTest {
     @Test(expected = IllegalArgumentException.class)
     public void testLevelBelowOneThrowsIAE() {
         new Character(DEFAULT_RACE, -1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testLevelAboveOneHundredThrowsIAE() {
+        new Character(DEFAULT_RACE, 101);
     }
 
 }

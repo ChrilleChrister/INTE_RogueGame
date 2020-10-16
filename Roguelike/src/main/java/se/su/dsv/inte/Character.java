@@ -6,8 +6,8 @@ public class Character {
 
     // Declare throws?
     public Character(String race, int level) {
-        if (level < 1)
-            throw new IllegalArgumentException("Level can not be less than 1");
+        if (level < 1 || level > 100)
+            throw new IllegalArgumentException("Level not in allowed range (1-100)");
         this.race = race;
         this.level = level;
     }
