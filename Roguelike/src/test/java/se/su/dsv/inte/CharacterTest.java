@@ -33,4 +33,5 @@ public class CharacterTest {
         Character character = new Character(DEFAULT_RACE, DEFAULT_LEVEL);
         assertEquals(DEFAULT_RACE, character.getName());
     }
+
 }
