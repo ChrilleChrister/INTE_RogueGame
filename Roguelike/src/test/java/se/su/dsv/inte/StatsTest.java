@@ -14,4 +14,11 @@ public class StatsTest {
         assertEquals(stats.getAttackPoints(), Race.HOBBIT.getBaseAttackPoints());
     }
 
+    @Test
+    public void testStatsCtrScalesAttributesToLevel() {
+        Stats stats = new Stats(Race.HOBBIT, 5);
+        assertEquals(40, stats.getHitPoints());
+        assertEquals(10, stats.getAttackPoints());
+        assertEquals(12, stats.getDefensePoints());
+    }
 }
