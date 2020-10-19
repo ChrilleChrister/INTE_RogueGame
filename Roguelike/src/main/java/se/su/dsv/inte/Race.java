@@ -1,18 +1,22 @@
 package se.su.dsv.inte;
 
 public enum Race {
-    HOBBIT ("Hobbit", 5, new Stats(20, 2, 4)),
-    DWARF ("Dwarf", 3, new Stats(30, 5, 3));
+    HOBBIT ("Hobbit", 5, 20, 2, 4),
+    DWARF ("Dwarf", 3, 30, 5, 3);
 
-    Race(String name, int baseMovementSpeed, Stats defaultStats) {
+    Race(String name, int baseMovementSpeed, int baseHitPoints, int baseAttackPoints, int baseDefensePoints) {
         this.name = name;
         this.baseMovementSpeed = baseMovementSpeed;
-        this.defaultStats = defaultStats;
+        this.baseHitPoints = baseHitPoints;
+        this.baseAttackPoints = baseAttackPoints;
+        this.baseDefensePoints = baseDefensePoints;
     }
 
     private String name;
     private int baseMovementSpeed;
-    private Stats defaultStats;
+    private int baseHitPoints;
+    private int baseAttackPoints;
+    private int baseDefensePoints;
 
     public String getName() {
         return name;
@@ -22,7 +26,16 @@ public enum Race {
         return baseMovementSpeed;
     }
 
-    public Stats getDefaultStats() {
-        return defaultStats;
+    public int getBaseHitPoints() {
+        return baseHitPoints;
     }
+
+    public int getBaseAttackPoints() {
+        return baseAttackPoints;
+    }
+
+    public int getBaseDefensePoints() {
+        return baseDefensePoints;
+    }
+
 }

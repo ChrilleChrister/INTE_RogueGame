@@ -7,17 +7,11 @@ import static org.junit.Assert.*;
 public class StatsTest {
 
     @Test
-    public void testStatsCtrSetsAttributes() {
-        Stats stats = new Stats(30, 5, 5);
-        assertEquals(30, stats.getHitPoints());
-        assertEquals(5, stats.getAttackPoints());
-        assertEquals(5, stats.getDefensePoints());
+    public void testStatsCtrSetsAttributesToBaseValuesForLevelOne() {
+        Stats stats = new Stats(Race.HOBBIT, 1);
+        assertEquals(stats.getHitPoints(), Race.HOBBIT.getBaseHitPoints());
+        assertEquals(stats.getDefensePoints(), Race.HOBBIT.getBaseDefensePoints());
+        assertEquals(stats.getAttackPoints(), Race.HOBBIT.getBaseAttackPoints());
     }
-
-//    @Test
-//    public void testNewHobbitCharacterHasRaceDefaultStats() {
-//        Character character = new Character(Race.HOBBIT, 1);
-//        assertEquals(Race.HOBBIT.getDefaultStats(), character.getStats());
-//    }
 
 }

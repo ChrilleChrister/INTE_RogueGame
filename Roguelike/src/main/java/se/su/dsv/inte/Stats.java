@@ -5,10 +5,11 @@ public class Stats {
     private int attackPoints;
     private int defensePoints;
 
-    public Stats(int hitPoints, int attackPoints, int defensePoints) {
-        this.hitPoints = hitPoints;
-        this.attackPoints = attackPoints;
-        this.defensePoints = defensePoints;
+    public Stats(Race race, int level) {
+        this.hitPoints = race.getBaseHitPoints();
+        this.attackPoints = race.getBaseAttackPoints();
+        this.defensePoints = race.getBaseDefensePoints();
+        updateStats(level);
     }
 
     public int getHitPoints() {
@@ -21,6 +22,10 @@ public class Stats {
 
     public int getDefensePoints() {
         return defensePoints;
+    }
+
+    private void updateStats(int levelToScaleTo) {
+
     }
 
 }
