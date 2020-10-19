@@ -23,6 +23,20 @@ public class PlayerCharacterTest {
         assertEquals(0, playerCharacter.getXP());
     }
 
-    // level 2 levels at once
+    @Test
+    public void testAddMoreThanRequiredXPToLevelUp() {
+        PlayerCharacter playerCharacter = new PlayerCharacter(Race.HOBBIT, "Player 1");
+        playerCharacter.addXP(120);
+        assertEquals(2, playerCharacter.getLevel());
+        assertEquals(20, playerCharacter.getXP());
+    }
+
+    @Test
+    public void testAddXPToLevelUpTwice() {
+        PlayerCharacter playerCharacter = new PlayerCharacter(Race.HOBBIT, "Player 1");
+        playerCharacter.addXP(550);
+        assertEquals(3, playerCharacter.getLevel());
+        assertEquals(50, playerCharacter.getXP());
+    }
 
 }

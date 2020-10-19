@@ -1,25 +1,25 @@
 package se.su.dsv.inte;
 
 public class PlayerCharacter extends Character {
-    private int xpUntilNextLevel;
+    private int currentXP;
 
     public PlayerCharacter(Race race, String playerName) {
         super(race, 1, playerName);
     }
 
     public void addXP(int xpToAdd) {
+        currentXP += xpToAdd;
         int required = getRequiredXP();
 
-        if (xpUntilNextLevel + xpToAdd >= required) {
+        while (currentXP >= required) {
             level++;
-            xpUntilNextLevel = xpUntilNextLevel + xpToAdd - required;
-        } else {
-            xpUntilNextLevel += xpToAdd;
+            currentXP -= required;
+            required = getRequiredXP();
         }
     }
 
     public int getXP() {
-        return xpUntilNextLevel;
+        return currentXP;
     }
 
     private int getRequiredXP() {
