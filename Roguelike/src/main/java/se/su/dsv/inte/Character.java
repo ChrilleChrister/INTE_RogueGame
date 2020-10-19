@@ -2,7 +2,7 @@ package se.su.dsv.inte;
 
 public class Character {
     private Race race; // Race change? Modifies attributes!
-    private int level;
+    protected int level;
     private String name;
     private int movementSpeedModifier; // Use percentages instead. Round-off errors
     // private Item[] inventory = new Item[getInventorySize()]; // Inventory for player character (move to subclass later)
