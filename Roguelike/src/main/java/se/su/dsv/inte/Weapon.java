@@ -17,7 +17,7 @@ public class Weapon extends Item {
         return attackPower;
     }
 
-    public String getWeaponType(){
+    public String getWeaponType() {
         return weaponType;
     }
 
