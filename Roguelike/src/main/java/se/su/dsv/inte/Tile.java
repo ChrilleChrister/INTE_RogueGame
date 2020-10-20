@@ -13,13 +13,13 @@ public class Tile {
     private final int xPosition, yPosition;
     private TileType tileType; //Grass, mountain or snow
 
-    public Tile(int xPosition, int yPosition, String tileType) {
+    public Tile(int xPosition, int yPosition, TileType tileType) {
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.tileType = tileType;
     }
 
-    public String getTileType() {
+    public TileType getTileType() {
         return tileType;
     }
 
