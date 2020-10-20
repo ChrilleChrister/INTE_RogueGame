@@ -28,4 +28,9 @@ public class MonsterSlayingObjective extends QuestObjective {
     public int getNumberSlain() {
         return numberSlain;
     }
+
+    public void incrementNumberSlain() {
+        if (numberSlain < numberToSlay)
+            numberSlain++;
+    }
 }
