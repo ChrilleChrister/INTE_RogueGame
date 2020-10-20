@@ -5,7 +5,8 @@ public class MonsterSlayingObjective extends QuestObjective {
     private final int numberToSlay;
     private int numberSlain;
 
-    public MonsterSlayingObjective(String monsterName, int numberToSlay) {
+    public MonsterSlayingObjective(boolean optional, String monsterName, int numberToSlay) {
+        super(optional);
         if (monsterName == null)
             throw new IllegalArgumentException("Monster name can not be null");
         if (numberToSlay < 1)
