@@ -1,5 +1,6 @@
 package se.su.dsv.inte;
 
-public class QuestObjective {
+public abstract class QuestObjective {
+    public abstract String getStatusMessage();
 }
 

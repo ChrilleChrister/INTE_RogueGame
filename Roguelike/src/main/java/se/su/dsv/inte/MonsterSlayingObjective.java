@@ -12,6 +12,11 @@ public class MonsterSlayingObjective extends QuestObjective {
         this.numberToSlay = numberToSlay;
     }
 
+    @Override
+    public String getStatusMessage() {
+        return numberSlain + "/" + numberToSlay + " " + monsterType + " slain";
+    }
+
     public String getMonsterType() {
         return monsterType;
     }

@@ -22,13 +22,19 @@ public class MonsterSlayingObjectiveTest {
     }
 
     @Test
-    public void testMonsterTypeCanNotBeNull() {
-        // Maybe?
+    public void testStatusMessageIsEmptyForNewQuest() {
+        QuestObjective objective = new MonsterSlayingObjective(DEFAULT_MONSTER_TYPE, DEFAULT_NUMBER_TO_SLAY);
+        assertEquals("0/5 Wolf slain", objective.getStatusMessage());
     }
-
-    @Test
-    public void testIncrementNumberSlain() {
-        // abstrakt metod i questobjective? objective.progress()?
-    }
+//
+//    @Test
+//    public void testMonsterTypeCanNotBeNull() {
+//        // Maybe?
+//    }
+//
+//    @Test
+//    public void testIncrementNumberSlain() {
+//        // abstrakt metod i questobjective? objective.progress()?
+//    }
 
 }
