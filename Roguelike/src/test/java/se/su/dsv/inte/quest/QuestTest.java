@@ -1,10 +1,9 @@
-package se.su.dsv.inte;
+package se.su.dsv.inte.quest;
 
 import org.junit.Test;
+import se.su.dsv.inte.quest.Quest;
 
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 public class QuestTest {
     @Test
