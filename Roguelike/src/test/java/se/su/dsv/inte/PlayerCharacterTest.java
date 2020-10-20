@@ -39,4 +39,16 @@ public class PlayerCharacterTest {
         assertEquals(50, playerCharacter.getXP());
     }
 
+    @Test
+    public void testInventorySizeForDwarf(){
+        PlayerCharacter playerCharacter = new PlayerCharacter(Race.DWARF, "Player 1");
+        assertEquals(playerCharacter.getInventory().length, 30);
+    }
+
+    @Test
+    public void testInventorySizeForHobbit(){
+        PlayerCharacter playerCharacter = new PlayerCharacter(Race.HOBBIT, "Player 1");
+        assertEquals(playerCharacter.getInventory().length, 20);
+    }
+
 }
