@@ -3,7 +3,6 @@ package se.su.dsv.inte;
 public class PlayerCharacter extends Character {
     private int currentXP;
     private Item[] inventory;
-    private int nextIndex;
 
 
     public PlayerCharacter(Race race, String playerName) {
@@ -19,8 +18,24 @@ public class PlayerCharacter extends Character {
     }
 
     public void putItemInInventory(Item item){
-        inventory[nextIndex] = item;
-        nextIndex++;
+        for(int i = 0; i < inventory.length; i++){
+            if(inventory[i] == null){
+                inventory[i] = item;
+                break;
+            }
+        }
+    }
+
+    public void printInventory(Item[] inventory){
+        for(int i = 0; i < inventory.length; i++){
+            if(inventory[i] != null){
+                System.out.println( "Spot " + (i+1) + " contains Item: " + inventory[i].toString());
+            } else{
+                System.out.println("Spot " +  (i+1) + " is empty");
+            }
+
+
+        }
     }
 
 

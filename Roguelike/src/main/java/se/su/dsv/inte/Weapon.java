@@ -24,6 +24,6 @@ public class Weapon extends Item {
 
     @Override
     public String toString() {
-        return String.format("Name: %s Weapontype: %s Attackpower: %d", getName(), weaponType, attackPoints);
+        return String.format("Name: %s || Weapontype: %s || Attackpower: %d", getName(), weaponType, attackPoints);
     }
 }

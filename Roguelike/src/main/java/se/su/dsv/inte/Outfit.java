@@ -24,7 +24,7 @@ public class Outfit extends Item {
 
     @Override
     public String toString() {
-        return String.format("Name: %s Outfittype: %s Defense points: %d", getName(), outfitType, defensePoints);
+        return String.format("Name: %s || Outfittype: %s || Defense points: %d", getName(), outfitType, defensePoints);
     }
 
 
