@@ -20,6 +20,11 @@ public class MonsterSlayingObjective extends QuestObjective {
         return numberSlain + "/" + numberToSlay + " " + monsterName + " slain";
     }
 
+    @Override
+    public boolean isComplete() {
+        return numberSlain == numberToSlay;
+    }
+
     public String getMonsterName() {
         return monsterName;
     }

@@ -60,6 +60,16 @@ public class MonsterSlayingObjectiveTest {
             objective.incrementNumberSlain();
         assertEquals(DEFAULT_NUMBER_TO_SLAY, objective.getNumberSlain());
     }
+
+    @Test
+    public void testObjectiveIsCompleteAfterNumberToSlayIsReached() {
+        MonsterSlayingObjective objective = new MonsterSlayingObjective(DEFAULT_OPTIONAL,
+                DEFAULT_MONSTER_NAME, DEFAULT_NUMBER_TO_SLAY);
+        assertFalse(objective.isComplete());
+        for (int i = 0; i < DEFAULT_NUMBER_TO_SLAY; i++)
+            objective.incrementNumberSlain();
+        assertTrue(objective.isComplete());
+    }
 //
 //    @Test
 //    public void testMonsterTypeCanNotBeNull() {

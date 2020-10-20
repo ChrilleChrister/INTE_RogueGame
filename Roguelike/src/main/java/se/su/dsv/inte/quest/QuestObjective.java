@@ -16,5 +16,7 @@ public abstract class QuestObjective {
     }
 
     protected abstract String getStatus();
+
+    public abstract boolean isComplete();
 }
 
