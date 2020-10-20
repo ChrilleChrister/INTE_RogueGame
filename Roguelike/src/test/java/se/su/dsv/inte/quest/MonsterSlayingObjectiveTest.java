@@ -70,15 +70,4 @@ public class MonsterSlayingObjectiveTest {
             objective.incrementNumberSlain();
         assertTrue(objective.isComplete());
     }
-//
-//    @Test
-//    public void testMonsterTypeCanNotBeNull() {
-//        // Maybe?
-//    }
-//
-//    @Test
-//    public void testIncrementNumberSlain() {
-//        // abstrakt metod i questobjective? objective.progress()?
-//    }
-
 }
