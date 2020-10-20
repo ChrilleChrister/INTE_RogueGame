@@ -2,10 +2,8 @@ package se.su.dsv.inte;
 
 public class PlayerCharacter extends Character {
     private int currentXP;
-
-
-
     private Item[] inventory;
+    private int nextIndex;
 
 
     public PlayerCharacter(Race race, String playerName) {
@@ -18,6 +16,11 @@ public class PlayerCharacter extends Character {
                 inventory = new Item[20];
                 break;
         }
+    }
+
+    public void putItemInInventory(Item item){
+        inventory[nextIndex] = item;
+        nextIndex++;
     }
 
 

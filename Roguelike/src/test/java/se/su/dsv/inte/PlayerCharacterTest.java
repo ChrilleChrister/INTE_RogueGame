@@ -51,4 +51,12 @@ public class PlayerCharacterTest {
         assertEquals(playerCharacter.getInventory().length, 20);
     }
 
+    @Test
+    public void putAnITemInPlayerCharacterInventoryArrayIndexZero(){
+        PlayerCharacter playerCharacter = new PlayerCharacter(Race.HOBBIT, "Player 1");
+        Item weapon = new Weapon("Sting", "Sword", 25);
+        playerCharacter.putItemInInventory(weapon);
+        assertEquals(playerCharacter.getInventory()[0].getName(),"Sting");
+    }
+
 }

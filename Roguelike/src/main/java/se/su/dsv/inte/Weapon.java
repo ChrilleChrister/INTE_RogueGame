@@ -4,17 +4,18 @@ public class Weapon extends Item {
 
     //Weapon can be a sword, axe, bow or something else
     private String weaponType;
-    private int attackPower;
+    private int attackPoints;
 
 
-    public Weapon(String name, String weaponType, int attackPower) {
+
+    public Weapon(String name, String weaponType, int attackPoints) {
         super(name);
         this.weaponType = weaponType;
-        this.attackPower = attackPower;
+        this.attackPoints = attackPoints;
     }
 
-    public int getAttackPower() {
-        return attackPower;
+    public int getAttackPoints() {
+        return attackPoints;
     }
 
     public String getWeaponType() {
@@ -23,6 +24,6 @@ public class Weapon extends Item {
 
     @Override
     public String toString() {
-        return String.format("Name: %s Weapontype: %s Attackpower: %d", getName(), weaponType, attackPower);
+        return String.format("Name: %s Weapontype: %s Attackpower: %d", getName(), weaponType, attackPoints);
     }
 }
