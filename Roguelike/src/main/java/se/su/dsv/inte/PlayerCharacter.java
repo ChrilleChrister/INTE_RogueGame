@@ -1,5 +1,6 @@
 package se.su.dsv.inte;
 
+
 public class PlayerCharacter extends Character {
     private int currentXP;
     private Item[] inventory;
@@ -26,6 +27,15 @@ public class PlayerCharacter extends Character {
         }
     }
 
+    public void removeItemFromInventory(Item item) {
+        for (int i = 0; i < inventory.length; i++) {
+            if (inventory[i].getName().equals(item.getName())) {
+                inventory[i] = null;
+                break;
+            }
+        }
+    }
+
     public void printInventory(Item[] inventory){
         for(int i = 0; i < inventory.length; i++){
             if(inventory[i] != null){
@@ -33,8 +43,6 @@ public class PlayerCharacter extends Character {
             } else{
                 System.out.println("Spot " +  (i+1) + " is empty");
             }
-
-
         }
     }
 

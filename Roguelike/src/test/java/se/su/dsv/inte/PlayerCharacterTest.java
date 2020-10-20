@@ -59,4 +59,13 @@ public class PlayerCharacterTest {
         assertEquals(playerCharacter.getInventory()[0].getName(),"Sting");
     }
 
+    @Test
+    public void removeAnItemInPlayerCharacterInventoryArrayIndexZero(){
+        PlayerCharacter playerCharacter = new PlayerCharacter(Race.HOBBIT, "Player 1");
+        Item weapon = new Weapon("Sting", "Sword", 25);
+        playerCharacter.putItemInInventory(weapon);
+        playerCharacter.removeItemFromInventory(weapon);
+        assertEquals(playerCharacter.getInventory()[0], null);
+    }
+
 }
