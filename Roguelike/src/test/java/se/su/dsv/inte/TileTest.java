@@ -8,7 +8,12 @@ public class TileTest {
 
     private final int X_POSITION_ONE = 1;
     private final int Y_POSITION_ONE = 1;
-    private String TILE_TYPE_GRASS = "grass"; //Grass, mountain or snow
+    private TileType TILE_TYPE_GRASS = TileType.GRASS; //Grass, mountain or snow
+
+    //TODO
+    //TODO
+    //TODO
+    //TODO
 
 
     @Test

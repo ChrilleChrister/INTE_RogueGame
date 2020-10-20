@@ -9,9 +9,9 @@ Weather effects (affects on weapon)
 */
 
 public class Tile {
-
+//Height and width or tiles?
     private final int xPosition, yPosition;
-    private String tileType; //Grass, mountain or snow
+    private TileType tileType; //Grass, mountain or snow
 
     public Tile(int xPosition, int yPosition, String tileType) {
         this.xPosition = xPosition;
