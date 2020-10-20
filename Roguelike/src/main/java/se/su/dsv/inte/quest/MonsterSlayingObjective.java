@@ -16,7 +16,7 @@ public class MonsterSlayingObjective extends QuestObjective {
     }
 
     @Override
-    public String getStatusMessage() {
+    protected String getStatus() {
         return numberSlain + "/" + numberToSlay + " " + monsterName + " slain";
     }
 

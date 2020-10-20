@@ -30,10 +30,17 @@ public class MonsterSlayingObjectiveTest {
     }
 
     @Test
-    public void testStatusMessageIsEmptyForNewQuest() {
+    public void testStatusMessageFormatForNewObjective() {
         QuestObjective objective = new MonsterSlayingObjective(DEFAULT_OPTIONAL,
                 DEFAULT_MONSTER_NAME, DEFAULT_NUMBER_TO_SLAY);
         assertEquals("0/5 Wolf slain", objective.getStatusMessage());
+    }
+
+    @Test
+    public void testStatusMessageIncludesPrefixForOptionalObjective() {
+        QuestObjective objective = new MonsterSlayingObjective(true,
+                DEFAULT_MONSTER_NAME, DEFAULT_NUMBER_TO_SLAY);
+        assertEquals("(Optional) 0/5 Wolf slain", objective.getStatusMessage());
     }
 
     @Test

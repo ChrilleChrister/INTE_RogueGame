@@ -11,6 +11,10 @@ public abstract class QuestObjective {
         return optional;
     }
 
-    public abstract String getStatusMessage();
+    public String getStatusMessage() {
+        return optional ? "(Optional) " + getStatus() : getStatus();
+    }
+
+    protected abstract String getStatus();
 }
 
