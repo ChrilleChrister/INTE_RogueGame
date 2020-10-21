@@ -8,7 +8,7 @@ public class PlayerCharacter extends Character {
 
     public PlayerCharacter(Race race, String playerName) {
         super(race, 1, playerName);
-        switch (race.getName()){
+        switch (race.getName()) {
             case "Dwarf":
                 inventory = new Item[30];
                 break;
@@ -18,14 +18,17 @@ public class PlayerCharacter extends Character {
         }
     }
 
-    public void putItemInInventory(Item item){
-        for(int i = 0; i < inventory.length; i++){
-            if(inventory[i] == null){
-                inventory[i] = item;
-                break;
-            }
+    public void putItemInInventory(Item item) {
+        for (int i = 0; i < inventory.length; i++) {
+                if (inventory[i] == null) {
+                    inventory[i] = item;
+                    break;
+                }
+
         }
     }
+
+
 
     //problem med denna metod är att varje gång man vill ta bort nåt kommer den även sätta om alla null till null igen...
     public void removeItemFromInventory(Item item) {
@@ -36,12 +39,12 @@ public class PlayerCharacter extends Character {
         }
     }
 
-    public void openInventory(Item[] inventory){
-        for(int i = 0; i < inventory.length; i++){
-            if(inventory[i] != null){
-                System.out.println( "Spot " + (i+1) + " contains Item: " + inventory[i].toString());
-            } else{
-                System.out.println("Spot " +  (i+1) + " is empty");
+    public void openInventory(Item[] inventory) {
+        for (int i = 0; i < inventory.length; i++) {
+            if (inventory[i] != null) {
+                System.out.println("Spot " + (i + 1) + " contains Item: " + inventory[i].toString());
+            } else {
+                System.out.println("Spot " + (i + 1) + " is empty");
             }
         }
     }

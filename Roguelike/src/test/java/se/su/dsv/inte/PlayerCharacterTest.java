@@ -122,4 +122,12 @@ public class PlayerCharacterTest {
         assertEquals(playerCharacter.getInventory()[4], null);
     }
 
+    @Test
+    public void checkIfInventoryIsFull(){
+        PlayerCharacter playerCharacter = new PlayerCharacter(Race.HOBBIT, "Player 1");
+        for(int i = 0; i<playerCharacter.getInventory().length; i++){
+            playerCharacter.putItemInInventory(new Weapon("Sting", "Sword", 25));
+        }
+        playerCharacter.openInventory(playerCharacter.getInventory());
+    }
 }
