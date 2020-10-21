@@ -9,18 +9,28 @@ Weather effects (affects on weapon)
 */
 
 public class Tile {
-//Height and width or tiles?
-    private final int xPosition, yPosition;
+
+    private int tileWidth; // Width and Height, set values?
+    private int tileHeight;
+    private int xPosition, yPosition;
     private TileType tileType; //Grass, mountain or snow
 
-    public Tile(int xPosition, int yPosition, TileType tileType) {
+
+
+    public Tile(int tileWidth, int tileHeight, int xPosition, int yPosition, TileType tileType) {
+        this.tileWidth = tileWidth;
+        this.tileHeight = tileHeight;
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.tileType = tileType;
     }
 
-    public TileType getTileType() {
-        return tileType;
+    public int getTileWidth() {
+        return tileWidth;
+    }
+
+    public int getTileHeight() {
+        return tileHeight;
     }
 
     public int getxPosition() {
@@ -29,6 +39,9 @@ public class Tile {
 
     public int getyPosition() {
         return yPosition;
+    }
+    public TileType getTileType() {
+        return tileType;
     }
 
 }
