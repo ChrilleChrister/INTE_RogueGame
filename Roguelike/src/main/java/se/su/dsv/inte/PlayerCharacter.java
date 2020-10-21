@@ -29,14 +29,14 @@ public class PlayerCharacter extends Character {
 
     public void removeItemFromInventory(Item item) {
         for (int i = 0; i < inventory.length; i++) {
-            if (inventory[i].getName().equals(item.getName())) {
+            if (inventory[i].getName().equals(item.getName()) && inventory[i] != null) {
                 inventory[i] = null;
                 break;
             }
         }
     }
 
-    public void printInventory(Item[] inventory){
+    public void openInventory(Item[] inventory){
         for(int i = 0; i < inventory.length; i++){
             if(inventory[i] != null){
                 System.out.println( "Spot " + (i+1) + " contains Item: " + inventory[i].toString());
@@ -50,8 +50,6 @@ public class PlayerCharacter extends Character {
     public Item[] getInventory() {
         return inventory;
     }
-
-
 
 
     public void addXP(int xpToAdd) {

@@ -68,4 +68,18 @@ public class PlayerCharacterTest {
         assertEquals(playerCharacter.getInventory()[0], null);
     }
 
+    @Test
+    public void putThreeItemsInPlayerCharacterInventoryArray(){
+        PlayerCharacter playerCharacter = new PlayerCharacter(Race.HOBBIT, "Player 1");
+        Item weapon = new Weapon("Sting", "Sword", 25);
+        Item outfit = new Outfit("Bilbos Armor", "Mithril", 55);
+        Item potion = new Consumable("Health Potion");
+        playerCharacter.putItemInInventory(weapon);
+        playerCharacter.putItemInInventory(outfit);
+        playerCharacter.putItemInInventory(potion);
+        assertEquals(playerCharacter.getInventory()[0].getName(), "Sting");
+        assertEquals(playerCharacter.getInventory()[1].getName(), "Bilbos Armor");
+        assertEquals(playerCharacter.getInventory()[2].getName(), "Health Potion");
+    }
+
 }
