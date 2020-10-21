@@ -27,11 +27,11 @@ public class PlayerCharacter extends Character {
         }
     }
 
+    //problem med denna metod är att varje gång man vill ta bort nåt kommer den även sätta om alla null till null igen...
     public void removeItemFromInventory(Item item) {
         for (int i = 0; i < inventory.length; i++) {
-            if (inventory[i].getName().equals(item.getName()) && inventory[i] != null) {
+            if (inventory[i] == null || inventory[i].getName().equals(item.getName())) {
                 inventory[i] = null;
-                break;
             }
         }
     }
