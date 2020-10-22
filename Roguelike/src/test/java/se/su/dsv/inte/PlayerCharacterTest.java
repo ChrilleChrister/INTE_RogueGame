@@ -128,12 +128,15 @@ public class PlayerCharacterTest {
         for(int i = 0; i<playerCharacter.getInventory().length; i++){
             playerCharacter.putItemInInventory(new Weapon("Sting", "Sword", 25));
         }
-        playerCharacter.putItemInInventory(new Consumable("Potion of Magic Stuff"));
         assertTrue(playerCharacter.checkInventoryIsFull());
     }
 
     @Test
     public void tryToAddItemWhenInventoryIsFull(){
-
+        PlayerCharacter playerCharacter = new PlayerCharacter(Race.DWARF, "Player 1");
+        for(int i = 0; i<playerCharacter.getInventory().length; i++){
+            playerCharacter.putItemInInventory(new Weapon("...and My Axe", "Axe", 10));
+        }
+        assertEquals(playerCharacter.putItemInInventory(new Outfit("Gandalf's Robe", "Robe", 555)), "Inventory is full");
     }
 }

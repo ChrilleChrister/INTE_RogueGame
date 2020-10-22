@@ -18,16 +18,17 @@ public class PlayerCharacter extends Character {
         }
     }
 
-    public void putItemInInventory(Item item) {
+    public String putItemInInventory(Item item) {
         if(checkInventoryIsFull()){
-            System.out.println("Inventory is Full");
+            return "Inventory is full";
         } else{
             for (int i = 0; i < inventory.length; i++) {
                 if (inventory[i] == null) {
                     inventory[i] = item;
+
                     break;
                 }
-            }
+            }return item.getName() + "Added to Inventory";
         }
     }
 
