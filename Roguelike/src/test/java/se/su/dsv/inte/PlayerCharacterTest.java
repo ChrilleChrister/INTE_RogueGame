@@ -134,9 +134,30 @@ public class PlayerCharacterTest {
     @Test
     public void tryToAddItemWhenInventoryIsFull(){
         PlayerCharacter playerCharacter = new PlayerCharacter(Race.DWARF, "Player 1");
+
         for(int i = 0; i<playerCharacter.getInventory().length; i++){
             playerCharacter.putItemInInventory(new Weapon("...and My Axe", "Axe", 10));
         }
         assertEquals(playerCharacter.putItemInInventory(new Outfit("Gandalf's Robe", "Robe", 555)), "Inventory is full");
+    }
+
+    @Test
+    public void testEquipWeaponAndOutfit(){
+        PlayerCharacter playerCharacter = new PlayerCharacter(Race.HOBBIT, "Player 1");
+        Item weapon = new Weapon("Andüril", "Sword", 100);
+        Item outfit = new Outfit("Bilbos Armor", "Mithril", 55);
+        playerCharacter.putItemInInventory(weapon);
+        playerCharacter.putItemInInventory(outfit);
+        playerCharacter.equipItem(weapon);
+        playerCharacter.equipItem(outfit);
+        assertEquals(playerCharacter.getWeapon().getName(), "Andüril");
+        assertEquals(playerCharacter.getOutfit().getName(), "Bilbos Armor");
+    }
+
+    @Test
+    public void testEquipItemNotInInventory(){
+
+
+
     }
 }

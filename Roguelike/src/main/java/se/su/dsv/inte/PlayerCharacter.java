@@ -4,6 +4,8 @@ package se.su.dsv.inte;
 public class PlayerCharacter extends Character {
     private int currentXP;
     private Item[] inventory;
+    private Item weapon;
+    private Item outfit;
 
 
     public PlayerCharacter(Race race, String playerName) {
@@ -19,16 +21,16 @@ public class PlayerCharacter extends Character {
     }
 
     public String putItemInInventory(Item item) {
-        if(checkInventoryIsFull()){
+        if (checkInventoryIsFull()) {
             return "Inventory is full";
-        } else{
+        } else {
             for (int i = 0; i < inventory.length; i++) {
                 if (inventory[i] == null) {
                     inventory[i] = item;
-
                     break;
                 }
-            }return item.getName() + "Added to Inventory";
+            }
+            return item.getName() + " Added to Inventory";
         }
     }
 
@@ -55,6 +57,32 @@ public class PlayerCharacter extends Character {
                 inventory[i] = null;
             }
         }
+    }
+
+
+    //stats behöver korrigeras i samband med denna metod
+    public void equipItem(Item item) {
+        for (int i = 0; i < inventory.length; i++) {
+            if (inventory[i].getName().equals(item.getName())) {
+                if (item instanceof Weapon) {
+                    weapon = inventory[i];
+                    break;
+                } else if (item instanceof Outfit) {
+                    outfit = inventory[i];
+                    break;
+                } else {
+                    System.out.println("Item is not in your inventory");
+                }
+            }
+        }
+    }
+
+    public Item getWeapon() {
+        return weapon;
+    }
+
+    public Item getOutfit() {
+        return outfit;
     }
 
     public void openInventory(Item[] inventory) {
