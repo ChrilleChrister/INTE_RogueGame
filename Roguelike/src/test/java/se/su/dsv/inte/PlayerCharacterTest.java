@@ -144,6 +144,7 @@ public class PlayerCharacterTest {
     @Test
     public void testEquipWeaponAndOutfit(){
         PlayerCharacter playerCharacter = new PlayerCharacter(Race.HOBBIT, "Player 1");
+
         Item weapon = new Weapon("Andüril", "Sword", 100);
         Item outfit = new Outfit("Bilbos Armor", "Mithril", 55);
         playerCharacter.putItemInInventory(weapon);
@@ -156,8 +157,9 @@ public class PlayerCharacterTest {
 
     @Test
     public void testEquipItemNotInInventory(){
-
-
-
+        PlayerCharacter playerCharacter = new PlayerCharacter(Race.HOBBIT, "Player 1");
+        Item weapon = new Weapon("Sting", "Sword", 25);
+        playerCharacter.equipItem(weapon);
+        assertEquals(playerCharacter.getWeapon(), null);
     }
 }

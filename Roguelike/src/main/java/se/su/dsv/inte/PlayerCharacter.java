@@ -63,7 +63,7 @@ public class PlayerCharacter extends Character {
     //stats behöver korrigeras i samband med denna metod
     public void equipItem(Item item) {
         for (int i = 0; i < inventory.length; i++) {
-            if (inventory[i].getName().equals(item.getName())) {
+            if (inventory[i] == null || inventory[i].getName().equals(item.getName())) {
                 if (item instanceof Weapon) {
                     weapon = inventory[i];
                     break;
