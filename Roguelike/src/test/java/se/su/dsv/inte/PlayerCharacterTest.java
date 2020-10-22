@@ -128,6 +128,12 @@ public class PlayerCharacterTest {
         for(int i = 0; i<playerCharacter.getInventory().length; i++){
             playerCharacter.putItemInInventory(new Weapon("Sting", "Sword", 25));
         }
-        playerCharacter.openInventory(playerCharacter.getInventory());
+        playerCharacter.putItemInInventory(new Consumable("Potion of Magic Stuff"));
+        assertTrue(playerCharacter.checkInventoryIsFull());
+    }
+
+    @Test
+    public void tryToAddItemWhenInventoryIsFull(){
+
     }
 }

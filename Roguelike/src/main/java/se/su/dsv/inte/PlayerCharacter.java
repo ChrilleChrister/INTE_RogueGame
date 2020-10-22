@@ -19,15 +19,32 @@ public class PlayerCharacter extends Character {
     }
 
     public void putItemInInventory(Item item) {
-        for (int i = 0; i < inventory.length; i++) {
+        if(checkInventoryIsFull()){
+            System.out.println("Inventory is Full");
+        } else{
+            for (int i = 0; i < inventory.length; i++) {
                 if (inventory[i] == null) {
                     inventory[i] = item;
                     break;
                 }
-
+            }
         }
     }
 
+    public boolean checkInventoryIsFull() {
+        int spaceCounter = 0;
+        for (int i = 0; i < inventory.length; i++) {
+            if (inventory[i] != null) {
+                spaceCounter++;
+            }
+        }
+        if (spaceCounter == inventory.length) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
 
 
     //problem med denna metod är att varje gång man vill ta bort nåt kommer den även sätta om alla null till null igen...
