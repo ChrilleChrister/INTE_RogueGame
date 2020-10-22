@@ -3,3 +3,8 @@
 *.iml
 # Maven output
 target/
+
+#
+.classpath
+.project
+.settings/
