@@ -69,4 +69,6 @@ public class CharacterTest {
         assertEquals(0, character.getMovementSpeed());
     }
 
+
+
 }
