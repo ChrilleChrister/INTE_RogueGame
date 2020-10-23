@@ -31,6 +31,31 @@ public class ItemDeliveryObjectiveTest {
         new ItemDeliveryObjective(DEFAULT_OPTIONAL, DEFAULT_ITEM, null);
     }
 
+    @Test
+    public void testStatusMessageFormatWhenItemNotAcquiredAndNotDelivered() {
+        ItemDeliveryObjective objective = new ItemDeliveryObjective(DEFAULT_OPTIONAL,
+                DEFAULT_ITEM, DEFAULT_RECIPIENT_NAME);
+        assertEquals("Find " + DEFAULT_ITEM.getName()
+                + " for " + DEFAULT_RECIPIENT_NAME, objective.getStatusMessage());
+    }
+
+    @Test
+    public void testStatusMessageFormatWhenItemAcquiredButNotDelivered() {
+        ItemDeliveryObjective objective = new ItemDeliveryObjective(DEFAULT_OPTIONAL,
+                DEFAULT_ITEM, DEFAULT_RECIPIENT_NAME);
+        objective.setItemAcquired(true);
+        assertEquals("Bring " + DEFAULT_ITEM.getName()
+                + " to " + DEFAULT_RECIPIENT_NAME, objective.getStatusMessage());
+    }
+
+    @Test
+    public void testStatusMessageFormatWhenItemHasBeenDelivered() {
+        ItemDeliveryObjective objective = new ItemDeliveryObjective(DEFAULT_OPTIONAL,
+                DEFAULT_ITEM, DEFAULT_RECIPIENT_NAME);
+        objective.setDelivered(true);
+        assertEquals(DEFAULT_ITEM.getName() + " was delivered to "
+                + DEFAULT_RECIPIENT_NAME, objective.getStatusMessage());
+    }
 
 
     // isComplete could consist of two parts: itemAcquired && isDelivered - the quest giver/turn in could be

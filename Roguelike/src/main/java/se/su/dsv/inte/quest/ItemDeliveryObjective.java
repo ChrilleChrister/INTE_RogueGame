@@ -1,5 +1,6 @@
 package se.su.dsv.inte.quest;
 
+import se.su.dsv.inte.character.PlayerCharacter;
 import se.su.dsv.inte.item.Item;
 
 public class ItemDeliveryObjective extends QuestObjective {
@@ -12,7 +13,7 @@ public class ItemDeliveryObjective extends QuestObjective {
         super(optional);
         if (item == null)
             throw new IllegalArgumentException("Item to deliver can not be null");
-        // Could possinly check that the character exists at all(?) with static list, add each new character created
+        // Could possibly check that the character exists at all(?) with static list, add each new character created
         if (recipientName == null)
             throw new IllegalArgumentException("Recipient name can not be null");
         this.item = item;
@@ -27,9 +28,26 @@ public class ItemDeliveryObjective extends QuestObjective {
         return recipientName;
     }
 
+    public void setItemAcquired(boolean itemAcquired) {
+        this.itemAcquired = itemAcquired;
+    }
+
+    public void setDelivered(boolean delivered) {
+        this.delivered = delivered;
+    }
+
     @Override
     protected String getStatus() {
-        return null;
+        String msg;
+
+        if (!itemAcquired && !delivered)
+            msg = "Find " + item.getName() + " for " + recipientName;
+        else if (itemAcquired && !delivered)
+            msg = "Bring " + item.getName() + " to " + recipientName;
+        else
+            msg = item.getName() + " was delivered to " + recipientName;
+
+        return msg;
     }
 
     @Override
