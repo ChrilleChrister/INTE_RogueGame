@@ -11,16 +11,16 @@ public class StatsTest {
     @Test
     public void testStatsCtrSetsAttributesToBaseValuesForLevelOne() {
         Stats stats = new Stats(Race.HOBBIT, 1);
-        assertEquals(stats.getHitPoints(), Race.HOBBIT.getBaseHitPoints());
-        assertEquals(stats.getDefensePoints(), Race.HOBBIT.getBaseDefensePoints());
-        assertEquals(stats.getAttackPoints(), Race.HOBBIT.getBaseAttackPoints());
+        assertEquals(stats.getBaseHitPoints(), Race.HOBBIT.getBaseHitPoints());
+        assertEquals(stats.getBaseDefensePoints(), Race.HOBBIT.getBaseDefensePoints());
+        assertEquals(stats.getBaseAttackPoints(), Race.HOBBIT.getBaseAttackPoints());
     }
 
     @Test
     public void testStatsCtrScalesAttributesToLevel() {
         Stats stats = new Stats(Race.HOBBIT, 5);
-        assertEquals(40, stats.getHitPoints());
-        assertEquals(10, stats.getAttackPoints());
-        assertEquals(12, stats.getDefensePoints());
+        assertEquals(40, stats.getBaseHitPoints());
+        assertEquals(10, stats.getBaseAttackPoints());
+        assertEquals(12, stats.getBaseDefensePoints());
     }
 }

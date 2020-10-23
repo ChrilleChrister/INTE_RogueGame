@@ -4,8 +4,9 @@ public class Character {
     private Race race; // Race change? Modifies attributes!
     protected int level;
     private String name;
-    private int movementSpeedModifier; // Use percentages instead. Round-off errors
+    private int movementSpeedModifier;// Use percentages instead. Round-off errors
     // private Item[] inventory = new Item[getInventorySize()]; // Inventory for player character (move to subclass later)
+    protected Stats stats;
 
     // Declare throws?
     public Character(Race race, int level) {
@@ -20,6 +21,7 @@ public class Character {
         this.race = race;
         this.level = level;
         this.name = name;
+        this.stats = new Stats(race, level);
     }
 
     public Race getRace() {
@@ -36,6 +38,10 @@ public class Character {
 
     public int getMovementSpeed() {
         return race.getBaseMovementSpeed() + movementSpeedModifier;
+    }
+
+    public Stats getStats(){
+        return stats;
     }
 
     // Not thread safe?
