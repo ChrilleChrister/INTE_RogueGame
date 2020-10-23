@@ -70,9 +70,11 @@ public class PlayerCharacter extends Character {
             if (inventory[i] == null || inventory[i].getName().equals(item.getName())) {
                 if (item instanceof Weapon) {
                     weapon = inventory[i];
+                    stats.changeBaseAttackPoints((Weapon) weapon);
                     break;
                 } else if (item instanceof Outfit) {
                     outfit = inventory[i];
+                    stats.changeBaseDefensePoints((Outfit) outfit);
                     break;
                 } else {
                     System.out.println("Item is not in your inventory");
@@ -89,6 +91,9 @@ public class PlayerCharacter extends Character {
         return outfit;
     }
 
+
+
+    // denna metod används inte just nu
     public void openInventory(Item[] inventory) {
         for (int i = 0; i < inventory.length; i++) {
             if (inventory[i] != null) {
@@ -111,6 +116,7 @@ public class PlayerCharacter extends Character {
 
         while (currentXP >= required) {
             level++;
+            stats = new Stats(getRace(), level);
             currentXP -= required;
             required = getRequiredXP();
         }
