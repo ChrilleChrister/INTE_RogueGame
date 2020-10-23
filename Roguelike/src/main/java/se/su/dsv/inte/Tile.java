@@ -6,31 +6,40 @@ Environments, grass, snow, mountain, cave (different movement speed, can not wal
 Weather effects (affects on weapon)
 (Line of sight)
 //Directions in enum?
+Tranversible/gångbar- boolean.
+occupying character.
+occupying item.
+Kan man lägga idem på ?
+Algorimen, snabbaste vägen i tiles?  Tranversiblemap i en grid?
+Kan den gå eller inte.
 */
+
 
 public class Tile {
 
-    private int tileWidth; // Width and Height, set values?
-    private int tileHeight;
+    private final int TILE_WIDTH; // Width and Height, set values?
+    private final int TILE_HEIGHT;
     private int xPosition, yPosition;
     private TileType tileType; //Grass, mountain or snow
 
 
 
-    public Tile(int tileWidth, int tileHeight, int xPosition, int yPosition, TileType tileType) {
-        this.tileWidth = tileWidth;
-        this.tileHeight = tileHeight;
+
+    public Tile(int xPosition, int yPosition, TileType tileType) {
+        this.TILE_WIDTH = 64;
+        this.TILE_HEIGHT = 64;
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.tileType = tileType;
+
     }
 
     public int getTileWidth() {
-        return tileWidth;
+        return TILE_WIDTH;
     }
 
     public int getTileHeight() {
-        return tileHeight;
+        return TILE_HEIGHT;
     }
 
     public int getxPosition() {
@@ -40,8 +49,11 @@ public class Tile {
     public int getyPosition() {
         return yPosition;
     }
+
     public TileType getTileType() {
         return tileType;
     }
+
+
 
 }
