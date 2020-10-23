@@ -29,10 +29,15 @@ public class ItemDeliveryObjective extends QuestObjective {
     }
 
     public void setItemAcquired(boolean itemAcquired) {
+        if (!itemAcquired && delivered)
+            throw new IllegalStateException("Item can not be marked un-acquired " +
+                    "after it has been delivered");
         this.itemAcquired = itemAcquired;
     }
 
     public void setDelivered(boolean delivered) {
+        if (!itemAcquired)
+            throw new IllegalStateException("Item not yet acquired");
         this.delivered = delivered;
     }
 

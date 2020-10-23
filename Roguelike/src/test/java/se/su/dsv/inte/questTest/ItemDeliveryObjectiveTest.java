@@ -1,5 +1,6 @@
 package se.su.dsv.inte.questTest;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import se.su.dsv.inte.item.Consumable;
 import se.su.dsv.inte.item.Item;
@@ -52,6 +53,7 @@ public class ItemDeliveryObjectiveTest {
     public void testStatusMessageFormatWhenItemHasBeenDelivered() {
         ItemDeliveryObjective objective = new ItemDeliveryObjective(DEFAULT_OPTIONAL,
                 DEFAULT_ITEM, DEFAULT_RECIPIENT_NAME);
+        objective.setItemAcquired(true);
         objective.setDelivered(true);
         assertEquals(DEFAULT_ITEM.getName() + " was delivered to "
                 + DEFAULT_RECIPIENT_NAME, objective.getStatusMessage());
@@ -62,8 +64,25 @@ public class ItemDeliveryObjectiveTest {
         ItemDeliveryObjective objective = new ItemDeliveryObjective(DEFAULT_OPTIONAL,
                 DEFAULT_ITEM, DEFAULT_RECIPIENT_NAME);
         assertFalse(objective.isComplete());
+        objective.setItemAcquired(true);
         objective.setDelivered(true);
         assertTrue(objective.isComplete());
+    }
+
+    @Test (expected = IllegalStateException.class)
+    public void testItemCanNotBeDeliveredIfItemIsNotAcquired() {
+        ItemDeliveryObjective objective = new ItemDeliveryObjective(DEFAULT_OPTIONAL,
+                DEFAULT_ITEM, DEFAULT_RECIPIENT_NAME);
+        objective.setDelivered(true);
+    }
+
+    @Test (expected = IllegalStateException.class)
+    public void testItemAcquiredCanNotBeSetToFalseIfItemHasAlreadyBeenDelivered() {
+        ItemDeliveryObjective objective = new ItemDeliveryObjective(DEFAULT_OPTIONAL,
+                DEFAULT_ITEM, DEFAULT_RECIPIENT_NAME);
+        objective.setItemAcquired(true);
+        objective.setDelivered(true);
+        objective.setItemAcquired(false);
     }
 
     // status message format, test in QuestObjectiveTest instead?
