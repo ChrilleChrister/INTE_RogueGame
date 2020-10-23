@@ -64,7 +64,7 @@ public class PlayerCharacter extends Character {
     }
 
 
-    //stats behöver korrigeras i samband med denna metod
+    //gör om och kolla om ett item redan finns equipat. och eventuellt byt plats på dem och skicka tillbaka det gamla item till inventory
     public void equipItem(Item item) {
         for (int i = 0; i < inventory.length; i++) {
             if (inventory[i] == null || inventory[i].getName().equals(item.getName())) {

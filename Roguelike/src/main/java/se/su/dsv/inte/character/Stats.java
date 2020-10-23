@@ -42,12 +42,18 @@ public class Stats {
         baseDefensePoints += item.getDefensePoints();
     }
 
+
+/* ej klar
     public void restoreHitpoints(Consumable item) {
+         if(currentHitPoints + item.getRestorePoints() > getBaseHitPoints() ){
+
+         }
 
     }
+*/
 
     public void subtractHitpoints() {
-
+            currentHitPoints -= 100;
     }
 
 

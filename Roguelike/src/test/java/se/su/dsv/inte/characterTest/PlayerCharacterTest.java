@@ -193,4 +193,5 @@ public class PlayerCharacterTest {
         assertEquals(playerCharacter.getStats().getBaseDefensePoints(), 59);
     }
 
+
 }
