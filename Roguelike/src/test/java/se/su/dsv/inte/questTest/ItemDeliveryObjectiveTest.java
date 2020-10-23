@@ -57,6 +57,17 @@ public class ItemDeliveryObjectiveTest {
                 + DEFAULT_RECIPIENT_NAME, objective.getStatusMessage());
     }
 
+    @Test
+    public void testObjectiveIsCompleteAfterItemIsDelivered() {
+        ItemDeliveryObjective objective = new ItemDeliveryObjective(DEFAULT_OPTIONAL,
+                DEFAULT_ITEM, DEFAULT_RECIPIENT_NAME);
+        assertFalse(objective.isComplete());
+        objective.setDelivered(true);
+        assertTrue(objective.isComplete());
+    }
+
+    // status message format, test in QuestObjectiveTest instead?
+
 
     // isComplete could consist of two parts: itemAcquired && isDelivered - the quest giver/turn in could be
     // someone other than the recipient (when isDelivered is set true, entire objective is marked complete. status
