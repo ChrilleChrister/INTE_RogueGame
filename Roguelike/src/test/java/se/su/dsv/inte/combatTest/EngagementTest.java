@@ -2,7 +2,9 @@ package se.su.dsv.inte.combatTest;
 
 import org.junit.Test;
 
-import se.su.dsv.inte.*;
+import se.su.dsv.inte.character.EnemyCharacter;
+import se.su.dsv.inte.character.PlayerCharacter;
+import se.su.dsv.inte.character.Race;
 import se.su.dsv.inte.combat.Engagement;
 
 import static org.junit.Assert.*;

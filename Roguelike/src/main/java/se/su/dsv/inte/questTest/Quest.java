@@ -1,4 +1,4 @@
-package se.su.dsv.inte.quest;
+package se.su.dsv.inte.questTest;
 
 import java.util.Collection;
 

@@ -1,4 +1,4 @@
-package se.su.dsv.inte;
+package se.su.dsv.inte.map;
 /*
 Fog-of-war
 Treasure chests? (items)

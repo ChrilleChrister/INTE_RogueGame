@@ -1,7 +1,7 @@
 package se.su.dsv.inte.combat;
 
-import se.su.dsv.inte.EnemyCharacter;
-import se.su.dsv.inte.PlayerCharacter;
+import se.su.dsv.inte.character.EnemyCharacter;
+import se.su.dsv.inte.character.PlayerCharacter;
 
 public class Engagement {
     private PlayerCharacter player;

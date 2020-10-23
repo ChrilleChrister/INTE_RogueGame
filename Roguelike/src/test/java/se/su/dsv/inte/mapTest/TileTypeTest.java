@@ -1,6 +1,7 @@
-package se.su.dsv.inte;
+package se.su.dsv.inte.mapTest;
 
 import org.junit.Test;
+import se.su.dsv.inte.map.TileType;
 
 import static org.junit.Assert.*;
 

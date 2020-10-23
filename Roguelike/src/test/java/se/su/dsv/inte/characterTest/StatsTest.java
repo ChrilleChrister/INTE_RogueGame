@@ -1,6 +1,8 @@
-package se.su.dsv.inte;
+package se.su.dsv.inte.characterTest;
 
 import org.junit.Test;
+import se.su.dsv.inte.character.Race;
+import se.su.dsv.inte.character.Stats;
 
 import static org.junit.Assert.*;
 

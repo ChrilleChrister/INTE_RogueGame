@@ -1,7 +1,6 @@
-package se.su.dsv.inte.quest;
+package se.su.dsv.inte.questTest;
 
 import org.junit.Test;
-import se.su.dsv.inte.quest.Quest;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package se.su.dsv.inte;
+package se.su.dsv.inte.character;
 
 public class Character {
     private Race race; // Race change? Modifies attributes!

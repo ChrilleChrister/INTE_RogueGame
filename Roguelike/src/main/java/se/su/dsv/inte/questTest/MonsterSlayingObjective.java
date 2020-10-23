@@ -1,4 +1,4 @@
-package se.su.dsv.inte.quest;
+package se.su.dsv.inte.questTest;
 
 public class MonsterSlayingObjective extends QuestObjective {
     private final String monsterName;

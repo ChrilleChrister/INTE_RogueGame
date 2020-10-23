@@ -1,8 +1,6 @@
-package se.su.dsv.inte.quest;
+package se.su.dsv.inte.questTest;
 
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class QuestObjectiveTest {
     @Test

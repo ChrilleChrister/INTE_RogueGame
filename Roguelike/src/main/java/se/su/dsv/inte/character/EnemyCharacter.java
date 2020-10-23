@@ -1,4 +1,4 @@
-package se.su.dsv.inte;
+package se.su.dsv.inte.character;
 
 public class EnemyCharacter extends Character{
 

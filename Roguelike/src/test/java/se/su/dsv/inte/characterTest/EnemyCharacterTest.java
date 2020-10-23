@@ -1,8 +1,10 @@
-package se.su.dsv.inte;
+package se.su.dsv.inte.characterTest;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import se.su.dsv.inte.character.EnemyCharacter;
+import se.su.dsv.inte.character.Race;
 
 public class EnemyCharacterTest {
 

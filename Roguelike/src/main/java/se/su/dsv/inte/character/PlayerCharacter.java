@@ -1,5 +1,9 @@
-package se.su.dsv.inte;
+package se.su.dsv.inte.character;
 
+
+import se.su.dsv.inte.item.Item;
+import se.su.dsv.inte.item.Outfit;
+import se.su.dsv.inte.item.Weapon;
 
 public class PlayerCharacter extends Character {
     private int currentXP;
