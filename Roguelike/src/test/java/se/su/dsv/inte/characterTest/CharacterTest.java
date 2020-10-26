@@ -10,6 +10,9 @@ public class CharacterTest {
     private final Race DEFAULT_RACE = Race.HOBBIT;
     private final int DEFAULT_LEVEL = 1;
     private final String DEFAULT_NAME = "Frodo Baggins";
+    private final Character DEFAULT_CHARACTER = new Character(DEFAULT_RACE, DEFAULT_LEVEL);
+    private final int DEFAULT_DAMAGE = 5;
+
 
     // Movement speed
     // Equipment, stats
@@ -26,7 +29,7 @@ public class CharacterTest {
         assertEquals(DEFAULT_LEVEL, character.getLevel());
         assertEquals(DEFAULT_NAME, character.getName());
         assertEquals(DEFAULT_RACE.getBaseMovementSpeed(), character.getMovementSpeed());
-
+        assertEquals(character.getStats().getBaseHitPoints(), character.getCurrentHitpoints());
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -69,6 +72,16 @@ public class CharacterTest {
         assertEquals(0, character.getMovementSpeed());
     }
 
+    @Test
+    public void testCharacterTakesDamage(){
+        DEFAULT_CHARACTER.receiveDamage(DEFAULT_DAMAGE);
+        assertEquals(DEFAULT_CHARACTER.getStats().getBaseHitPoints()-DEFAULT_DAMAGE, DEFAULT_CHARACTER.getCurrentHitpoints());
+    }
 
+    @Test
+    public void healingMoreThanBaseHitpointsSetsCurrentHitpointsToMax(){
+        DEFAULT_CHARACTER.heal(DEFAULT_CHARACTER.getStats().getBaseHitPoints()+1);
+        assertEquals(DEFAULT_CHARACTER.getStats().getBaseHitPoints(), DEFAULT_CHARACTER.getCurrentHitpoints());
+    }
 
 }

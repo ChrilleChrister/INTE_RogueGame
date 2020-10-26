@@ -9,8 +9,6 @@ public class Stats {
     private int baseHitPoints;
     private int baseAttackPoints;
     private int baseDefensePoints;
-    private int currentHitPoints = baseHitPoints;
-
 
     public Stats(Race race, int level) {
         updateStats(race, level);
@@ -51,10 +49,4 @@ public class Stats {
 
     }
 */
-
-    public void subtractHitpoints() {
-            currentHitPoints -= 100;
-    }
-
-
 }

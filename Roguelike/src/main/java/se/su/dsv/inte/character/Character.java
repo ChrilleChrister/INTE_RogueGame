@@ -4,6 +4,7 @@ public class Character {
     private Race race; // Race change? Modifies attributes!
     protected int level;
     private String name;
+    private int currentHitPoints;
     private int movementSpeedModifier;// Use percentages instead. Round-off errors
     // private Item[] inventory = new Item[getInventorySize()]; // Inventory for player character (move to subclass later)
     protected Stats stats;
@@ -22,6 +23,7 @@ public class Character {
         this.level = level;
         this.name = name;
         this.stats = new Stats(race, level);
+        this.currentHitPoints = this.stats.getBaseHitPoints();
     }
 
     public Race getRace() {
@@ -42,6 +44,23 @@ public class Character {
 
     public Stats getStats(){
         return stats;
+    }
+
+    public int getCurrentHitpoints(){
+        return currentHitPoints;
+    }
+
+    public void receiveDamage(int damage){
+        currentHitPoints -= damage;
+    }
+
+    public void heal(int hitpoints){
+        if(currentHitPoints + hitpoints > stats.getBaseHitPoints()){
+            currentHitPoints = stats.getBaseHitPoints();
+        }
+        else{
+            currentHitPoints += hitpoints;
+        }
     }
 
     // Not thread safe?
