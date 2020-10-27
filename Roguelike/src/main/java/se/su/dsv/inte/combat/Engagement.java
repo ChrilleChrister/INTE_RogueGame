@@ -56,7 +56,7 @@ public class Engagement {
         double damageMitigation = 1 - mitigationPercentage;
         int damage = (int) Math.round(trueDamage * damageMitigation); // unchecked cast
         if(Math.random() <= hitChance){
-            target.receiveDamage(damage);
+            applyDamage(target, damage);
         }
         swapTurns();
     }
@@ -67,6 +67,7 @@ public class Engagement {
         setTurnSitter(temp);
     }
 
+    //Could be removed, but tests are applied to it instad of attack(). Rewrite if there's time
     public void applyDamage(Character target, int damage){
         target.receiveDamage(damage);
     }

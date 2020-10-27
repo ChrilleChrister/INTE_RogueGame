@@ -6,12 +6,15 @@ import se.su.dsv.inte.character.Race;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
+
 public class CharacterTest {
     private final Race DEFAULT_RACE = Race.HOBBIT;
     private final int DEFAULT_LEVEL = 1;
     private final String DEFAULT_NAME = "Frodo Baggins";
     private final Character DEFAULT_CHARACTER = new Character(DEFAULT_RACE, DEFAULT_LEVEL);
     private final int DEFAULT_DAMAGE = 5;
+    private Character freshCharacter;
 
 
     // Movement speed
@@ -19,6 +22,10 @@ public class CharacterTest {
     // Inventory slots
     // Level (Language)
 
+    @Before 
+    public void initialize(){
+        freshCharacter = new Character(DEFAULT_RACE, DEFAULT_LEVEL); //for testing damage
+    }
     @Test
     public void testCtrSetsAttributes() {
         // No default constructor currently (level has to be specified)
@@ -30,6 +37,7 @@ public class CharacterTest {
         assertEquals(DEFAULT_NAME, character.getName());
         assertEquals(DEFAULT_RACE.getBaseMovementSpeed(), character.getMovementSpeed());
         assertEquals(character.getStats().getBaseHitPoints(), character.getCurrentHitpoints());
+        assertEquals(true, character.isAlive());
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -74,8 +82,8 @@ public class CharacterTest {
 
     @Test
     public void testCharacterTakesDamage(){
-        DEFAULT_CHARACTER.receiveDamage(DEFAULT_DAMAGE);
-        assertEquals(DEFAULT_CHARACTER.getStats().getBaseHitPoints()-DEFAULT_DAMAGE, DEFAULT_CHARACTER.getCurrentHitpoints());
+        freshCharacter.receiveDamage(DEFAULT_DAMAGE);
+        assertEquals(freshCharacter.getStats().getBaseHitPoints()-DEFAULT_DAMAGE, freshCharacter.getCurrentHitpoints());
     }
 
     @Test
@@ -86,14 +94,19 @@ public class CharacterTest {
 
     @Test
     public void testReceiveDamageReturnCurrentHitpointsAfterDamageIsApplied(){
-        int hitpoints = DEFAULT_CHARACTER.receiveDamage(DEFAULT_DAMAGE);
-        assertEquals(DEFAULT_CHARACTER.getCurrentHitpoints(), hitpoints);
+        int hitpoints = freshCharacter.receiveDamage(DEFAULT_DAMAGE);
+        assertEquals(freshCharacter.getCurrentHitpoints(), hitpoints);
     }
 
     @Test
     public void testCharacterCantTakeMoreDamageThanCurrentHitpoints(){
-        DEFAULT_CHARACTER.receiveDamage(DEFAULT_CHARACTER.getCurrentHitpoints()+1);
-        assertEquals(0, DEFAULT_CHARACTER.getCurrentHitpoints());
+        freshCharacter.receiveDamage(freshCharacter.getCurrentHitpoints()+1);
+        assertEquals(0, freshCharacter.getCurrentHitpoints());
     }
 
+    @Test
+    public void testCharacterDiesWhenHitpointsReachZero(){
+        freshCharacter.receiveDamage(freshCharacter.getCurrentHitpoints()+1);
+        assertEquals(false, freshCharacter.isAlive());
+    }
 }

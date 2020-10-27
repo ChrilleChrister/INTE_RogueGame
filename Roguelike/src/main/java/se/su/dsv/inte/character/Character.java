@@ -8,6 +8,7 @@ public class Character {
     private int movementSpeedModifier;// Use percentages instead. Round-off errors
     // private Item[] inventory = new Item[getInventorySize()]; // Inventory for player character (move to subclass later)
     protected Stats stats;
+    private boolean isAlive;
 
     // Declare throws?
     public Character(Race race, int level) {
@@ -24,6 +25,11 @@ public class Character {
         this.name = name;
         this.stats = new Stats(race, level);
         this.currentHitPoints = this.stats.getBaseHitPoints();
+        isAlive = true;
+    }
+
+    public boolean isAlive(){
+        return isAlive;
     }
 
     public Race getRace() {
@@ -51,7 +57,13 @@ public class Character {
     }
 
     public int receiveDamage(int damage){
-        return currentHitPoints = Math.max(currentHitPoints-damage, 0);
+        if(Math.max(currentHitPoints-damage, 0) > 0){
+            return currentHitPoints -= damage;
+        }
+        else{
+            isAlive = false;
+            return currentHitPoints = 0;
+        }
     }
 
     public void heal(int hitpoints){

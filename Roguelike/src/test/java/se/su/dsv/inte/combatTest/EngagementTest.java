@@ -80,7 +80,14 @@ public class EngagementTest {
     //This test succeeds because this is implemented in character
     @Test
     public void testApplyDamageSetsCurrentHitpointsToZeroIfDamageIsMoreThanCurrentHitpoints(){
-        DEFAULT_ENGAGEMENT.applyDamage(freshPlayer, DEFAULT_PLAYER.getCurrentHitpoints()+1);
+        DEFAULT_ENGAGEMENT.applyDamage(freshPlayer, freshPlayer.getCurrentHitpoints()+1);
         assertEquals(ZERO_HEALTH, freshPlayer.getCurrentHitpoints());
     }
+
+    @Test
+    public void testKillingBlowKillsTarget(){
+        DEFAULT_ENGAGEMENT.applyDamage(freshPlayer, freshPlayer.getCurrentHitpoints()+1);
+        assertEquals(false, freshPlayer.isAlive());
+    }
+
 }
