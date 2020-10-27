@@ -38,13 +38,4 @@ public class Stats {
     public void changeBaseDefensePoints(Outfit item) {
         baseDefensePoints += item.getDefensePoints();
     }
-
-/* ej klar
-    public void restoreHitpoints(Consumable item) {
-         if(currentHitPoints + item.getRestorePoints() > getBaseHitPoints() ){
-
-         }
-
-    }
-*/
 }
