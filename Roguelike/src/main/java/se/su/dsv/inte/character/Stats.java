@@ -1,6 +1,5 @@
 package se.su.dsv.inte.character;
 
-
 import se.su.dsv.inte.item.Consumable;
 import se.su.dsv.inte.item.Outfit;
 import se.su.dsv.inte.item.Weapon;
@@ -39,7 +38,6 @@ public class Stats {
     public void changeBaseDefensePoints(Outfit item) {
         baseDefensePoints += item.getDefensePoints();
     }
-
 
 /* ej klar
     public void restoreHitpoints(Consumable item) {

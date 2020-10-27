@@ -84,4 +84,16 @@ public class CharacterTest {
         assertEquals(DEFAULT_CHARACTER.getStats().getBaseHitPoints(), DEFAULT_CHARACTER.getCurrentHitpoints());
     }
 
+    @Test
+    public void testReceiveDamageReturnCurrentHitpointsAfterDamageIsApplied(){
+        int hitpoints = DEFAULT_CHARACTER.receiveDamage(DEFAULT_DAMAGE);
+        assertEquals(DEFAULT_CHARACTER.getCurrentHitpoints(), hitpoints);
+    }
+
+    @Test
+    public void testCharacterCantTakeMoreDamageThanCurrentHitpoints(){
+        DEFAULT_CHARACTER.receiveDamage(DEFAULT_CHARACTER.getCurrentHitpoints()+1);
+        assertEquals(0, DEFAULT_CHARACTER.getCurrentHitpoints());
+    }
+
 }

@@ -54,7 +54,7 @@ public class Engagement {
         double trueDamage = attackerStats.getBaseAttackPoints();
         double mitigationPercentage = ((double )target.getStats().getBaseDefensePoints())/200;
         double damageMitigation = 1 - mitigationPercentage;
-        int damage = (int) Math.round(trueDamage * damageMitigation); // unchecked cast, but can never be larger than Integer.MAX_VALUE in implementation
+        int damage = (int) Math.round(trueDamage * damageMitigation); // unchecked cast
         if(Math.random() <= hitChance){
             target.receiveDamage(damage);
         }
@@ -65,5 +65,9 @@ public class Engagement {
         Character temp = getTurnHolder();
         setTurnHolder(getTurnSitter());
         setTurnSitter(temp);
+    }
+
+    public void applyDamage(Character target, int damage){
+        target.receiveDamage(damage);
     }
 }
