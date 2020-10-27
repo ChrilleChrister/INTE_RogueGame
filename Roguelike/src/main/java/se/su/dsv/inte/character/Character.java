@@ -50,8 +50,8 @@ public class Character {
         return currentHitPoints;
     }
 
-    public void receiveDamage(int damage){
-        currentHitPoints -= damage;
+    public int receiveDamage(int damage){
+        return currentHitPoints = Math.max(currentHitPoints-damage, 0);
     }
 
     public void heal(int hitpoints){
