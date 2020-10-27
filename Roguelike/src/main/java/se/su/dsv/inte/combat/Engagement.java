@@ -5,6 +5,7 @@ import se.su.dsv.inte.character.EnemyCharacter;
 import se.su.dsv.inte.character.PlayerCharacter;
 import se.su.dsv.inte.character.Stats;
 
+//PLAYER WHO'S TAUNTED DOES NEVER BECOME NOT TAUNTED
 public class Engagement {
     private PlayerCharacter player;
     private EnemyCharacter enemy;
