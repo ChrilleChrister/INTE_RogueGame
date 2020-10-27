@@ -15,6 +15,9 @@ public class CharacterTest {
     private final Character DEFAULT_CHARACTER = new Character(DEFAULT_RACE, DEFAULT_LEVEL);
     private final int DEFAULT_DAMAGE = 5;
     private Character freshCharacter;
+    private static final int NOT_STUNNED = 0;
+    private static final int MAX_STUN_TIME = 2;
+    private static final int DECREASED_STUN_TIME = 1;
 
 
     // Movement speed
@@ -38,6 +41,7 @@ public class CharacterTest {
         assertEquals(DEFAULT_RACE.getBaseMovementSpeed(), character.getMovementSpeed());
         assertEquals(character.getStats().getBaseHitPoints(), character.getCurrentHitpoints());
         assertEquals(true, character.isAlive());
+        assertEquals(NOT_STUNNED, character.getStunTime());
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -108,5 +112,32 @@ public class CharacterTest {
     public void testCharacterDiesWhenHitpointsReachZero(){
         freshCharacter.receiveDamage(freshCharacter.getCurrentHitpoints()+1);
         assertEquals(false, freshCharacter.isAlive());
+    }
+
+    @Test
+    public void testSetStunnedSetsStunTimeToTwo(){
+        freshCharacter.setStunned();
+        assertEquals(MAX_STUN_TIME, freshCharacter.getStunTime());
+    }
+
+    @Test
+    public void testDecreaseStunTimeDecreasesStunTimeByOne(){
+        freshCharacter.setStunned();
+        freshCharacter.decreaseStunTime();
+        assertEquals(DECREASED_STUN_TIME, freshCharacter.getStunTime());
+    }
+
+    @Test
+    public void testDecreaseStunTimeCantDecreaseBelowZero(){
+        freshCharacter.decreaseStunTime();
+        assertEquals(NOT_STUNNED, freshCharacter.getStunTime());
+    }
+
+    @Test
+    public void testSetStunnedDoesNothingToAlreadyStunnedCharacter(){
+        freshCharacter.setStunned();
+        freshCharacter.decreaseStunTime();
+        freshCharacter.setStunned();
+        assertEquals(DECREASED_STUN_TIME, freshCharacter.getStunTime());
     }
 }

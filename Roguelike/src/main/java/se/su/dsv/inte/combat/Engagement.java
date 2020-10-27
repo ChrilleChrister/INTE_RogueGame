@@ -62,13 +62,29 @@ public class Engagement {
     }
 
     public void swapTurns(){
-        Character temp = getTurnHolder();
-        setTurnHolder(getTurnSitter());
-        setTurnSitter(temp);
+        if (turnSitter.getStunTime() == 0){
+            Character temp = getTurnHolder();
+            setTurnHolder(getTurnSitter());
+            setTurnSitter(temp);
+        }
+        else{
+            turnSitter.decreaseStunTime();
+        }
     }
 
     //Could be removed, but tests are applied to it instad of attack(). Rewrite if there's time
     public void applyDamage(Character target, int damage){
         target.receiveDamage(damage);
+    }
+
+    public void stun(Character target, double hitChance){
+        if(target.getStunTime() == 0){
+            if(Math.random() <= hitChance){
+                target.setStunned();
+            }
+            else{
+                swapTurns();
+            }
+        }
     }
 }

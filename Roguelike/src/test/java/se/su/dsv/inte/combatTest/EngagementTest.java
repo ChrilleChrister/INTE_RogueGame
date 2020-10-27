@@ -21,6 +21,8 @@ public class EngagementTest {
     private static final int DEFAULT_DAMAGE_AMOUNT = 5;
     private static final int ZERO_HEALTH = 0;
     private PlayerCharacter freshPlayer;
+    private static final int MAX_STUN_TIME = 2;
+    private static final int DECREASED_STUN_TIME = 1;
 
     @Before public void initialize(){
         freshPlayer = new PlayerCharacter(Race.HOBBIT, "DefaultPlayer");
@@ -88,6 +90,32 @@ public class EngagementTest {
     public void testKillingBlowKillsTarget(){
         DEFAULT_ENGAGEMENT.applyDamage(freshPlayer, freshPlayer.getCurrentHitpoints()+1);
         assertEquals(false, freshPlayer.isAlive());
+    }
+
+    @Test
+    public void testStunGivesTurnHolderTwoMoreTurns(){
+        DEFAULT_ENGAGEMENT.setTurnHolder(DEFAULT_PLAYER);
+        DEFAULT_ENGAGEMENT.stun(DEFAULT_ENEMY, MAX_HIT_CHANCE);
+        DEFAULT_ENGAGEMENT.swapTurns();
+        assertEquals(DEFAULT_PLAYER, DEFAULT_ENGAGEMENT.getTurnHolder());
+    }
+
+    @Test
+    public void testSwapTurnsDoesntSwapStunnedCharacter(){
+        DEFAULT_ENGAGEMENT.setTurnHolder(DEFAULT_ENEMY);
+        DEFAULT_ENGAGEMENT.setTurnSitter(DEFAULT_PLAYER);
+        DEFAULT_ENGAGEMENT.stun(DEFAULT_PLAYER, MAX_HIT_CHANCE);
+        DEFAULT_ENGAGEMENT.swapTurns();
+        assertEquals(DEFAULT_ENEMY, DEFAULT_ENGAGEMENT.getTurnHolder());
+        assertEquals(DEFAULT_PLAYER, DEFAULT_ENGAGEMENT.getTurnSitter());
+    }
+
+    @Test
+    public void testSwapTurnsDecreasesStunTimeForStunnerCharacter(){
+        freshPlayer.setStunned();
+        DEFAULT_ENGAGEMENT.setTurnSitter(freshPlayer);
+        DEFAULT_ENGAGEMENT.swapTurns();
+        assertEquals(DECREASED_STUN_TIME, freshPlayer.getStunTime());
     }
 
 }

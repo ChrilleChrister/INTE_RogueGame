@@ -9,6 +9,7 @@ public class Character {
     // private Item[] inventory = new Item[getInventorySize()]; // Inventory for player character (move to subclass later)
     protected Stats stats;
     private boolean isAlive;
+    private int stunTime;
 
     // Declare throws?
     public Character(Race race, int level) {
@@ -26,6 +27,7 @@ public class Character {
         this.stats = new Stats(race, level);
         this.currentHitPoints = this.stats.getBaseHitPoints();
         isAlive = true;
+        stunTime = 0;
     }
 
     public boolean isAlive(){
@@ -73,6 +75,20 @@ public class Character {
         else{
             currentHitPoints += hitpoints;
         }
+    }
+
+    public int getStunTime(){
+        return stunTime;
+    }
+
+    public void setStunned(){
+        if(stunTime == 0){
+            stunTime = 2;
+        }
+    }
+
+    public void decreaseStunTime(){
+        stunTime = Math.max(stunTime - 1, 0);
     }
 
     // Not thread safe?
