@@ -10,7 +10,7 @@ public class Character {
     protected Stats stats;
     private boolean isAlive;
     private int stunTime;
-    private boolean taunted;
+    private boolean taunted; //is changed from engagement
 
     // Declare throws?
     public Character(Race race, int level) {

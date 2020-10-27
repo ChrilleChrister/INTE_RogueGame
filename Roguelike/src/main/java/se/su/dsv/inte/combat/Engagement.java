@@ -10,14 +10,27 @@ public class Engagement {
     private EnemyCharacter enemy;
     private Character turnHolder;
     private Character turnSitter;
+    private boolean active;
 
-    public Engagement(PlayerCharacter player, EnemyCharacter enemy){
+    public Engagement(PlayerCharacter player, EnemyCharacter enemy, Character firstStriker){
         this.player = player;
         this.enemy = enemy;
+        this.turnHolder = firstStriker;
+        active = true;
+        if(firstStriker.equals(player)){
+            this.turnSitter = enemy;
+        }
+        else{
+            this.turnSitter = player;
+        }
     }
 
     public PlayerCharacter getPlayer(){
         return player;
+    }
+
+    public boolean isActive(){
+        return active;
     }
 
     public EnemyCharacter getEnemy(){
@@ -38,16 +51,6 @@ public class Engagement {
 
     public void setTurnSitter(Character character){
         turnSitter = character;
-    }
-
-    public void startEngagement(EnemyCharacter enemy, PlayerCharacter player, Character firstStriker){
-        turnHolder = firstStriker;
-        if(firstStriker.equals(player)){
-            turnSitter = enemy;
-        }
-        else{
-            turnSitter = player;
-        }
     }
 
     public void attack(Stats attackerStats, Character target, double hitChance){
@@ -72,7 +75,7 @@ public class Engagement {
         }
     }
 
-    //Could be removed, but tests are applied to it instad of attack(). Rewrite if there's time
+    //Could be removed, but tests are applied to it instead of attack(). Rewrite if there's time
     public void applyDamage(Character target, int damage){
         target.receiveDamage(damage);
     }
@@ -91,5 +94,14 @@ public class Engagement {
     public void taunt(PlayerCharacter target){
         target.setTaunted(true);
         swapTurns();
+    }
+
+    public void escape(PlayerCharacter player, double escapeChance){
+        if(Math.random() <= escapeChance && !player.isTaunted()){
+            active = false;
+        }
+        else if(!player.isTaunted()){
+            swapTurns();
+        }
     }
 }
