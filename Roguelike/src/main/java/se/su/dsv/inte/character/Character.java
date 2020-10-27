@@ -10,6 +10,7 @@ public class Character {
     protected Stats stats;
     private boolean isAlive;
     private int stunTime;
+    private boolean taunted;
 
     // Declare throws?
     public Character(Race race, int level) {
@@ -28,6 +29,7 @@ public class Character {
         this.currentHitPoints = this.stats.getBaseHitPoints();
         isAlive = true;
         stunTime = 0;
+        taunted = false;
     }
 
     public boolean isAlive(){
