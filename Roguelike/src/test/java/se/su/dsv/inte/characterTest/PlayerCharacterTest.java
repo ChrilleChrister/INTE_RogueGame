@@ -11,7 +11,18 @@ import se.su.dsv.inte.item.Weapon;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
+
 public class PlayerCharacterTest {
+
+    private static final boolean TAUNTED = true;
+    private static final boolean NOT_TAUNTED = false;
+    private PlayerCharacter freshPlayerCharacter;
+
+    @Before
+    public void initialize(){
+        freshPlayerCharacter = new PlayerCharacter(Race.HOBBIT, "freshPlayerCharacter");
+    }
 
     @Test // döp om mig
     public void testAddFiftyXPToPlayerLevelOne() {
@@ -191,6 +202,18 @@ public class PlayerCharacterTest {
         playerCharacter.equipItem(outfit);
         assertEquals(playerCharacter.getStats().getBaseAttackPoints(),27);
         assertEquals(playerCharacter.getStats().getBaseDefensePoints(), 59);
+    }
+
+    @Test
+    public void testsetTauntedsetsTaunted(){
+        freshPlayerCharacter.setTaunted(true);
+        assertEquals(TAUNTED, freshPlayerCharacter.isTaunted());
+    }
+
+    @Test
+    public void testNewPlayerCharacterIsNotTaunted(){
+        PlayerCharacter newCharacter = new PlayerCharacter(Race.HOBBIT, "name");
+        assertEquals(NOT_TAUNTED, newCharacter.isTaunted());
     }
 
 

@@ -10,6 +10,7 @@ public class PlayerCharacter extends Character {
     private Item[] inventory;
     private Item weapon;
     private Item outfit;
+    private boolean taunted;
 
 
     public PlayerCharacter(Race race, String playerName) {
@@ -22,6 +23,15 @@ public class PlayerCharacter extends Character {
                 inventory = new Item[20];
                 break;
         }
+        taunted = false;
+    }
+
+    public boolean isTaunted(){
+        return taunted;
+    }
+
+    public void setTaunted(boolean tauntedStatus){
+        taunted = tauntedStatus;
     }
 
     public String putItemInInventory(Item item) {

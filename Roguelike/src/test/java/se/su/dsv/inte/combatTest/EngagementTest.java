@@ -23,6 +23,8 @@ public class EngagementTest {
     private PlayerCharacter freshPlayer;
     private static final int MAX_STUN_TIME = 2;
     private static final int DECREASED_STUN_TIME = 1;
+    private static final boolean TAUNTED = true;
+    private static final boolean NOT_TAUNTED = false;
 
     @Before public void initialize(){
         freshPlayer = new PlayerCharacter(Race.HOBBIT, "DefaultPlayer");
@@ -116,6 +118,23 @@ public class EngagementTest {
         DEFAULT_ENGAGEMENT.setTurnSitter(freshPlayer);
         DEFAULT_ENGAGEMENT.swapTurns();
         assertEquals(DECREASED_STUN_TIME, freshPlayer.getStunTime());
+    }
+
+    @Test
+    public void testTauntsetsCharacterToTaunted(){
+        DEFAULT_ENGAGEMENT.taunt(freshPlayer);
+        assertEquals(TAUNTED, freshPlayer.isTaunted());
+    }
+
+    @Test
+    public void testPlayerCantEscapeWhenTaunted(){} //implement after escape is implemented
+
+    @Test
+    public void testTauntSwapsTurnHolder(){
+        DEFAULT_ENGAGEMENT.setTurnHolder(DEFAULT_ENEMY);
+        DEFAULT_ENGAGEMENT.setTurnSitter(freshPlayer);
+        DEFAULT_ENGAGEMENT.taunt(freshPlayer);
+        assertEquals(freshPlayer, DEFAULT_ENGAGEMENT.getTurnHolder());
     }
 
 }

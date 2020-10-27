@@ -87,4 +87,9 @@ public class Engagement {
             }
         }
     }
+    
+    public void taunt(PlayerCharacter target){
+        target.setTaunted(true);
+        swapTurns();
+    }
 }
