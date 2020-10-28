@@ -22,10 +22,7 @@ public class Outfit extends Item {
         return outfitType;
     }
 
-    @Override
-    public String toString() {
-        return String.format("Name: %s || Outfittype: %s || Defense points: %d", getName(), outfitType, defensePoints);
-    }
+
 
 
 }

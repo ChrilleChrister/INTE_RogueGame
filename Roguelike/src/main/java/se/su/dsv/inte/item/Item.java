@@ -12,5 +12,5 @@ abstract public class Item {
         return name;
     }
 
-    abstract public String toString();
+
 }

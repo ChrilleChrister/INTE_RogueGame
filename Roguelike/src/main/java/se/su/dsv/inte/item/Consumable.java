@@ -15,6 +15,13 @@ public class Consumable extends Item {
         super(name);
     }
 
+    public int getStackCounter(){
+        return stackCounter;
+    }
+
+    public int getRestorePoints(){
+        return restorePoints;
+    }
 
     public void addOneItemToStack(){
         stackCounter++;
@@ -24,17 +31,7 @@ public class Consumable extends Item {
         stackCounter--;
     }
 
-    public int getStackCounter(){
-        return stackCounter;
-    }
-
-    public int getRestorePoints(){
-        return restorePoints;
-    }
 
 
-    @Override
-    public String toString() {
-        return null;
-    }
+
 }

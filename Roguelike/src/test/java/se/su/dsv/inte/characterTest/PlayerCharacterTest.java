@@ -193,5 +193,14 @@ public class PlayerCharacterTest {
         assertEquals(playerCharacter.getStats().getBaseDefensePoints(), 59);
     }
 
+    @Test
+    public void testEquipWeaponAndWeaponRemovedFromInventory(){
+        PlayerCharacter playerCharacter = new PlayerCharacter(Race.HOBBIT, "Player 1");
+        Item weapon = new Weapon("Sting", "Sword", 25);
+        playerCharacter.putItemInInventory(weapon);
+        playerCharacter.equipItem(weapon);
+        assertEquals(playerCharacter.getInventory()[0], null);
+    }
+
 
 }
