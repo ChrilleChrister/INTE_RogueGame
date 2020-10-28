@@ -97,7 +97,7 @@ public class PlayerCharacterTest {
     }
 
 
-    //Jocke!!! Va tycker du om detta långa namn? :D:D:D
+
     @Test
     public void putSeveralItemsInPlayerCharacterInventoryArrayAndRemoveItemsFromInventoryArrayAndCheckForEmptyIndexAndAddItemAgain() {
         PlayerCharacter playerCharacter = new PlayerCharacter(Race.HOBBIT, "Player 1");
@@ -214,7 +214,30 @@ public class PlayerCharacterTest {
         assertEquals(playerCharacter.getStats().getBaseAttackPoints(), 57);
     }
 
+    @Test
+    public void useComsumableItemAndRestoreHPCurrentHPIsFullAndCheckComsumableStack(){
+        PlayerCharacter playerCharacter = new PlayerCharacter(Race.HOBBIT, "Player 1");
+        Consumable potion = new Consumable("Health Potion");
+        playerCharacter.putItemInInventory(potion);
+        potion.addOneItemToStack();
+        potion.addOneItemToStack();
+        playerCharacter.useComsumableItem(potion);
+        assertEquals(potion.getStackCounter(), 2);
+        assertEquals(playerCharacter.getCurrentHitpoints(), 20);
+    }
 
+    @Test
+    public void useAllComsumablesAndCheckIfItemRemovesFromInventory(){
+        PlayerCharacter playerCharacter = new PlayerCharacter(Race.HOBBIT, "Player 1");
+        Consumable potion = new Consumable("Health Potion");
+        playerCharacter.putItemInInventory(potion);
+        potion.addOneItemToStack();
+        potion.addOneItemToStack();
+        playerCharacter.useComsumableItem(potion);
+        playerCharacter.useComsumableItem(potion);
+        playerCharacter.useComsumableItem(potion);
+        assertEquals(playerCharacter.getInventory()[0], null);
+    }
 
 
 }

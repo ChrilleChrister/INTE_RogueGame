@@ -1,6 +1,7 @@
 package se.su.dsv.inte.character;
 
 
+import se.su.dsv.inte.item.Consumable;
 import se.su.dsv.inte.item.Item;
 import se.su.dsv.inte.item.Outfit;
 import se.su.dsv.inte.item.Weapon;
@@ -12,6 +13,7 @@ public class PlayerCharacter extends Character {
     private Item outfit;
     private final int INVENTORY_SIZE_DWARF = 30;
     private final int INVENTORY_SIZE_HOBBIT = 20;
+    private boolean taunted;
 
 
     public PlayerCharacter(Race race, String playerName) {
@@ -44,6 +46,13 @@ public class PlayerCharacter extends Character {
 
     public Item getOutfit() {
         return outfit;
+    }
+    public boolean isTaunted(){
+        return taunted;
+    }
+
+    public void setTaunted(boolean tauntedStatus){
+        taunted = tauntedStatus;
     }
 
     public String putItemInInventory(Item item) {
@@ -115,20 +124,28 @@ public class PlayerCharacter extends Character {
         }
     }
 
-
-
-    // denna metod används inte just nu
-    public void openInventory(Item[] inventory) {
-        for (int i = 0; i < inventory.length; i++) {
-            if (inventory[i] != null) {
-                System.out.println("Spot " + (i + 1) + " contains Item: " + inventory[i].toString());
-            } else {
-                System.out.println("Spot " + (i + 1) + " is empty");
+    public void useComsumableItem(Consumable potion) {
+        for (Item items : inventory) {
+            if (items == null) {
+                continue;
+            }
+            if (items.getName().equals(potion.getName())) {
+                potion.removeOneItemFromStack();
+                restoreHP(potion);
+                if(potion.getStackCounter() == 0){
+                    removeItemFromInventory(potion);
+                }
             }
         }
     }
 
-
+    public void restoreHP(Consumable potion){
+        if(currentHitPoints + potion.getRestorePoints() > stats.getBaseHitPoints()){
+            currentHitPoints = stats.getBaseHitPoints();
+        } else{
+            currentHitPoints += potion.getRestorePoints();
+        }
+    }
 
     public void addXP(int xpToAdd) {
         currentXP += xpToAdd;

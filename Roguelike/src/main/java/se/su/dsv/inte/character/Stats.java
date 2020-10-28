@@ -1,7 +1,6 @@
 package se.su.dsv.inte.character;
 
 
-import se.su.dsv.inte.item.Consumable;
 import se.su.dsv.inte.item.Outfit;
 import se.su.dsv.inte.item.Weapon;
 
@@ -9,8 +8,6 @@ public class Stats {
     private int baseHitPoints;
     private int baseAttackPoints;
     private int baseDefensePoints;
-    private int currentHitPoints = baseHitPoints;
-
 
     public Stats(Race race, int level) {
         updateStats(race, level);
@@ -50,19 +47,6 @@ public class Stats {
         baseDefensePoints -= item.getDefensePoints();
     }
 
-
-/* ej klar
-    public void restoreHitpoints(Consumable item) {
-         if(currentHitPoints + item.getRestorePoints() > getBaseHitPoints() ){
-
-         }
-
-    }
-*/
-
-    public void subtractHitpoints() {
-            currentHitPoints -= 100;
-    }
 
 
 }

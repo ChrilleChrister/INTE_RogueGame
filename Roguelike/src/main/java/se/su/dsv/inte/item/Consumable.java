@@ -6,13 +6,9 @@ public class Consumable extends Item {
     private int stackCounter = 1;
 
 
-    public Consumable(String name, int restore){
+    public Consumable(String name){
         super(name);
-        this.restorePoints = restore;
-    }
-
-    public Consumable(String name) {
-        super(name);
+        this.restorePoints = 20;
     }
 
     public int getStackCounter(){
