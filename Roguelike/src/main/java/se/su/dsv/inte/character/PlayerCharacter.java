@@ -85,18 +85,24 @@ public class PlayerCharacter extends Character {
 
     //gör om och kolla om ett item redan finns equipat. och eventuellt byt plats på dem och skicka tillbaka det gamla item till inventory
     public void equipItem(Item item) {
-        for (int i = 0; i < inventory.length; i++) {
-            if(inventory[i] == null){
+        for (Item items : inventory) {
+            if(items == null){
                 continue;
             }
-            if (inventory[i].getName().equals(item.getName())) {
+            if (items.getName().equals(item.getName())) {
                 if (item instanceof Weapon) {
-                    weapon = inventory[i];
+                    if(weapon != null){
+                        putItemInInventory(weapon);
+                    }
+                    weapon = items;
                     stats.changeBaseAttackPoints((Weapon) weapon);
                     removeItemFromInventory(weapon);
                     break;
                 } else if (item instanceof Outfit) {
-                    outfit = inventory[i];
+                    if(outfit != null){
+                        putItemInInventory(outfit);
+                    }
+                    outfit = items;
                     stats.changeBaseDefensePoints((Outfit) outfit);
                     removeItemFromInventory(outfit);
                     break;
@@ -106,8 +112,6 @@ public class PlayerCharacter extends Character {
             }
         }
     }
-
-
 
 
 

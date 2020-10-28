@@ -4,16 +4,13 @@ import org.junit.Test;
 import se.su.dsv.inte.character.PlayerCharacter;
 import se.su.dsv.inte.character.Character;
 import se.su.dsv.inte.character.Race;
-import se.su.dsv.inte.item.Consumable;
-import se.su.dsv.inte.item.Item;
-import se.su.dsv.inte.item.Outfit;
-import se.su.dsv.inte.item.Weapon;
+import se.su.dsv.inte.item.*;
 
 import static org.junit.Assert.*;
 
 public class PlayerCharacterTest {
 
-    @Test // döp om mig
+    @Test
     public void testAddFiftyXPToPlayerLevelOne() {
         PlayerCharacter playerCharacter = new PlayerCharacter(Race.HOBBIT, "Player 1");
         assertEquals(0, playerCharacter.getXP());
@@ -71,7 +68,7 @@ public class PlayerCharacterTest {
     @Test
     public void putAnITemInPlayerCharacterInventoryArrayIndexZero() {
         PlayerCharacter playerCharacter = new PlayerCharacter(Race.HOBBIT, "Player 1");
-        Item weapon = new Weapon("Sting", "Sword", 25);
+        Item weapon = new Weapon("Sting", WeaponType.SWORD, 25);
         playerCharacter.putItemInInventory(weapon);
         assertEquals(playerCharacter.getInventory()[0].getName(), "Sting");
     }
@@ -79,7 +76,7 @@ public class PlayerCharacterTest {
     @Test
     public void removeAnItemInPlayerCharacterInventoryArrayIndexZero() {
         PlayerCharacter playerCharacter = new PlayerCharacter(Race.HOBBIT, "Player 1");
-        Item weapon = new Weapon("Sting", "Sword", 25);
+        Item weapon = new Weapon("Sting", WeaponType.SWORD, 25);
         playerCharacter.putItemInInventory(weapon);
         playerCharacter.removeItemFromInventory(weapon);
         assertEquals(playerCharacter.getInventory()[0], null);
@@ -88,8 +85,8 @@ public class PlayerCharacterTest {
     @Test
     public void putThreeItemsInPlayerCharacterInventoryArray() {
         PlayerCharacter playerCharacter = new PlayerCharacter(Race.HOBBIT, "Player 1");
-        Item weapon = new Weapon("Sting", "Sword", 25);
-        Item outfit = new Outfit("Bilbos Armor", "Mithril", 55);
+        Item weapon = new Weapon("Sting", WeaponType.SWORD, 25);
+        Item outfit = new Outfit("Bilbos Armor", OutfitType.MITHRIL, 55);
         Item potion = new Consumable("Health Potion");
         playerCharacter.putItemInInventory(weapon);
         playerCharacter.putItemInInventory(outfit);
@@ -104,9 +101,9 @@ public class PlayerCharacterTest {
     @Test
     public void putSeveralItemsInPlayerCharacterInventoryArrayAndRemoveItemsFromInventoryArrayAndCheckForEmptyIndexAndAddItemAgain() {
         PlayerCharacter playerCharacter = new PlayerCharacter(Race.HOBBIT, "Player 1");
-        Item weapon = new Weapon("Sting", "Sword", 25);
-        Item weapon2 = new Weapon("Andüril", "Sword", 100);
-        Item outfit = new Outfit("Bilbos Armor", "Mithril", 55);
+        Item weapon = new Weapon("Sting", WeaponType.SWORD, 25);
+        Item weapon2 = new Weapon("Andüril", WeaponType.SWORD, 100);
+        Item outfit = new Outfit("Bilbos Armor", OutfitType.MITHRIL, 55);
         Item potion = new Consumable("Health Potion");
         playerCharacter.putItemInInventory(weapon);
         playerCharacter.putItemInInventory(potion);
@@ -121,11 +118,11 @@ public class PlayerCharacterTest {
     @Test
     public void putSeveralItemsInPlayerCharacterInventoryArrayAndRemoveSeveralItemsFromInventoryArrayAndCheckForEmptyIndex() {
         PlayerCharacter playerCharacter = new PlayerCharacter(Race.HOBBIT, "Player 1");
-        Item weapon = new Weapon("Sting", "Sword", 25);
-        Item weapon2 = new Weapon("Andüril", "Sword", 100);
-        Item outfit = new Outfit("Bilbos Armor", "Mithril", 55);
+        Item weapon = new Weapon("Sting", WeaponType.SWORD, 25);
+        Item weapon2 = new Weapon("Andüril", WeaponType.SWORD, 100);
+        Item outfit = new Outfit("Bilbos Armor", OutfitType.MITHRIL, 55);
         Item potion = new Consumable("Health Potion");
-        Item outfit2 = new Outfit("Gimlis Helm", "Titan", 255);
+        Item outfit2 = new Outfit("Gimlis Helm", OutfitType.PLATE, 255);
         playerCharacter.putItemInInventory(weapon);
         playerCharacter.putItemInInventory(potion);
         playerCharacter.putItemInInventory(outfit);
@@ -143,7 +140,7 @@ public class PlayerCharacterTest {
     public void checkIfInventoryIsFull(){
         PlayerCharacter playerCharacter = new PlayerCharacter(Race.HOBBIT, "Player 1");
         for(int i = 0; i<playerCharacter.getInventory().length; i++){
-            playerCharacter.putItemInInventory(new Weapon("Sting", "Sword", 25));
+            playerCharacter.putItemInInventory(new Weapon("Sting", WeaponType.SWORD, 25));
         }
         assertTrue(playerCharacter.checkInventoryIsFull());
     }
@@ -153,17 +150,17 @@ public class PlayerCharacterTest {
         PlayerCharacter playerCharacter = new PlayerCharacter(Race.DWARF, "Player 1");
 
         for(int i = 0; i<playerCharacter.getInventory().length; i++){
-            playerCharacter.putItemInInventory(new Weapon("...and My Axe", "Axe", 10));
+            playerCharacter.putItemInInventory(new Weapon("...and My Axe", WeaponType.AXE, 10));
         }
-        assertEquals(playerCharacter.putItemInInventory(new Outfit("Gandalf's Robe", "Robe", 555)), "Inventory is full");
+        assertEquals(playerCharacter.putItemInInventory(new Outfit("Gandalf's Robe", OutfitType.CLOTH, 555)), "Inventory is full");
     }
 
     @Test
     public void testEquipWeaponAndOutfit(){
         PlayerCharacter playerCharacter = new PlayerCharacter(Race.HOBBIT, "Player 1");
 
-        Item weapon = new Weapon("Andüril", "Sword", 100);
-        Item outfit = new Outfit("Bilbos Armor", "Mithril", 55);
+        Item weapon = new Weapon("Andüril", WeaponType.SWORD, 100);
+        Item outfit = new Outfit("Bilbos Armor", OutfitType.MITHRIL, 55);
         playerCharacter.putItemInInventory(weapon);
         playerCharacter.putItemInInventory(outfit);
         playerCharacter.equipItem(weapon);
@@ -175,7 +172,7 @@ public class PlayerCharacterTest {
     @Test
     public void testEquipItemNotInInventory(){
         PlayerCharacter playerCharacter = new PlayerCharacter(Race.HOBBIT, "Player 1");
-        Item weapon = new Weapon("Sting", "Sword", 25);
+        Item weapon = new Weapon("Sting", WeaponType.SWORD, 25);
         playerCharacter.equipItem(weapon);
         assertEquals(playerCharacter.getWeapon(), null);
     }
@@ -183,8 +180,8 @@ public class PlayerCharacterTest {
     @Test
     public void testEquipWeaponAndOutfitAndCheckStats(){
         PlayerCharacter playerCharacter = new PlayerCharacter(Race.HOBBIT, "Player 1");
-        Item weapon = new Weapon("Sting", "Sword", 25);
-        Item outfit = new Outfit("Bilbos Armor", "Mithril", 55);
+        Item weapon = new Weapon("Sting", WeaponType.SWORD, 25);
+        Item outfit = new Outfit("Bilbos Armor", OutfitType.MITHRIL, 55);
         playerCharacter.putItemInInventory(weapon);
         playerCharacter.putItemInInventory(outfit);
         playerCharacter.equipItem(weapon);
@@ -196,11 +193,13 @@ public class PlayerCharacterTest {
     @Test
     public void testEquipWeaponAndWeaponRemovedFromInventory(){
         PlayerCharacter playerCharacter = new PlayerCharacter(Race.HOBBIT, "Player 1");
-        Item weapon = new Weapon("Sting", "Sword", 25);
+        Item weapon = new Weapon("Sting", WeaponType.SWORD, 25);
         playerCharacter.putItemInInventory(weapon);
         playerCharacter.equipItem(weapon);
         assertEquals(playerCharacter.getInventory()[0], null);
     }
+
+
 
 
 }

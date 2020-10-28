@@ -3,12 +3,12 @@ package se.su.dsv.inte.item;
 public class Outfit extends Item {
 
 
-    //Outfit can be made out of plate, mail, leather and more
-    private String outfitType;
+
+    private OutfitType outfitType;
     private int defensePoints;
 
 
-    public Outfit(String name, String outfitType, int defensePoints) {
+    public Outfit(String name, OutfitType outfitType, int defensePoints) {
         super(name);
         this.outfitType = outfitType;
         this.defensePoints = defensePoints;
@@ -18,7 +18,7 @@ public class Outfit extends Item {
         return defensePoints;
     }
 
-    public String getOutfitType() {
+    public OutfitType getOutfitType() {
         return outfitType;
     }
 
