@@ -31,6 +31,14 @@ public class PlayerCharacter extends Character {
         return questManager;
     }
 
+    public boolean inventoryContains(Item item) {
+        for (Item i : inventory)
+            if (i.equals(item))
+                return true;
+
+        return false;
+    }
+
     public String putItemInInventory(Item item) {
         if (checkInventoryIsFull()) {
             return "Inventory is full";

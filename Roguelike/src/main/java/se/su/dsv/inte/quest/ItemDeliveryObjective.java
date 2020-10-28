@@ -20,6 +20,10 @@ public class ItemDeliveryObjective extends QuestObjective {
         this.recipientName = recipientName;
     }
 
+    public boolean itemIsAcquired() {
+        return itemAcquired;
+    }
+
     public Item getDeliveryItem() {
         return item;
     }

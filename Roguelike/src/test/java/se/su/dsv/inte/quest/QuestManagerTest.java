@@ -4,21 +4,30 @@ import org.junit.Before;
 import org.junit.Test;
 import se.su.dsv.inte.character.PlayerCharacter;
 import se.su.dsv.inte.character.Race;
+import se.su.dsv.inte.item.Consumable;
+import se.su.dsv.inte.item.Item;
 
 import static org.junit.Assert.*;
 
 public class QuestManagerTest {
     private PlayerCharacter player;
-    private Quest levelOneQuest;
+    private Quest levelOneMonsterSlayingQuest;
+    private Quest levelOneItemDeliveryQuest;
     private Quest levelTwoQuest;
 
     @Before
     public void createNewCharacterAndQuests() {
         player = new PlayerCharacter(Race.HOBBIT, "Player One");
 
-        levelOneQuest = new Quest("Level one quest", "Description for level one quest", 1,
+        levelOneMonsterSlayingQuest =
+                new Quest("Level one monster slaying quest", "Description for level one quest", 1,
                 new QuestReward(300),
                 new MonsterSlayingObjective(false, "Dragon", 1));
+
+        levelOneItemDeliveryQuest =
+                new Quest("Level one item delivery quest", "Description for level one quest", 1,
+                new QuestReward(300),
+                new ItemDeliveryObjective(false, new Consumable("Potion"), "Gandalf"));
 
         levelTwoQuest = new Quest("Level two quest", "Description for level two quest", 2,
                 new QuestReward(300),
@@ -33,8 +42,8 @@ public class QuestManagerTest {
 
     @Test
     public void testStartingNewQuestAddsQuestToBeTracked() {
-        assertTrue(player.getQuestManager().startQuest(levelOneQuest));
-        assertTrue(player.getQuestManager().getActiveQuests().contains(levelOneQuest));
+        assertTrue(player.getQuestManager().startQuest(levelOneMonsterSlayingQuest));
+        assertTrue(player.getQuestManager().getActiveQuests().contains(levelOneMonsterSlayingQuest));
     }
 
     @Test
@@ -44,11 +53,19 @@ public class QuestManagerTest {
 
     @Test
     public void testQuestManagerRecordsEnemySlainAndUpdatesObjective() {
-        player.getQuestManager().startQuest(levelOneQuest);
-        assertFalse(levelOneQuest.isComplete());
+        player.getQuestManager().startQuest(levelOneMonsterSlayingQuest);
+        assertFalse(levelOneMonsterSlayingQuest.isComplete());
         player.getQuestManager().recordEnemySlain("Dragon");
-        assertTrue(levelOneQuest.isComplete());
+        assertTrue(levelOneMonsterSlayingQuest.isComplete());
     }
 
-
+    @Test
+    public void testStartingItemDeliveryQuestScansPlayerInventoryAndUpdatesObjectiveIfItemIsAcquired() {
+        Item item = new Consumable("Potion");
+        player.putItemInInventory(item);
+        player.getQuestManager().startQuest(levelOneItemDeliveryQuest);
+        ItemDeliveryObjective objective = (ItemDeliveryObjective) levelOneItemDeliveryQuest.getObjectives()[0];
+        assertTrue(objective.itemIsAcquired());
+        assertFalse(objective.isComplete());
+    }
 }
