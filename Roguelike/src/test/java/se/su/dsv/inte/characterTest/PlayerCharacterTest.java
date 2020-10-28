@@ -199,6 +199,21 @@ public class PlayerCharacterTest {
         assertEquals(playerCharacter.getInventory()[0], null);
     }
 
+    @Test
+    public void testEquipWeaponTwiceToSeeIfEquippedWeaponsSwapsAndTheOtherGoesBackToInventoryAndStatsUpdated(){
+        PlayerCharacter playerCharacter = new PlayerCharacter(Race.HOBBIT, "Player 1");
+        Item weapon = new Weapon("Sting", WeaponType.SWORD, 25);
+        Item weapon2 = new Weapon("Andüril", WeaponType.SWORD, 55);
+        playerCharacter.putItemInInventory(weapon2);
+        playerCharacter.putItemInInventory(weapon);
+        playerCharacter.equipItem(weapon);
+        assertEquals(playerCharacter.getStats().getBaseAttackPoints(), 27 );
+        playerCharacter.equipItem(weapon2);
+        assertEquals(playerCharacter.getWeapon().getName(), "Andüril");
+        assertEquals(playerCharacter.getInventory()[1].getName(), "Sting");
+        assertEquals(playerCharacter.getStats().getBaseAttackPoints(), 57);
+    }
+
 
 
 

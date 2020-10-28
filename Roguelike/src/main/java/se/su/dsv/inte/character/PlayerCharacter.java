@@ -93,17 +93,19 @@ public class PlayerCharacter extends Character {
                 if (item instanceof Weapon) {
                     if(weapon != null){
                         putItemInInventory(weapon);
+                        stats.unEquipChangeBaseAttackPoints((Weapon) weapon);
                     }
                     weapon = items;
-                    stats.changeBaseAttackPoints((Weapon) weapon);
+                    stats.equipChangeBaseAttackPoints((Weapon) weapon);
                     removeItemFromInventory(weapon);
                     break;
                 } else if (item instanceof Outfit) {
                     if(outfit != null){
                         putItemInInventory(outfit);
+                        stats.unEquipChangeBaseDefensePoints((Outfit) outfit);
                     }
                     outfit = items;
-                    stats.changeBaseDefensePoints((Outfit) outfit);
+                    stats.equipChangeBaseDefensePoints((Outfit) outfit);
                     removeItemFromInventory(outfit);
                     break;
                 } else {
