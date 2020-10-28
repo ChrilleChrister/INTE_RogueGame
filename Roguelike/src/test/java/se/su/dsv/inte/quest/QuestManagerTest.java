@@ -42,4 +42,13 @@ public class QuestManagerTest {
         assertFalse(player.getQuestManager().startQuest(levelTwoQuest));
     }
 
+    @Test
+    public void testQuestManagerRecordsEnemySlainAndUpdatesObjective() {
+        player.getQuestManager().startQuest(levelOneQuest);
+        assertFalse(levelOneQuest.isComplete());
+        player.getQuestManager().recordEnemySlain("Dragon");
+        assertTrue(levelOneQuest.isComplete());
+    }
+
+
 }

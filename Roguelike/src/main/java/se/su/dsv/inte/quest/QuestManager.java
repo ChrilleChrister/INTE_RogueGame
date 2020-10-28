@@ -27,4 +27,16 @@ public class QuestManager {
     public List<Quest> getActiveQuests() {
         return new ArrayList<>(activeQuests);
     }
+
+    public void recordEnemySlain(String enemyName) {
+        for (Quest quest : activeQuests) {
+            for (QuestObjective objective : quest.getObjectives()) {
+                if (objective instanceof MonsterSlayingObjective) {
+                    MonsterSlayingObjective slayingObjective = (MonsterSlayingObjective) objective;
+                    if (slayingObjective.getMonsterName().equals(enemyName))
+                        slayingObjective.incrementNumberSlain();
+                }
+            }
+        }
+    }
 }
