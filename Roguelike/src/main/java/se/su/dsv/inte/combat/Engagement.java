@@ -74,6 +74,7 @@ public class Engagement {
         else{
             turnSitter.decreaseStunTime();
         }
+        player.decreaseTauntTime();
     }
 
     //Could be removed, but tests are applied to it instead of attack(). Rewrite if there's time
@@ -93,15 +94,17 @@ public class Engagement {
     }
     
     public void taunt(PlayerCharacter target){
-        target.setTaunted(true);
+        if(!turnHolder.equals(target)){
+            target.setTaunted();
         swapTurns();
+        }
     }
 
     public void escape(PlayerCharacter player, double escapeChance){
-        if(Math.random() <= escapeChance && !player.isTaunted()){
+        if(Math.random() <= escapeChance && player.getTauntTime() == 0){
             active = false;
         }
-        else if(!player.isTaunted()){
+        else{
             swapTurns();
         }
     }

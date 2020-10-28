@@ -19,7 +19,6 @@ public class CharacterTest {
     private static final int MAX_STUN_TIME = 2;
     private static final int DECREASED_STUN_TIME = 1;
 
-
     // Movement speed
     // Equipment, stats
     // Inventory slots
@@ -140,4 +139,5 @@ public class CharacterTest {
         freshCharacter.setStunned();
         assertEquals(DECREASED_STUN_TIME, freshCharacter.getStunTime());
     }
+    
 }

@@ -15,8 +15,9 @@ import org.junit.Before;
 
 public class PlayerCharacterTest {
 
-    private static final boolean TAUNTED = true;
-    private static final boolean NOT_TAUNTED = false;
+    private static final int NOT_TAUNTED = 0;
+    private static final int MAX_TAUNT_TIME = 2;
+    private static final int DECREASED_TAUNT_TIME = 1;
     private PlayerCharacter freshPlayerCharacter;
 
     @Before
@@ -205,15 +206,28 @@ public class PlayerCharacterTest {
     }
 
     @Test
-    public void testsetTauntedsetsTaunted(){
-        freshPlayerCharacter.setTaunted(true);
-        assertEquals(TAUNTED, freshPlayerCharacter.isTaunted());
+    public void testNewPlayerCharacterIsNotTaunted(){
+        PlayerCharacter newCharacter = new PlayerCharacter(Race.HOBBIT, "name");
+        assertEquals(NOT_TAUNTED, newCharacter.getTauntTime());
     }
 
     @Test
-    public void testNewPlayerCharacterIsNotTaunted(){
-        PlayerCharacter newCharacter = new PlayerCharacter(Race.HOBBIT, "name");
-        assertEquals(NOT_TAUNTED, newCharacter.isTaunted());
+    public void testSetTauntedSetsTauntTimeToTwo(){
+        freshPlayerCharacter.setTaunted();
+        assertEquals(MAX_TAUNT_TIME, freshPlayerCharacter.getTauntTime());
+    }
+
+    @Test
+    public void testDecreaseTauntTimeDecreasesTauntTimeByOne(){
+        freshPlayerCharacter.setTaunted();
+        freshPlayerCharacter.decreaseTauntTime();
+        assertEquals(DECREASED_TAUNT_TIME, freshPlayerCharacter.getTauntTime());
+    }
+
+    @Test
+    public void testDecreaseTauntTimeCantDecreaseBelowZero(){
+        freshPlayerCharacter.decreaseTauntTime();
+        assertEquals(NOT_TAUNTED, freshPlayerCharacter.getTauntTime());
     }
 
 
