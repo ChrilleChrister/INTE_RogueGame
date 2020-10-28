@@ -4,7 +4,7 @@ public class Character {
     private Race race; // Race change? Modifies attributes!
     protected int level;
     private String name;
-    protected int currentHitPoints;
+    private int currentHitPoints;
     private int movementSpeedModifier;// Use percentages instead. Round-off errors
     protected Stats stats;
     private boolean isAlive;
