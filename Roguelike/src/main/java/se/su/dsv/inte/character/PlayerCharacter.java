@@ -32,10 +32,11 @@ public class PlayerCharacter extends Character {
     }
 
     public boolean inventoryContains(Item item) {
-        for (Item i : inventory)
-            if (i.equals(item))
+        for (Item i : inventory) {
+            if (i != null && i.getName().equals(item.getName())) { //TODO: fix equals for item
                 return true;
-
+            }
+        }
         return false;
     }
 
@@ -49,6 +50,7 @@ public class PlayerCharacter extends Character {
                     break;
                 }
             }
+            questManager.updateItemAcquisitionStatus(item);
             return item.getName() + " Added to Inventory";
         }
     }
@@ -74,6 +76,7 @@ public class PlayerCharacter extends Character {
         for (int i = 0; i < inventory.length; i++) {
             if (inventory[i] == null || inventory[i].getName().equals(item.getName())) {
                 inventory[i] = null;
+                questManager.updateItemAcquisitionStatus(item);
             }
         }
     }

@@ -61,11 +61,30 @@ public class QuestManagerTest {
 
     @Test
     public void testStartingItemDeliveryQuestScansPlayerInventoryAndUpdatesObjectiveIfItemIsAcquired() {
+        player.putItemInInventory(new Consumable("Potion"));
+        player.getQuestManager().startQuest(levelOneItemDeliveryQuest);
+        ItemDeliveryObjective objective = (ItemDeliveryObjective) levelOneItemDeliveryQuest.getObjectives()[0];
+        assertTrue(objective.itemIsAcquired());
+        assertFalse(objective.isComplete());
+    }
+
+    @Test
+    public void testItemDeliveryObjectiveIsUpdatedWhenPlayerInventoryRecievesNewItem() {
+        player.getQuestManager().startQuest(levelOneItemDeliveryQuest);
+        ItemDeliveryObjective objective = (ItemDeliveryObjective) levelOneItemDeliveryQuest.getObjectives()[0];
+        assertFalse(objective.itemIsAcquired());
+        player.putItemInInventory(new Consumable("Potion"));
+        assertTrue(objective.itemIsAcquired());
+    }
+
+    @Test
+    public void testItemDeliveryObjectiveIsUpdatedWhenItemIsRemovedFromPlayerInventory() {
         Item item = new Consumable("Potion");
         player.putItemInInventory(item);
         player.getQuestManager().startQuest(levelOneItemDeliveryQuest);
         ItemDeliveryObjective objective = (ItemDeliveryObjective) levelOneItemDeliveryQuest.getObjectives()[0];
         assertTrue(objective.itemIsAcquired());
-        assertFalse(objective.isComplete());
+        player.removeItemFromInventory(item);
+        assertFalse(objective.itemIsAcquired());
     }
 }

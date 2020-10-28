@@ -9,7 +9,7 @@ public class QuestManager {
     private final PlayerCharacter player;
     private final List<Quest> activeQuests = new ArrayList<>();
     private HashMap<String, List<MonsterSlayingObjective>> enemyNamesToTrack = new HashMap<>();
-    private HashMap<Item, List<ItemDeliveryObjective>> itemsToTrack = new HashMap<>();
+    private HashMap<String, List<ItemDeliveryObjective>> itemNamesToTrack = new HashMap<>();
 
     public QuestManager(PlayerCharacter player) {
         this.player = player;
@@ -38,8 +38,19 @@ public class QuestManager {
             o.incrementNumberSlain();
     }
 
+    public void updateItemAcquisitionStatus(Item item) {
+        if (item == null || itemNamesToTrack.get(item.getName()) == null)
+            return;
+
+        boolean itemAcquired = player.inventoryContains(item);
+
+        for (ItemDeliveryObjective o : itemNamesToTrack.get(item.getName()))
+            o.setItemAcquired(itemAcquired);
+    }
+
     private void prepareQuestForTracking(Quest quest) {
         for (QuestObjective o : quest.getObjectives()) {
+
             if (o instanceof MonsterSlayingObjective) {
                 MonsterSlayingObjective mso = (MonsterSlayingObjective) o;
                 String monsterName = mso.getMonsterName();
@@ -48,25 +59,18 @@ public class QuestManager {
                     enemyNamesToTrack.put(monsterName, new ArrayList<MonsterSlayingObjective>());
 
                 enemyNamesToTrack.get(monsterName).add(mso);
+
             } else if (o instanceof ItemDeliveryObjective) {
                 ItemDeliveryObjective ido = (ItemDeliveryObjective) o;
                 Item item = ido.getDeliveryItem();
 
-                if (itemsToTrack.get(item) == null)
-                    itemsToTrack.put(ido.getDeliveryItem(), new ArrayList<ItemDeliveryObjective>());
+                if (itemNamesToTrack.get(item.getName()) == null)
+                    itemNamesToTrack.put(ido.getDeliveryItem().getName(), new ArrayList<ItemDeliveryObjective>());
 
-                itemsToTrack.get(item).add(ido);
+                itemNamesToTrack.get(item.getName()).add(ido);
 
-                scanInventoryAndUpdateItemDeliveryObjective(ido.getDeliveryItem());
+                updateItemAcquisitionStatus(ido.getDeliveryItem());
             }
-
         }
-    }
-
-    private void scanInventoryAndUpdateItemDeliveryObjective(Item item) {
-        boolean itemAcquired = player.inventoryContains(item);
-
-        for (ItemDeliveryObjective o : itemsToTrack.get(item))
-            o.setItemAcquired(itemAcquired);
     }
 }
