@@ -239,5 +239,16 @@ public class PlayerCharacterTest {
         assertEquals(playerCharacter.getInventory()[0], null);
     }
 
+    @Test
+    public void useComsumableToHealPartOfCurrentHealth(){
+        PlayerCharacter playerCharacter = new PlayerCharacter(Race.DWARF, "Player 1");
+        Consumable potion = new Consumable("Health Potion");
+        playerCharacter.putItemInInventory(potion);
+        playerCharacter.receiveDamage(29);
+        playerCharacter.useComsumableItem(potion);
+        assertEquals(playerCharacter.getCurrentHitpoints(), 21);
+
+    }
+
 
 }

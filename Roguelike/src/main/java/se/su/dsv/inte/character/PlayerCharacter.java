@@ -131,19 +131,11 @@ public class PlayerCharacter extends Character {
             }
             if (items.getName().equals(potion.getName())) {
                 potion.removeOneItemFromStack();
-                restoreHP(potion);
+                heal(potion.getRestorePoints());
                 if(potion.getStackCounter() == 0){
                     removeItemFromInventory(potion);
                 }
             }
-        }
-    }
-
-    public void restoreHP(Consumable potion){
-        if(currentHitPoints + potion.getRestorePoints() > stats.getBaseHitPoints()){
-            currentHitPoints = stats.getBaseHitPoints();
-        } else{
-            currentHitPoints += potion.getRestorePoints();
         }
     }
 
