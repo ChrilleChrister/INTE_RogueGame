@@ -1,9 +1,7 @@
-package se.su.dsv.inte.questTest;
+package se.su.dsv.inte.quest;
 
 import org.junit.Test;
 import se.su.dsv.inte.item.Consumable;
-import se.su.dsv.inte.item.Weapon;
-import se.su.dsv.inte.quest.*;
 
 import static org.junit.Assert.*;
 
@@ -29,6 +27,10 @@ public class QuestTest {
 
     // Test checking that title, description and reward can not be null. Also check that required level is in range
     // 1 - 100.
+    @Test (expected = IllegalArgumentException.class)
+    public void testNullTitleThrowsIAE() {
+        new Quest(null, DEFAULT_DESCRIPTION, DEFAULT_REQUIRED_LEVEL, DEFAULT_REWARD, DEFAULT_OBJECTIVE);
+    }
 
     @Test (expected = IllegalArgumentException.class)
     public void testQuestCtrThrowsIAEIfNumberOfObjectivesIsZero() {
@@ -47,5 +49,19 @@ public class QuestTest {
         ItemDeliveryObjective optionalObjective = new ItemDeliveryObjective(true,
                 new Consumable("Potion"), "Gandalf");
         new Quest(DEFAULT_TITLE, DEFAULT_DESCRIPTION, DEFAULT_REQUIRED_LEVEL, DEFAULT_REWARD, optionalObjective);
+    }
+
+    @Test
+    public void testQuestIsCompleteIfAllMandatoryObjectivesAreComplete() {
+        MonsterSlayingObjective o1 = new MonsterSlayingObjective(false, "Dragon", 1);
+        ItemDeliveryObjective o2 = new ItemDeliveryObjective(false, new Consumable("Potion"), "Gandalf");
+        QuestObjective[] mandatoryObjectives = {o1, o2};
+        Quest quest = new Quest(DEFAULT_TITLE, DEFAULT_DESCRIPTION, DEFAULT_REQUIRED_LEVEL, DEFAULT_REWARD, mandatoryObjectives);
+
+        assertFalse(quest.isComplete());
+        o1.incrementNumberSlain();
+        o2.setItemAcquired(true);
+        o2.setDelivered(true);
+        assertTrue(quest.isComplete());
     }
 }

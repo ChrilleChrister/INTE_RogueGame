@@ -1,8 +1,6 @@
-package se.su.dsv.inte.questTest;
+package se.su.dsv.inte.quest;
 
 import org.junit.Test;
-import se.su.dsv.inte.quest.MonsterSlayingObjective;
-import se.su.dsv.inte.quest.QuestObjective;
 
 import static org.junit.Assert.*;
 

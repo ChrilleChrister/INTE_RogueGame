@@ -1,10 +1,8 @@
-package se.su.dsv.inte.questTest;
+package se.su.dsv.inte.quest;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import se.su.dsv.inte.item.Consumable;
 import se.su.dsv.inte.item.Item;
-import se.su.dsv.inte.quest.ItemDeliveryObjective;
 
 import static org.junit.Assert.*;
 

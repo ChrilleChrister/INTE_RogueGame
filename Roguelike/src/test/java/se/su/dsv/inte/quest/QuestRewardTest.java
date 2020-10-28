@@ -1,9 +1,6 @@
-package se.su.dsv.inte.questTest;
+package se.su.dsv.inte.quest;
 
 import org.junit.Test;
-import se.su.dsv.inte.character.PlayerCharacter;
-import se.su.dsv.inte.character.Race;
-import se.su.dsv.inte.quest.QuestReward;
 
 import static org.junit.Assert.*;
 
@@ -14,6 +11,11 @@ public class QuestRewardTest {
     public void testCreationOfQuestRewardThatOnlyGivesXP() {
         QuestReward reward = new QuestReward(DEFAULT_QUEST_XP);
         assertEquals(DEFAULT_QUEST_XP, reward.getCompletionXP());
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testQuestRewardCanNotHaveNegativeXP() {
+        new QuestReward(-1);
     }
 
     // test quest reward scaling to optional objectives

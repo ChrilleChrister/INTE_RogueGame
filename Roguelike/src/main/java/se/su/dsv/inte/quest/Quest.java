@@ -61,4 +61,12 @@ public class Quest {
         return objectives;
     }
 
+    public boolean isComplete() {
+        for (QuestObjective o : objectives)
+            if (!o.isOptional() && !o.isComplete())
+                return false;
+
+        return true;
+    }
+
 }
