@@ -24,7 +24,7 @@ public class PlayerCharacter extends Character {
                 inventory = new Item[20];
                 break;
         }
-        questManager = new QuestManager();
+        questManager = new QuestManager(this);
     }
 
     public QuestManager getQuestManager() {
