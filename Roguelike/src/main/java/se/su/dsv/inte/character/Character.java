@@ -5,7 +5,6 @@ public class Character {
     protected int level;
     private String name;
     private int movementSpeedModifier;// Use percentages instead. Round-off errors
-    // private Item[] inventory = new Item[getInventorySize()]; // Inventory for player character (move to subclass later)
     protected Stats stats;
 
     // Declare throws?

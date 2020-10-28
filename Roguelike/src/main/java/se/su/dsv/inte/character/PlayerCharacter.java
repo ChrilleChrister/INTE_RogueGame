@@ -83,7 +83,7 @@ public class PlayerCharacter extends Character {
     }
 
 
-    //gör om och kolla om ett item redan finns equipat. och eventuellt byt plats på dem och skicka tillbaka det gamla item till inventory
+
     public void equipItem(Item item) {
         for (Item items : inventory) {
             if(items == null){
