@@ -1,6 +1,8 @@
 package se.su.dsv.inte.quest;
 
 import org.junit.Test;
+import se.su.dsv.inte.character.PlayerCharacter;
+import se.su.dsv.inte.character.Race;
 import se.su.dsv.inte.item.Consumable;
 
 import static org.junit.Assert.*;

@@ -4,12 +4,14 @@ package se.su.dsv.inte.character;
 import se.su.dsv.inte.item.Item;
 import se.su.dsv.inte.item.Outfit;
 import se.su.dsv.inte.item.Weapon;
+import se.su.dsv.inte.quest.QuestManager;
 
 public class PlayerCharacter extends Character {
     private int currentXP;
     private Item[] inventory;
     private Item weapon;
     private Item outfit;
+    private final QuestManager questManager;
 
 
     public PlayerCharacter(Race race, String playerName) {
@@ -22,6 +24,11 @@ public class PlayerCharacter extends Character {
                 inventory = new Item[20];
                 break;
         }
+        questManager = new QuestManager();
+    }
+
+    public QuestManager getQuestManager() {
+        return questManager;
     }
 
     public String putItemInInventory(Item item) {
