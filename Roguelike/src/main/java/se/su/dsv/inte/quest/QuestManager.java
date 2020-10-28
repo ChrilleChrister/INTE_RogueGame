@@ -34,6 +34,9 @@ public class QuestManager {
     }
 
     public void recordEnemySlain(String enemyName) {
+        if (enemyName == null || enemyNamesToTrack.get(enemyName) == null)
+            return;
+
         for (MonsterSlayingObjective o : enemyNamesToTrack.get(enemyName))
             o.incrementNumberSlain();
     }

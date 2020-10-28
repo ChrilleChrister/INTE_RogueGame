@@ -60,6 +60,29 @@ public class QuestManagerTest {
     }
 
     @Test
+    public void testRecordUntrackedEnemySlainDoesNotUpdateOtherObjective() {
+        player.getQuestManager().startQuest(levelOneMonsterSlayingQuest);
+        player.getQuestManager().recordEnemySlain("Goat");
+        assertFalse(levelOneMonsterSlayingQuest.isComplete());
+    }
+
+    @Test
+    public void testRecordEnemySlainCanUpdateMoreThanOneObjectiveAtATime() {
+        player.getQuestManager().startQuest(levelOneMonsterSlayingQuest);
+        Quest anotherMonsterSlayingQuest = new Quest(
+                "Another monster slaying quest", "Description", 1,
+                new QuestReward(300),
+                new MonsterSlayingObjective(false, "Dragon", 1));
+        player.getQuestManager().startQuest(anotherMonsterSlayingQuest);
+
+        assertFalse(levelOneMonsterSlayingQuest.isComplete());
+        assertFalse(anotherMonsterSlayingQuest.isComplete());
+        player.getQuestManager().recordEnemySlain("Dragon");
+        assertTrue(levelOneMonsterSlayingQuest.isComplete());
+        assertTrue(anotherMonsterSlayingQuest.isComplete());
+    }
+
+    @Test
     public void testStartingItemDeliveryQuestScansPlayerInventoryAndUpdatesObjectiveIfItemIsAcquired() {
         player.putItemInInventory(new Consumable("Potion"));
         player.getQuestManager().startQuest(levelOneItemDeliveryQuest);
