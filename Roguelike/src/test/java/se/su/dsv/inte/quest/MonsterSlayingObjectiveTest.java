@@ -70,4 +70,24 @@ public class MonsterSlayingObjectiveTest {
             objective.incrementNumberSlain();
         assertTrue(objective.isComplete());
     }
+
+    @Test
+    public void testObjectivesWithIdenticalAttributesAreEqual() {
+        assertEquals(new MonsterSlayingObjective(DEFAULT_OPTIONAL, DEFAULT_MONSTER_NAME, DEFAULT_NUMBER_TO_SLAY),
+                new MonsterSlayingObjective(DEFAULT_OPTIONAL, DEFAULT_MONSTER_NAME, DEFAULT_NUMBER_TO_SLAY));
+    }
+
+    @Test
+    public void testMonsterSlayingObjectivesAreNotEqualIfNumberSlainDiffers() {
+        MonsterSlayingObjective o1 = new MonsterSlayingObjective(DEFAULT_OPTIONAL, DEFAULT_MONSTER_NAME, DEFAULT_NUMBER_TO_SLAY);
+        o1.incrementNumberSlain();
+        MonsterSlayingObjective o2 = new MonsterSlayingObjective(DEFAULT_OPTIONAL, DEFAULT_MONSTER_NAME, DEFAULT_NUMBER_TO_SLAY);
+        assertNotEquals(o1, o2);
+    }
+
+    @Test
+    public void testMonsterSlayingObjectiveIsNotEqualToOtherClass() {
+        assertNotEquals(new MonsterSlayingObjective(DEFAULT_OPTIONAL, DEFAULT_MONSTER_NAME, DEFAULT_NUMBER_TO_SLAY),
+                new Object());
+    }
 }

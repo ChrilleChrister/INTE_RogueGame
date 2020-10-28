@@ -26,4 +26,14 @@ public class Weapon extends Item {
     public String toString() {
         return String.format("Name: %s || Weapontype: %s || Attackpower: %d", getName(), weaponType, attackPoints);
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object instanceof Weapon) {
+            Weapon other = (Weapon) object;
+            return other.weaponType.equals(weaponType) && other.attackPoints == attackPoints;
+        }
+
+        return false;
+    }
 }

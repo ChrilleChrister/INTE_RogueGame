@@ -66,4 +66,23 @@ public class QuestTest {
         o2.setDelivered(true);
         assertTrue(quest.isComplete());
     }
+
+    @Test
+    public void testQuestsWithIdenticalAttributesAreEqual() {
+        Quest q1 = new Quest("Title", "Description", 1,
+                new QuestReward(100),
+                new ItemDeliveryObjective(false, new Consumable("Potion"), "Gandalf"));
+
+        Quest q2 = new Quest("Title", "Description", 1,
+                new QuestReward(100),
+                new ItemDeliveryObjective(false, new Consumable("Potion"), "Gandalf"));
+
+        assertEquals(q1, q2);
+    }
+
+    @Test
+    public void testQuestIsNotEqualToOtherClass() {
+        assertNotEquals(new Quest(DEFAULT_TITLE, DEFAULT_DESCRIPTION, DEFAULT_REQUIRED_LEVEL, DEFAULT_REWARD, DEFAULT_OBJECTIVE),
+                new Object());
+    }
 }

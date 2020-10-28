@@ -59,4 +59,15 @@ public class ItemDeliveryObjective extends QuestObjective {
     public boolean isComplete() {
         return delivered;
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object instanceof ItemDeliveryObjective) {
+            ItemDeliveryObjective other = (ItemDeliveryObjective) object;
+            return other.item.equals(item) && other.recipientName.equals(recipientName) &&
+                    other.itemAcquired == itemAcquired && other.delivered == delivered;
+        }
+
+        return false;
+    }
 }

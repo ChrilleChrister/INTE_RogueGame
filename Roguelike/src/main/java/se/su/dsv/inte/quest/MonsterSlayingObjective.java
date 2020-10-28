@@ -41,4 +41,15 @@ public class MonsterSlayingObjective extends QuestObjective {
         if (numberSlain < numberToSlay)
             numberSlain++;
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object instanceof MonsterSlayingObjective) {
+            MonsterSlayingObjective other = (MonsterSlayingObjective) object;
+            return other.monsterName.equals(monsterName) && other.numberToSlay == numberToSlay &&
+                    other.numberSlain == numberSlain;
+        }
+
+        return false;
+    }
 }

@@ -18,6 +18,20 @@ public class QuestRewardTest {
         new QuestReward(-1);
     }
 
+    @Test
+    public void testQuestRewardsWithSameXPAreEqual() {
+        assertEquals(new QuestReward(DEFAULT_QUEST_XP), new QuestReward(DEFAULT_QUEST_XP));
+    }
+
+    @Test
+    public void testQuestRewardsWithDifferentXPIsNotEqual() {
+        assertNotEquals(new QuestReward(100), (new QuestReward(200)));
+    }
+
+    @Test
+    public void testQuestRewardIsNotEqualToOtherClass() {
+        assertNotEquals(new QuestReward(DEFAULT_QUEST_XP), new Object());
+    }
     // test quest reward scaling to optional objectives
 
     // test quest reward can have item

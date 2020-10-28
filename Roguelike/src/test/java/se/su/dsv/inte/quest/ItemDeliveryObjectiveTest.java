@@ -83,28 +83,22 @@ public class ItemDeliveryObjectiveTest {
         objective.setItemAcquired(false);
     }
 
-    // status message format, test in QuestObjectiveTest instead?
+    @Test
+    public void testObjectiveWithIdenticalAttributesAreEqual() {
+        assertEquals(new ItemDeliveryObjective(DEFAULT_OPTIONAL, DEFAULT_ITEM, DEFAULT_RECIPIENT_NAME),
+                new ItemDeliveryObjective(DEFAULT_OPTIONAL, DEFAULT_ITEM, DEFAULT_RECIPIENT_NAME));
+    }
 
+    @Test
+    public void testObjectivesAreNotEqualIfAttributesDiffer() {
+        ItemDeliveryObjective o1 = new ItemDeliveryObjective(DEFAULT_OPTIONAL, DEFAULT_ITEM, "Alice");
+        ItemDeliveryObjective o2 = new ItemDeliveryObjective(DEFAULT_OPTIONAL, DEFAULT_ITEM, "Bob");
+        assertNotEquals(o1, o2);
+    }
 
-    // isComplete could consist of two parts: itemAcquired && isDelivered - the quest giver/turn in could be
-    // someone other than the recipient (when isDelivered is set true, entire objective is marked complete. status
-    // message should then change)
-
-    // test give only one item if item can stack (e.g. consumable)
-    // playerCharacter.giveItem(questItem, npc);
-    /* giveItem(...) {
-            for quest in quest log
-                if objectives contain delivery quest with questItem and npc
-                    mark complete;
-                    removeItem(questItem);
-
-
-
-        max num quests? abandon quests?
-     */
-
-    // test creating a new objective when player already has the item to be gathered
-    // check that itemAcquired is immediately marked as true
-
-    // maybe recipient could be changeable
+    @Test
+    public void testItemDeliveryObjectiveIsNotEqualToOtherClass() {
+        assertNotEquals(new ItemDeliveryObjective(DEFAULT_OPTIONAL, DEFAULT_ITEM, DEFAULT_RECIPIENT_NAME),
+                new Object());
+    }
 }

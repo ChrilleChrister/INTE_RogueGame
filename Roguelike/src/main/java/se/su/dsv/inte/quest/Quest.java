@@ -1,5 +1,7 @@
 package se.su.dsv.inte.quest;
 
+import java.util.Arrays;
+
 public class Quest {
     private final String title;
     private final String description;
@@ -69,4 +71,15 @@ public class Quest {
         return true;
     }
 
+    @Override
+    public boolean equals(Object object) {
+        if (object instanceof Quest) {
+            Quest other = (Quest) object;
+            return other.title.equals(title) && other.description.equals(description) &&
+                    other.requiredLevel == requiredLevel && other.reward.equals(reward) &&
+                    Arrays.equals(other.objectives, objectives);
+        }
+
+        return false;
+    }
 }

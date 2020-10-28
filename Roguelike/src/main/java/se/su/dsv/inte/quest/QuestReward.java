@@ -12,4 +12,14 @@ public class QuestReward {
     public int getCompletionXP() {
         return completionXP;
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object instanceof QuestReward) {
+            QuestReward other = (QuestReward) object;
+            return other.completionXP == completionXP;
+        }
+
+        return false;
+    }
 }
