@@ -1,5 +1,6 @@
 package se.su.dsv.inte.quest;
 
+import org.junit.Before;
 import org.junit.Test;
 import se.su.dsv.inte.character.PlayerCharacter;
 import se.su.dsv.inte.character.Race;
@@ -7,33 +8,38 @@ import se.su.dsv.inte.character.Race;
 import static org.junit.Assert.*;
 
 public class QuestManagerTest {
+    private PlayerCharacter player;
+    private Quest levelOneQuest;
+    private Quest levelTwoQuest;
+
+    @Before
+    public void createNewCharacterAndQuests() {
+        player = new PlayerCharacter(Race.HOBBIT, "Player One");
+
+        levelOneQuest = new Quest("Level one quest", "Description for level one quest", 1,
+                new QuestReward(300),
+                new MonsterSlayingObjective(false, "Dragon", 1));
+
+        levelTwoQuest = new Quest("Level two quest", "Description for level two quest", 2,
+                new QuestReward(300),
+                new MonsterSlayingObjective(false, "Dragon", 1));
+    }
 
     @Test
     public void testNewPlayerCharacterHasEmptyQuestManager() {
-        PlayerCharacter player = new PlayerCharacter(Race.HOBBIT, "Player");
         assertNotNull(player.getQuestManager());
         assertEquals(0, player.getQuestManager().getNumberOfActiveQuests());
     }
 
     @Test
     public void testStartingNewQuestAddsQuestToBeTracked() {
-        PlayerCharacter player = new PlayerCharacter(Race.HOBBIT, "Player");
-        Quest quest = new Quest(
-                "Title", "Description", 1,
-                new QuestReward(300),
-                new MonsterSlayingObjective(false, "Dragon", 1));
-        assertTrue(player.getQuestManager().startQuest(quest));
-        assertTrue(player.getQuestManager().getActiveQuests().contains(quest));
+        assertTrue(player.getQuestManager().startQuest(levelOneQuest));
+        assertTrue(player.getQuestManager().getActiveQuests().contains(levelOneQuest));
     }
 
     @Test
     public void testQuestCanNotBeStartedIfPlayerIsNotRequiredLevel() {
-        PlayerCharacter player = new PlayerCharacter(Race.HOBBIT, "Player");
-        Quest quest = new Quest(
-                "Title", "Description", 2,
-                new QuestReward(300),
-                new MonsterSlayingObjective(false, "Dragon", 1));
-        assertFalse(player.getQuestManager().startQuest(quest));
+        assertFalse(player.getQuestManager().startQuest(levelTwoQuest));
     }
 
 }
