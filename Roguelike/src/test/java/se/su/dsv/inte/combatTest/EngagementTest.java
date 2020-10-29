@@ -8,6 +8,7 @@ import se.su.dsv.inte.character.PlayerCharacter;
 import se.su.dsv.inte.character.Race;
 import se.su.dsv.inte.combat.Engagement;
 import se.su.dsv.inte.item.Weapon;
+import se.su.dsv.inte.item.WeaponType;
 
 import static org.junit.Assert.*;
 
@@ -204,7 +205,7 @@ public class EngagementTest {
         int agrFive = 5;
         int highAttackPoints = 100;
         PlayerCharacter player = new PlayerCharacter(Race.HOBBIT, "Player");
-        Weapon oneHitWeapon = new Weapon("Axe", "Axe", highAttackPoints);
+        Weapon oneHitWeapon = new Weapon("Axe", WeaponType.AXE, highAttackPoints);
         player.putItemInInventory(oneHitWeapon);
         player.equipItem(oneHitWeapon);
         EnemyCharacter enemy = new EnemyCharacter(Race.HOBBIT, levelOne, agrFive);
