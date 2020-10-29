@@ -1,10 +1,28 @@
-package se.su.dsv.inte;
+package se.su.dsv.inte.characterTest;
 
 import org.junit.Test;
+import se.su.dsv.inte.character.PlayerCharacter;
+import se.su.dsv.inte.character.Character;
+import se.su.dsv.inte.character.Race;
+import se.su.dsv.inte.item.Consumable;
+import se.su.dsv.inte.item.Item;
+import se.su.dsv.inte.item.Outfit;
+import se.su.dsv.inte.item.Weapon;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
+
 public class PlayerCharacterTest {
+
+    private static final boolean TAUNTED = true;
+    private static final boolean NOT_TAUNTED = false;
+    private PlayerCharacter freshPlayerCharacter;
+
+    @Before
+    public void initialize(){
+        freshPlayerCharacter = new PlayerCharacter(Race.HOBBIT, "freshPlayerCharacter");
+    }
 
     @Test // döp om mig
     public void testAddFiftyXPToPlayerLevelOne() {
@@ -37,6 +55,16 @@ public class PlayerCharacterTest {
         playerCharacter.addXP(550);
         assertEquals(3, playerCharacter.getLevel());
         assertEquals(50, playerCharacter.getXP());
+    }
+
+    @Test
+    public void getStats(){
+        Character newCharacter = new Character(Race.DWARF, 5, "Player 1");
+        System.out.println(newCharacter.getRace().getBaseHitPoints());
+        System.out.println(newCharacter.getRace().getBaseAttackPoints());
+        System.out.println(newCharacter.getRace().getBaseDefensePoints());
+
+
     }
 
     @Test
@@ -162,4 +190,31 @@ public class PlayerCharacterTest {
         playerCharacter.equipItem(weapon);
         assertEquals(playerCharacter.getWeapon(), null);
     }
+
+    @Test
+    public void testEquipWeaponAndOutfitAndCheckStats(){
+        PlayerCharacter playerCharacter = new PlayerCharacter(Race.HOBBIT, "Player 1");
+        Item weapon = new Weapon("Sting", "Sword", 25);
+        Item outfit = new Outfit("Bilbos Armor", "Mithril", 55);
+        playerCharacter.putItemInInventory(weapon);
+        playerCharacter.putItemInInventory(outfit);
+        playerCharacter.equipItem(weapon);
+        playerCharacter.equipItem(outfit);
+        assertEquals(playerCharacter.getStats().getBaseAttackPoints(),27);
+        assertEquals(playerCharacter.getStats().getBaseDefensePoints(), 59);
+    }
+
+    @Test
+    public void testsetTauntedsetsTaunted(){
+        freshPlayerCharacter.setTaunted(true);
+        assertEquals(TAUNTED, freshPlayerCharacter.isTaunted());
+    }
+
+    @Test
+    public void testNewPlayerCharacterIsNotTaunted(){
+        PlayerCharacter newCharacter = new PlayerCharacter(Race.HOBBIT, "name");
+        assertEquals(NOT_TAUNTED, newCharacter.isTaunted());
+    }
+
+
 }

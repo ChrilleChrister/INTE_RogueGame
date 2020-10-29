@@ -1,4 +1,4 @@
-package se.su.dsv.inte;
+package se.su.dsv.inte.character;
 
 public enum Race {
     HOBBIT ("Hobbit", 5, 20, 2, 4),

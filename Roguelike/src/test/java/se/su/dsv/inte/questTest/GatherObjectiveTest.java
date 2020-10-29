@@ -1,6 +1,4 @@
-package se.su.dsv.inte.quest;
-
-import org.junit.Test;
+package se.su.dsv.inte.questTest;
 
 public class GatherObjectiveTest {
 
