@@ -2,13 +2,14 @@ package se.su.dsv.inte.itemTest;
 
 import org.junit.Test;
 import se.su.dsv.inte.item.Outfit;
+import se.su.dsv.inte.item.OutfitType;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 public class OutfitTest {
     private static final String DEFAULT_NAME = "Knight's Armor";
-    private static final String DEFAULT_OUTFIT_TYPE = "Plate";
+    private static final OutfitType DEFAULT_OUTFIT_TYPE = OutfitType.PLATE;
     private static final int DEFAULT_DEFENSE_POINTS = 10;
 
     @Test

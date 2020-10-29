@@ -10,7 +10,7 @@ public class Weapon extends Item {
 
     public Weapon(String name, WeaponType weaponType, int attackPoints) {
         super(name);
-
+        this.weaponType = weaponType;
         this.attackPoints = attackPoints;
     }
 
@@ -22,7 +22,6 @@ public class Weapon extends Item {
         return weaponType;
     }
 
-
     @Override
     public boolean equals(Object object) {
         if (object instanceof Weapon) {
@@ -32,5 +31,4 @@ public class Weapon extends Item {
 
         return false;
     }
-
 }

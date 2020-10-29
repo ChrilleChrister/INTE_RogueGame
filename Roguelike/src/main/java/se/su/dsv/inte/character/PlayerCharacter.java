@@ -195,14 +195,4 @@ public class PlayerCharacter extends Character {
         currentXP -= required;
         return required = getRequiredXP();
     }
-
-    public int getXP() {
-        return currentXP;
-    }
-
-    private int getRequiredXP() {
-        return (int) Math.pow(level * 10, 2);
-    }
-
-
 }

@@ -1,5 +1,6 @@
 package se.su.dsv.inte.characterTest;
 
+import org.junit.Before;
 import org.junit.Test;
 import se.su.dsv.inte.character.PlayerCharacter;
 import se.su.dsv.inte.character.Character;
@@ -258,14 +259,16 @@ public class PlayerCharacterTest {
     }
 
     @Test
-    public void useComsumableToHealPartOfCurrentHealth(){
+    public void useComsumableToHealPartOfCurrentHealth() {
         PlayerCharacter playerCharacter = new PlayerCharacter(Race.DWARF, "Player 1");
         Consumable potion = new Consumable("Health Potion");
         playerCharacter.putItemInInventory(potion);
         playerCharacter.receiveDamage(29);
         playerCharacter.useComsumableItem(potion);
         assertEquals(playerCharacter.getCurrentHitpoints(), 21);
+    }
 
+    @Test
     public void testNewPlayerCharacterIsNotTaunted(){
         PlayerCharacter newCharacter = new PlayerCharacter(Race.HOBBIT, "name");
         assertEquals(NOT_TAUNTED, newCharacter.getTauntTime());

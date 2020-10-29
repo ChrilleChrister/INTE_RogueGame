@@ -2,13 +2,14 @@ package se.su.dsv.inte.itemTest;
 
 import org.junit.Test;
 import se.su.dsv.inte.item.Weapon;
+import se.su.dsv.inte.item.WeaponType;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 public class WeaponTest {
     private static final String DEFAULT_NAME = "Frostmourne";
-    private static final String DEFAULT_WEAPON_TYPE = "Sword";
+    private static final WeaponType DEFAULT_WEAPON_TYPE = WeaponType.SWORD;
     private static final int DEFAULT_ATTACK_POINTS = 10;
 
     @Test
