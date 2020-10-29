@@ -25,15 +25,10 @@ public class TileGridTest {
         for (int i = 0; i < worldOfTiles.length; i++) {
             for (int j = 0; j < worldOfTiles[i].length; j++) {
                 worldOfTiles[i][j] = new Tile(i * 64, j * 64, TileType.GRASS);
-               
+
                     assertEquals(worldOfTiles[i][j].getTileType(), TileType.GRASS);
             }
         }
-    }
-
-    @Test
-    public void canIMoveOneStep(){
-
     }
 
 }
