@@ -2,10 +2,13 @@ package se.su.dsv.inte.combatTest;
 
 import org.junit.Test;
 
+import se.su.dsv.inte.character.Character;
 import se.su.dsv.inte.character.EnemyCharacter;
 import se.su.dsv.inte.character.PlayerCharacter;
 import se.su.dsv.inte.character.Race;
 import se.su.dsv.inte.combat.Engagement;
+import se.su.dsv.inte.item.Weapon;
+import se.su.dsv.inte.item.WeaponType;
 
 import static org.junit.Assert.*;
 
@@ -37,13 +40,23 @@ public class EngagementTest {
 
     @Test
     //Implement tiletype
-    public void testCtrSetsAttributes(){
+    public void testCtrSetsAttributesWhenEnemyIsFirstStriker(){
         Engagement engagement = new Engagement(DEFAULT_PLAYER, DEFAULT_ENEMY, DEFAULT_ENEMY);
         assertEquals(DEFAULT_PLAYER, engagement.getPlayer());
         assertEquals(DEFAULT_ENEMY, engagement.getEnemy());
         assertEquals(true, engagement.isActive());
         assertEquals(DEFAULT_ENEMY, engagement.getTurnHolder());
         assertEquals(DEFAULT_PLAYER, engagement.getTurnSitter());
+    }
+
+    @Test
+    public void testCtrSetsAttributesWhenPlayerIsFirstStriker(){
+        Engagement engagement = new Engagement(DEFAULT_PLAYER, DEFAULT_ENEMY, DEFAULT_PLAYER);
+        assertEquals(DEFAULT_PLAYER, engagement.getPlayer());
+        assertEquals(DEFAULT_ENEMY, engagement.getEnemy());
+        assertEquals(true, engagement.isActive());
+        assertEquals(DEFAULT_PLAYER, engagement.getTurnHolder());
+        assertEquals(DEFAULT_ENEMY, engagement.getTurnSitter());
     }
 
     @Test
@@ -174,5 +187,32 @@ public class EngagementTest {
     public void testPlayerTauntTimeIsOneAfterTaunted(){
         freshEngagement.taunt(freshPlayer);
         assertEquals(DECREASED_TAUNT_TIME, freshPlayer.getTauntTime());
+    }
+
+    @Test
+    public void testMissedStunSwapTurns(){
+        DEFAULT_ENGAGEMENT.setTurnHolder(DEFAULT_ENEMY);
+        DEFAULT_ENGAGEMENT.setTurnSitter(freshPlayer);
+        DEFAULT_ENGAGEMENT.stun(freshPlayer, MIN_HIT_CHANCE);
+
+        assertEquals(freshPlayer, DEFAULT_ENGAGEMENT.getTurnHolder());
+    }
+
+    //From state machine
+    @Test
+    public void testPlayerGetsFirstStrikeAndKillsEnemyInOneTurn(){
+        int levelOne = 1;
+        int agrFive = 5;
+        int highAttackPoints = 100;
+        PlayerCharacter player = new PlayerCharacter(Race.HOBBIT, "Player");
+        Weapon oneHitWeapon = new Weapon("Axe", WeaponType.AXE, highAttackPoints);
+        player.putItemInInventory(oneHitWeapon);
+        player.equipItem(oneHitWeapon);
+        EnemyCharacter enemy = new EnemyCharacter(Race.HOBBIT, levelOne, agrFive);
+        Character firstStriker = player;
+        Engagement engagement = new Engagement(player, enemy, firstStriker);
+        engagement.attack(player.getStats(), enemy, MAX_HIT_CHANCE);
+
+        assertFalse(enemy.isAlive());
     }
 }

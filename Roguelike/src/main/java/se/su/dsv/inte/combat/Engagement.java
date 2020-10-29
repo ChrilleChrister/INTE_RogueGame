@@ -19,7 +19,7 @@ public class Engagement {
         this.turnHolder = firstStriker;
         active = true;
         if(firstStriker.equals(player)){
-            this.turnSitter = enemy;
+            this.turnSitter = enemy; // icke täckt
         }
         else{
             this.turnSitter = player;
@@ -88,7 +88,7 @@ public class Engagement {
                 target.setStunned();
             }
             else{
-                swapTurns();
+                swapTurns(); // icke täckt
             }
         }
     }
