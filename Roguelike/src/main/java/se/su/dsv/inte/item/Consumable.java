@@ -6,22 +6,9 @@ public class Consumable extends Item {
     private int stackCounter = 1;
 
 
-    public Consumable(String name, int restore){
+    public Consumable(String name){
         super(name);
-        this.restorePoints = restore;
-    }
-
-    public Consumable(String name) {
-        super(name);
-    }
-
-
-    public void addOneItemToStack(){
-        stackCounter++;
-    }
-
-    public void removeOneItemFromStack(){
-        stackCounter--;
+        this.restorePoints = 20;
     }
 
     public int getStackCounter(){
@@ -32,9 +19,33 @@ public class Consumable extends Item {
         return restorePoints;
     }
 
+    public void addOneItemToStack(){
+        stackCounter++;
+    }
+
+    public void removeOneItemFromStack(){
+        stackCounter--;
+    }
+
+
+
+
+
 
     @Override
     public String toString() {
         return null;
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object instanceof Consumable) {
+            Consumable other = (Consumable) object;
+            return other.getName().equals(getName()) && other.restorePoints == restorePoints &&
+                    other.stackCounter == stackCounter;
+        }
+
+        return false;
+    }
+
 }

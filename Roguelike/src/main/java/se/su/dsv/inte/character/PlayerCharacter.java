@@ -1,15 +1,23 @@
 package se.su.dsv.inte.character;
 
 
+import se.su.dsv.inte.item.Consumable;
 import se.su.dsv.inte.item.Item;
 import se.su.dsv.inte.item.Outfit;
 import se.su.dsv.inte.item.Weapon;
+import se.su.dsv.inte.quest.QuestManager;
+
+import java.util.NoSuchElementException;
 
 public class PlayerCharacter extends Character {
     private int currentXP;
     private Item[] inventory;
     private Item weapon;
     private Item outfit;
+    private final int INVENTORY_SIZE_DWARF = 30;
+    private final int INVENTORY_SIZE_HOBBIT = 20;
+
+    private final QuestManager questManager;
     private int tauntTime;
 
     public int getTauntTime(){
@@ -28,70 +36,27 @@ public class PlayerCharacter extends Character {
         super(race, 1, playerName);
         switch (race.getName()) {
             case "Dwarf":
-                inventory = new Item[30];
+                inventory = new Item[INVENTORY_SIZE_DWARF];
                 break;
             case "Hobbit":
-                inventory = new Item[20];
+                inventory = new Item[INVENTORY_SIZE_HOBBIT];
                 break;
         }
         tauntTime = 0;
-    }
-
-    public String putItemInInventory(Item item) {
-        if (checkInventoryIsFull()) {
-            return "Inventory is full";
-        } else {
-            for (int i = 0; i < inventory.length; i++) {
-                if (inventory[i] == null) {
-                    inventory[i] = item;
-                    break;
-                }
-            }
-            return item.getName() + " Added to Inventory";
-        }
-    }
-
-    public boolean checkInventoryIsFull() {
-        int spaceCounter = 0;
-        for (int i = 0; i < inventory.length; i++) {
-            if (inventory[i] != null) {
-                spaceCounter++;
-            }
-        }
-        if (spaceCounter == inventory.length) {
-            return true;
-        } else {
-            return false;
-        }
+        questManager = new QuestManager(this);
 
     }
 
-    //problem med denna metod är att varje gång man vill ta bort nåt kommer den även sätta om alla null till null igen...
-    public void removeItemFromInventory(Item item) {
-        for (int i = 0; i < inventory.length; i++) {
-            if (inventory[i] == null || inventory[i].getName().equals(item.getName())) {
-                inventory[i] = null;
-            }
-        }
+    public Item[] getInventory() {
+        return inventory;
     }
 
-    //gör om och kolla om ett item redan finns equipat. och eventuellt byt plats på dem och skicka tillbaka det gamla item till inventory
-    public void equipItem(Item item) {
-        for (int i = 0; i < inventory.length; i++) {
-            if (inventory[i] == null || inventory[i].getName().equals(item.getName())) {
-                if (item instanceof Weapon) {
-                    weapon = inventory[i];
-                    stats.changeBaseAttackPoints((Weapon) weapon);
-                    break;
-                } else if (item instanceof Outfit) {
-                    outfit = inventory[i];
-                    stats.changeBaseDefensePoints((Outfit) outfit);
-                    break;
-                } else {
-                    System.out.println("Item is not in your inventory");
-                }
-            }
-        }
+    public int getXP() {
+        return currentXP;
+    }
+
+    private int getRequiredXP() {
+        return (int) Math.pow(level * 10, 2);
     }
 
     public Item getWeapon() {
@@ -102,22 +67,115 @@ public class PlayerCharacter extends Character {
         return outfit;
     }
 
-    // denna metod används inte just nu
-    public void openInventory(Item[] inventory) {
+
+
+
+
+    
+
+    public QuestManager getQuestManager() {
+        return questManager;
+    }
+
+    public boolean inventoryContains(Item item) {
+        for (Item i : inventory) {
+            if (i != null && i.getName().equals(item.getName())) { //TODO: fix equals for item
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+    public void putItemInInventory(Item item) {
+        if (checkInventoryIsFull()) {
+            throw new ArrayIndexOutOfBoundsException("Inventory is Full");
+        } else {
+            for (int i = 0; i < inventory.length; i++) {
+                if (inventory[i] == null) {
+                    inventory[i] = item;
+                    break;
+                }
+            }
+
+            questManager.updateItemAcquisitionStatus(item);
+
+        }
+    }
+
+    public boolean checkInventoryIsFull() {
+        int spaceCounter = 0;
         for (int i = 0; i < inventory.length; i++) {
             if (inventory[i] != null) {
-                System.out.println("Spot " + (i + 1) + " contains Item: " + inventory[i].toString());
-            } else {
-                System.out.println("Spot " + (i + 1) + " is empty");
+                spaceCounter++;
+            }
+        }
+        return spaceCounter == inventory.length;
+    }
+
+
+    public void removeItemFromInventory(Item item) {
+        for (int i = 0; i < inventory.length; i++) {
+            if (inventory[i] == null) {
+                continue;
+            }
+            if (inventory[i].getName().equals(item.getName())) {
+                inventory[i] = null;
+                questManager.updateItemAcquisitionStatus(item);
             }
         }
     }
 
-    public Item[] getInventory() {
-        return inventory;
+
+
+    public void equipItem(Item item) {
+        for (Item items : inventory) {
+            if (items == null) {
+                continue;
+            }
+            if (item.getName().equals(items.getName())) {
+
+                if (item instanceof Weapon) {
+                    if (weapon != null) {
+                        putItemInInventory(weapon);
+                        stats.unEquipChangeBaseAttackPoints((Weapon) weapon);
+                    }
+                    weapon = items;
+                    stats.equipChangeBaseAttackPoints((Weapon) weapon);
+                    removeItemFromInventory(weapon);
+                    break;
+                } else if (item instanceof Outfit) {
+                    if (outfit != null) {
+                        putItemInInventory(outfit);
+                        stats.unEquipChangeBaseDefensePoints((Outfit) outfit);
+                    }
+                    outfit = items;
+                    stats.equipChangeBaseDefensePoints((Outfit) outfit);
+                    removeItemFromInventory(outfit);
+                    break;
+                }
+            }else {
+                throw new NoSuchElementException("Item is not in inventory");
+            }
+        }
     }
 
-    //negative xp when player dies? not checked or implemented
+
+    public void useComsumableItem(Consumable potion) {
+        for (Item items : inventory) {
+            if (items == null) {
+                continue;
+            }
+            if (items.getName().equals(potion.getName())) {
+                potion.removeOneItemFromStack();
+                heal(potion.getRestorePoints());
+                if (potion.getStackCounter() == 0) {
+                    removeItemFromInventory(potion);
+                }
+            }
+        }
+    }
+
     public void addXP(int xpToAdd) {
         if(level == 100){return;}
         currentXP += xpToAdd;
@@ -128,6 +186,7 @@ public class PlayerCharacter extends Character {
             required = levelUp(required);
         }
     }
+
 
     //controll this is covered
     public int levelUp(int required){
@@ -144,5 +203,6 @@ public class PlayerCharacter extends Character {
     private int getRequiredXP() {
         return (int) Math.pow(level * 10, 2);
     }
+
 
 }
