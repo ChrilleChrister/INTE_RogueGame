@@ -135,16 +135,24 @@ public class PlayerCharacter extends Character {
         return inventory;
     }
 
+    //negative xp when player dies? not checked or implemented
     public void addXP(int xpToAdd) {
+        if(level == 100){return;}
         currentXP += xpToAdd;
         int required = getRequiredXP();
 
         while (currentXP >= required) {
-            level++;
-            stats = new Stats(getRace(), level);
-            currentXP -= required;
-            required = getRequiredXP();
+            if(level == 100){return;}
+            required = levelUp(required);
         }
+    }
+
+    //controll this is covered
+    public int levelUp(int required){
+        level++;
+        stats.updateStats(this.getRace(), this.level);
+        currentXP -= required;
+        return required = getRequiredXP();
     }
 
     public int getXP() {

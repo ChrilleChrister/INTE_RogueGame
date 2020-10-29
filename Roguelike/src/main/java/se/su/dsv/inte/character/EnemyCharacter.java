@@ -3,9 +3,9 @@ package se.su.dsv.inte.character;
 public class EnemyCharacter extends Character{
 
     /**
-     * Borde ha något slags loottable
-     * behavior, exempelvis aggressive eller passive
-     * Abilities, har den stuns eller liknande
+     * Should have loottable
+     * behavior, ex aggressive or passive
+     * Abilities, stuns or something
      */
 
     private int aggressiveRange;
@@ -18,7 +18,7 @@ public class EnemyCharacter extends Character{
         this.aggressiveRange = aggressiveRange;
     }
 
-    //Kommer antagligen inte användas, kanske ta bort?
+    //Not used
     public int getAggressiveRange(){
         return aggressiveRange;
     }
