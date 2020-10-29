@@ -4,56 +4,58 @@ import java.util.Random;
 
 //Creates the map/world by creating an array of arrays of tiles, worldOfTiles.
 public class TileGrid {
+    private final int worldWidth;
+    private final int worldHeight;
+    protected final int MAX_NUMBER_OF_MOUNTAIN_TILES;
+    protected int currentNumberOfMountainTiles;
     public Tile[][] worldOfTiles;
 
-
-    public TileGrid() {
-        worldOfTiles = new Tile[3][3];
-        for (int i = 0; i < worldOfTiles.length; i++) {
-            for (int j = 0; j < worldOfTiles[i].length; j++) {
-                worldOfTiles[i][j] = new Tile(i * 64, j * 64, makeRandomTileTypesInTheTileGrid());
-            }
-        }
-        preventMoreThanAThirOfTilesToBeMountain();
-        this.worldOfTiles = worldOfTiles;
-    }
-
-    //The worldOfTiles have a greater chance to contain more grass than snow and mountain.
-    public TileType makeRandomTileTypesInTheTileGrid() {
-        Random randTile = new Random();
-        int upperbound = 3;
-        int int_rand = randTile.nextInt(upperbound);
-
-        switch (int_rand) {
-            case 0:
-                return TileType.GRASS;
-            case 1:
-                return TileType.GRASS;
-            case 2:
-                return TileType.SNOW;
-            case 3:
-                return TileType.MOUNTAIN;
-            default:
-                throw new IllegalArgumentException("Random number can only be 0-3");
-        }
-    }
-
-    public void preventMoreThanAThirOfTilesToBeMountain() {
-        int countMountainTiles = 0;
-        for (int i = 0; i < worldOfTiles.length; i++) {
-            for (int j = 0; j < worldOfTiles[i].length; j++) {
-                if (worldOfTiles[i][j].getTileType().equals(TileType.MOUNTAIN)) {
-                    countMountainTiles++;
-                }
-            }
-            //If Mountain tiles are more than a third of all tiles,
-            if (countMountainTiles > ((worldOfTiles.length * worldOfTiles[i].length) / 3)) ; //
-            worldOfTiles = null;
-        }
+    public TileGrid(int worldWidth, int worldHeight) {
+        if (worldWidth < 1 || worldHeight < 1)
+            throw new IllegalArgumentException("World size too small");
+        this.worldWidth = worldWidth;
+        this.worldHeight = worldHeight;
+        MAX_NUMBER_OF_MOUNTAIN_TILES = 3;
+        worldOfTiles = generateWorld();
     }
 
     public Tile[][] getWorldOfTiles() {
         return worldOfTiles;
     }
 
+    private Tile[][] generateWorld() {
+        Tile[][] world = new Tile[worldWidth][worldHeight];
+        for (int i = 0; i < world.length; i++) { // Y
+            for (int j = 0; j < world[i].length; j++) { // X
+
+                world[i][j] = new Tile(i * 64, j * 64, makeRandomTileTypesInTheTileGrid(generateRandomNumber()));
+            }
+        }
+        return world;
+    }
+
+    protected int generateRandomNumber(){
+        Random randTile = new Random();
+        int upperbound = 4;
+        return randTile.nextInt(upperbound);
+    }
+
+    //The worldOfTiles have a greater chance to contain more grass than snow and mountain.
+    public TileType makeRandomTileTypesInTheTileGrid(int tileType) {
+        switch (tileType) {
+            case 0:
+            case 1:
+                return TileType.GRASS;
+            case 2:
+                return TileType.SNOW;
+            case 3:
+                if (currentNumberOfMountainTiles < MAX_NUMBER_OF_MOUNTAIN_TILES) {
+                    currentNumberOfMountainTiles++;
+                    return TileType.MOUNTAIN;
+                }
+                return TileType.GRASS;
+            default:
+                throw new IllegalArgumentException();
+        }
+    }
 }
