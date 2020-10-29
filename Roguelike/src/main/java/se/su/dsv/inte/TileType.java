@@ -1,5 +1,7 @@
 package se.su.dsv.inte;
 
+import java.util.Random;
+
 public enum TileType {
 
     //Can grass get snow on it?
@@ -30,6 +32,8 @@ public enum TileType {
     public boolean getIfTransversive(){
         return transversive;
     }
+
+
 
 
 }
