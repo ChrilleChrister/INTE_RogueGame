@@ -30,8 +30,8 @@ public class TileGridTest {
                 worldOfTiles[i][j] = new Tile(i * 64, j * 64, TileType.GRASS);
 
                     assertEquals(worldOfTiles[i][j].getTileType(), TileType.GRASS);
-                    assertEquals(worldOfTiles[i][j].getxPosition(), i * 64);
-                    assertEquals(worldOfTiles[i][j].getxPosition(), j * 64);
+                    assertEquals(worldOfTiles[i][j].getxPosition(), (i * 64));
+                    assertEquals(worldOfTiles[i][j].getyPosition(), (j * 64));
             }
         }
     }
@@ -45,8 +45,10 @@ public class TileGridTest {
 
                 assertEquals(worldOfTiles[i][j].getTileType(), TileType.SNOW);
                 assertEquals(worldOfTiles[i][j].getxPosition(), i * 64);
-                assertEquals(worldOfTiles[i][j].getxPosition(), j * 64);
+                assertEquals(worldOfTiles[i][j].getyPosition(), j * 64);
             }
+
+
         }
     }
 //TODO is it possble to test that 2/3 of map is not of mountain tiles?
@@ -57,7 +59,7 @@ public class TileGridTest {
             for (int j = 0; j < worldOfTiles[i].length; j++) {
                 worldOfTiles[i][j] = new Tile(i * 64, j * 64, TileType.MOUNTAIN);
                 assertEquals(worldOfTiles[i][j].getxPosition(), i * 64);
-                assertEquals(worldOfTiles[i][j].getxPosition(), j * 64);
+                assertEquals(worldOfTiles[i][j].getyPosition(), j * 64);
 
                 assertEquals(worldOfTiles[i][j].getTileType(), TileType.MOUNTAIN);
             }
