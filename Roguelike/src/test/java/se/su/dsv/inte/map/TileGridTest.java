@@ -10,20 +10,26 @@ public class TileGridTest {
     private static final int SNOW_TILE = 2;
     private static final int MOUNTAIN_TILE = 3;
 
-    private static final int width = 3;
-    private static final int height = 3;
-    private static final TileGrid DEFAULT_GRID = new TileGrid(width, height);
+    private static final int WIDTH = 3;
+    private static final int HEIGHT = 3;
+    private static final TileGrid DEFAULT_GRID = new TileGrid(WIDTH, HEIGHT);
     public Tile[][] worldOfTiles;
 
     @Test (expected = IllegalArgumentException.class)
     public void testWorldSizeTooSmallThrowsIAE() {
-        new TileGrid(0, height);
+        new TileGrid(0, HEIGHT);
     }
 
     @Test //TODO Decide if test is useful
     public void testLengthOfArraysOfTiles() {
-        assertEquals(width, DEFAULT_GRID.getWorldOfTiles().length);
-        assertEquals(height, DEFAULT_GRID.getWorldOfTiles()[0].length);
+        assertEquals(WIDTH, DEFAULT_GRID.getWorldOfTiles().length);
+        assertEquals(HEIGHT, DEFAULT_GRID.getWorldOfTiles()[0].length);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testIllegalNumberThrowsIAE() {
+        TileGrid tg = new TileGrid(WIDTH, HEIGHT);
+        tg.makeRandomTileTypesInTheTileGrid(5);
     }
 
     /*

@@ -27,16 +27,6 @@ public class Consumable extends Item {
         stackCounter--;
     }
 
-
-
-
-
-
-    @Override
-    public String toString() {
-        return null;
-    }
-
     @Override
     public boolean equals(Object object) {
         if (object instanceof Consumable) {

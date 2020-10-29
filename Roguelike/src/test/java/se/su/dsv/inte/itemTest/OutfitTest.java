@@ -13,6 +13,14 @@ public class OutfitTest {
     private static final int DEFAULT_DEFENSE_POINTS = 10;
 
     @Test
+    public void testOutfitCtrSetsAttributes() {
+        Outfit o = new Outfit(DEFAULT_NAME, DEFAULT_OUTFIT_TYPE, DEFAULT_DEFENSE_POINTS);
+        assertEquals(DEFAULT_NAME, o.getName());
+        assertEquals(DEFAULT_OUTFIT_TYPE, o.getOutfitType());
+        assertEquals(DEFAULT_DEFENSE_POINTS, o.getDefensePoints());
+    }
+
+    @Test
     public void testOutfitsWithIdenticalAttributesAreEqual() {
         assertEquals(new Outfit(DEFAULT_NAME, DEFAULT_OUTFIT_TYPE, DEFAULT_DEFENSE_POINTS),
                 new Outfit(DEFAULT_NAME, DEFAULT_OUTFIT_TYPE, DEFAULT_DEFENSE_POINTS));

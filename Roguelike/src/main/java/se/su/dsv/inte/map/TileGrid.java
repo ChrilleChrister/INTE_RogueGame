@@ -41,7 +41,8 @@ public class TileGrid {
     }
 
     //The worldOfTiles have a greater chance to contain more grass than snow and mountain.
-    public TileType makeRandomTileTypesInTheTileGrid(int tileType) {
+    protected TileType makeRandomTileTypesInTheTileGrid(int tileType) {
+        System.out.println("tileType: " + tileType);
         switch (tileType) {
             case 0:
             case 1:
@@ -55,6 +56,7 @@ public class TileGrid {
                 }
                 return TileType.GRASS;
             default:
+                System.out.println("throwing shit");
                 throw new IllegalArgumentException();
         }
     }

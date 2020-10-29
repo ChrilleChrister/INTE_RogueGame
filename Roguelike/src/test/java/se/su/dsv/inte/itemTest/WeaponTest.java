@@ -13,6 +13,14 @@ public class WeaponTest {
     private static final int DEFAULT_ATTACK_POINTS = 10;
 
     @Test
+    public void testWeaponCtrSetsAttributes() {
+        Weapon w = new Weapon(DEFAULT_NAME, DEFAULT_WEAPON_TYPE, DEFAULT_ATTACK_POINTS);
+        assertEquals(DEFAULT_NAME, w.getName());
+        assertEquals(DEFAULT_WEAPON_TYPE, w.getWeaponType());
+        assertEquals(DEFAULT_ATTACK_POINTS, w.getAttackPoints());
+    }
+
+    @Test
     public void testWeaponsWithIdenticalAttributesAreEqual() {
         assertEquals(new Weapon(DEFAULT_NAME, DEFAULT_WEAPON_TYPE, DEFAULT_ATTACK_POINTS),
                 new Weapon(DEFAULT_NAME, DEFAULT_WEAPON_TYPE, DEFAULT_ATTACK_POINTS));

@@ -234,6 +234,21 @@ public class PlayerCharacterTest {
     }
 
     @Test
+    public void testEquipOutfitTwiceToSeeIfEquippedOutfitSwapsAndTheOtherGoesBackToInventoryAndStatsUpdated(){
+        PlayerCharacter playerCharacter = new PlayerCharacter(Race.HOBBIT, "Player 1");
+        Item outfit = new Outfit("Bilbo Armor", OutfitType.PLATE, 25);
+        Item outfit2 = new Outfit("Frodo Armor", OutfitType.MITHRIL, 55);
+        playerCharacter.putItemInInventory(outfit);
+        playerCharacter.putItemInInventory(outfit2);
+        playerCharacter.equipItem(outfit);
+        assertEquals(playerCharacter.getStats().getBaseDefensePoints(), 29 );
+        playerCharacter.equipItem(outfit2);
+        assertEquals(playerCharacter.getOutfit().getName(), "Frodo Armor");
+        assertEquals(playerCharacter.getInventory()[0].getName(), "Bilbo Armor");
+        assertEquals(playerCharacter.getStats().getBaseDefensePoints(), 59);
+    }
+
+    @Test
     public void useComsumableItemAndRestoreHPCurrentHPIsFullAndCheckComsumableStack(){
         PlayerCharacter playerCharacter = new PlayerCharacter(Race.HOBBIT, "Player 1");
         Consumable potion = new Consumable("Health Potion");
