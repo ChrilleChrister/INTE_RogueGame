@@ -12,7 +12,19 @@ public class PlayerCharacter extends Character {
     private Item weapon;
     private Item outfit;
     private final QuestManager questManager;
+    private int tauntTime;
 
+    public int getTauntTime(){
+        return tauntTime;
+    }
+
+    public void setTaunted(){
+        tauntTime = 2;
+    }
+
+    public void decreaseTauntTime(){
+        tauntTime = Math.max(tauntTime - 1, 0);
+    }
 
     public PlayerCharacter(Race race, String playerName) {
         super(race, 1, playerName);
@@ -24,6 +36,7 @@ public class PlayerCharacter extends Character {
                 inventory = new Item[20];
                 break;
         }
+        tauntTime = 0;
         questManager = new QuestManager(this);
     }
 
@@ -70,7 +83,6 @@ public class PlayerCharacter extends Character {
 
     }
 
-
     //problem med denna metod är att varje gång man vill ta bort nåt kommer den även sätta om alla null till null igen...
     public void removeItemFromInventory(Item item) {
         for (int i = 0; i < inventory.length; i++) {
@@ -80,7 +92,6 @@ public class PlayerCharacter extends Character {
             }
         }
     }
-
 
     //gör om och kolla om ett item redan finns equipat. och eventuellt byt plats på dem och skicka tillbaka det gamla item till inventory
     public void equipItem(Item item) {
@@ -109,8 +120,6 @@ public class PlayerCharacter extends Character {
         return outfit;
     }
 
-
-
     // denna metod används inte just nu
     public void openInventory(Item[] inventory) {
         for (int i = 0; i < inventory.length; i++) {
@@ -122,11 +131,9 @@ public class PlayerCharacter extends Character {
         }
     }
 
-
     public Item[] getInventory() {
         return inventory;
     }
-
 
     public void addXP(int xpToAdd) {
         currentXP += xpToAdd;
