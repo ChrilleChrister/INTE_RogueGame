@@ -1,4 +1,4 @@
-package se.su.dsv.inte;
+package se.su.dsv.inte.map;
 
 import java.util.Random;
 
@@ -51,4 +51,9 @@ public class TileGrid {
             worldOfTiles = null;
         }
     }
+
+    public Tile[][] getWorldOfTiles() {
+        return worldOfTiles;
+    }
+
 }
