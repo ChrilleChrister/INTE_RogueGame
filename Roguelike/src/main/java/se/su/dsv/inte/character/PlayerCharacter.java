@@ -96,7 +96,7 @@ public class PlayerCharacter extends Character {
     //gör om och kolla om ett item redan finns equipat. och eventuellt byt plats på dem och skicka tillbaka det gamla item till inventory
     public void equipItem(Item item) {
         for (int i = 0; i < inventory.length; i++) {
-            if (inventory[i] == null || inventory[i].getName().equals(item.getName())) {
+            if (inventory[i] != null && inventory[i].getName().equals(item.getName())) {
                 if (item instanceof Weapon) {
                     weapon = inventory[i];
                     stats.changeBaseAttackPoints((Weapon) weapon);
