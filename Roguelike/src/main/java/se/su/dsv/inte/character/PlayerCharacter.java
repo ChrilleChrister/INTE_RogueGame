@@ -6,6 +6,8 @@ import se.su.dsv.inte.item.Item;
 import se.su.dsv.inte.item.Outfit;
 import se.su.dsv.inte.item.Weapon;
 
+import java.util.NoSuchElementException;
+
 public class PlayerCharacter extends Character {
     private int currentXP;
     private Item[] inventory;
@@ -47,17 +49,18 @@ public class PlayerCharacter extends Character {
     public Item getOutfit() {
         return outfit;
     }
-    public boolean isTaunted(){
+
+    public boolean isTaunted() {
         return taunted;
     }
 
-    public void setTaunted(boolean tauntedStatus){
+    public void setTaunted(boolean tauntedStatus) {
         taunted = tauntedStatus;
     }
 
-    public String putItemInInventory(Item item) {
+    public void putItemInInventory(Item item) {
         if (checkInventoryIsFull()) {
-            return "Inventory is full";
+            throw new ArrayIndexOutOfBoundsException("Inventory is Full");
         } else {
             for (int i = 0; i < inventory.length; i++) {
                 if (inventory[i] == null) {
@@ -65,7 +68,6 @@ public class PlayerCharacter extends Character {
                     break;
                 }
             }
-            return item.getName() + " Added to Inventory";
         }
     }
 
@@ -85,22 +87,21 @@ public class PlayerCharacter extends Character {
             if (inventory[i] == null) {
                 continue;
             }
-            if(inventory[i].getName().equals(item.getName())){
+            if (inventory[i].getName().equals(item.getName())) {
                 inventory[i] = null;
             }
         }
     }
 
 
-
     public void equipItem(Item item) {
         for (Item items : inventory) {
-            if(items == null){
+            if (items == null) {
                 continue;
             }
-            if (items.getName().equals(item.getName())) {
+            if (item.getName().equals(items.getName())) {
                 if (item instanceof Weapon) {
-                    if(weapon != null){
+                    if (weapon != null) {
                         putItemInInventory(weapon);
                         stats.unEquipChangeBaseAttackPoints((Weapon) weapon);
                     }
@@ -109,7 +110,7 @@ public class PlayerCharacter extends Character {
                     removeItemFromInventory(weapon);
                     break;
                 } else if (item instanceof Outfit) {
-                    if(outfit != null){
+                    if (outfit != null) {
                         putItemInInventory(outfit);
                         stats.unEquipChangeBaseDefensePoints((Outfit) outfit);
                     }
@@ -117,9 +118,9 @@ public class PlayerCharacter extends Character {
                     stats.equipChangeBaseDefensePoints((Outfit) outfit);
                     removeItemFromInventory(outfit);
                     break;
-                } else {
-                    System.out.println("Item is not in your inventory");
                 }
+            }else {
+                throw new NoSuchElementException("Item is not in inventory");
             }
         }
     }
@@ -132,7 +133,7 @@ public class PlayerCharacter extends Character {
             if (items.getName().equals(potion.getName())) {
                 potion.removeOneItemFromStack();
                 heal(potion.getRestorePoints());
-                if(potion.getStackCounter() == 0){
+                if (potion.getStackCounter() == 0) {
                     removeItemFromInventory(potion);
                 }
             }

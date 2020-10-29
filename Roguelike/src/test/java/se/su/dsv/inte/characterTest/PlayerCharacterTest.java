@@ -6,6 +6,8 @@ import se.su.dsv.inte.character.Character;
 import se.su.dsv.inte.character.Race;
 import se.su.dsv.inte.item.*;
 
+import java.util.NoSuchElementException;
+
 import static org.junit.Assert.*;
 
 public class PlayerCharacterTest {
@@ -145,14 +147,14 @@ public class PlayerCharacterTest {
         assertTrue(playerCharacter.checkInventoryIsFull());
     }
 
-    @Test
+    @Test(expected = ArrayIndexOutOfBoundsException.class)
     public void tryToAddItemWhenInventoryIsFull(){
         PlayerCharacter playerCharacter = new PlayerCharacter(Race.DWARF, "Player 1");
-
+        Outfit outfit = new Outfit("Gandalf's Robe", OutfitType.CLOTH, 555);
         for(int i = 0; i<playerCharacter.getInventory().length; i++){
             playerCharacter.putItemInInventory(new Weapon("...and My Axe", WeaponType.AXE, 10));
         }
-        assertEquals(playerCharacter.putItemInInventory(new Outfit("Gandalf's Robe", OutfitType.CLOTH, 555)), "Inventory is full");
+        playerCharacter.putItemInInventory(outfit);
     }
 
     @Test
@@ -169,12 +171,13 @@ public class PlayerCharacterTest {
         assertEquals(playerCharacter.getOutfit().getName(), "Bilbos Armor");
     }
 
-    @Test
+    @Test(expected = NoSuchElementException.class)
     public void testEquipItemNotInInventory(){
         PlayerCharacter playerCharacter = new PlayerCharacter(Race.HOBBIT, "Player 1");
         Item weapon = new Weapon("Sting", WeaponType.SWORD, 25);
+        Item weapon2 = new Weapon("Axe", WeaponType.AXE, 30);
+        playerCharacter.putItemInInventory(weapon2);
         playerCharacter.equipItem(weapon);
-        assertEquals(playerCharacter.getWeapon(), null);
     }
 
     @Test
@@ -204,13 +207,13 @@ public class PlayerCharacterTest {
         PlayerCharacter playerCharacter = new PlayerCharacter(Race.HOBBIT, "Player 1");
         Item weapon = new Weapon("Sting", WeaponType.SWORD, 25);
         Item weapon2 = new Weapon("Andüril", WeaponType.SWORD, 55);
-        playerCharacter.putItemInInventory(weapon2);
         playerCharacter.putItemInInventory(weapon);
+        playerCharacter.putItemInInventory(weapon2);
         playerCharacter.equipItem(weapon);
         assertEquals(playerCharacter.getStats().getBaseAttackPoints(), 27 );
         playerCharacter.equipItem(weapon2);
         assertEquals(playerCharacter.getWeapon().getName(), "Andüril");
-        assertEquals(playerCharacter.getInventory()[1].getName(), "Sting");
+        assertEquals(playerCharacter.getInventory()[0].getName(), "Sting");
         assertEquals(playerCharacter.getStats().getBaseAttackPoints(), 57);
     }
 
@@ -247,7 +250,6 @@ public class PlayerCharacterTest {
         playerCharacter.receiveDamage(29);
         playerCharacter.useComsumableItem(potion);
         assertEquals(playerCharacter.getCurrentHitpoints(), 21);
-
     }
 
 
