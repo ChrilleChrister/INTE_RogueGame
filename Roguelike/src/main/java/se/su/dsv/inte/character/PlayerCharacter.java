@@ -5,6 +5,7 @@ import se.su.dsv.inte.item.Consumable;
 import se.su.dsv.inte.item.Item;
 import se.su.dsv.inte.item.Outfit;
 import se.su.dsv.inte.item.Weapon;
+import se.su.dsv.inte.quest.QuestManager;
 
 import java.util.NoSuchElementException;
 
@@ -15,8 +16,21 @@ public class PlayerCharacter extends Character {
     private Item outfit;
     private final int INVENTORY_SIZE_DWARF = 30;
     private final int INVENTORY_SIZE_HOBBIT = 20;
-    private boolean taunted;
 
+    private final QuestManager questManager;
+    private int tauntTime;
+
+    public int getTauntTime(){
+        return tauntTime;
+    }
+
+    public void setTaunted(){
+        tauntTime = 2;
+    }
+
+    public void decreaseTauntTime(){
+        tauntTime = Math.max(tauntTime - 1, 0);
+    }
 
     public PlayerCharacter(Race race, String playerName) {
         super(race, 1, playerName);
@@ -28,6 +42,9 @@ public class PlayerCharacter extends Character {
                 inventory = new Item[INVENTORY_SIZE_HOBBIT];
                 break;
         }
+        tauntTime = 0;
+        questManager = new QuestManager(this);
+
     }
 
     public Item[] getInventory() {
@@ -50,12 +67,24 @@ public class PlayerCharacter extends Character {
         return outfit;
     }
 
-    public boolean isTaunted() {
-        return taunted;
+
+
+
+
+    
+
+    public QuestManager getQuestManager() {
+        return questManager;
     }
 
-    public void setTaunted(boolean tauntedStatus) {
-        taunted = tauntedStatus;
+    public boolean inventoryContains(Item item) {
+        for (Item i : inventory) {
+            if (i != null && i.getName().equals(item.getName())) { //TODO: fix equals for item
+                return true;
+            }
+        }
+        return false;
+
     }
 
     public void putItemInInventory(Item item) {
@@ -68,6 +97,9 @@ public class PlayerCharacter extends Character {
                     break;
                 }
             }
+
+            questManager.updateItemAcquisitionStatus(item);
+
         }
     }
 
@@ -89,9 +121,11 @@ public class PlayerCharacter extends Character {
             }
             if (inventory[i].getName().equals(item.getName())) {
                 inventory[i] = null;
+                questManager.updateItemAcquisitionStatus(item);
             }
         }
     }
+
 
 
     public void equipItem(Item item) {
@@ -100,6 +134,7 @@ public class PlayerCharacter extends Character {
                 continue;
             }
             if (item.getName().equals(items.getName())) {
+
                 if (item instanceof Weapon) {
                     if (weapon != null) {
                         putItemInInventory(weapon);
@@ -125,6 +160,7 @@ public class PlayerCharacter extends Character {
         }
     }
 
+
     public void useComsumableItem(Consumable potion) {
         for (Item items : inventory) {
             if (items == null) {
@@ -141,15 +177,31 @@ public class PlayerCharacter extends Character {
     }
 
     public void addXP(int xpToAdd) {
+        if(level == 100){return;}
         currentXP += xpToAdd;
         int required = getRequiredXP();
 
         while (currentXP >= required) {
-            level++;
-            stats = new Stats(getRace(), level);
-            currentXP -= required;
-            required = getRequiredXP();
+            if(level == 100){return;}
+            required = levelUp(required);
         }
+    }
+
+
+    //controll this is covered
+    public int levelUp(int required){
+        level++;
+        stats.updateStats(this.getRace(), this.level);
+        currentXP -= required;
+        return required = getRequiredXP();
+    }
+
+    public int getXP() {
+        return currentXP;
+    }
+
+    private int getRequiredXP() {
+        return (int) Math.pow(level * 10, 2);
     }
 
 

@@ -12,6 +12,20 @@ import static org.junit.Assert.*;
 
 public class PlayerCharacterTest {
 
+
+    private static final int MAX_LEVEL = 100000000;
+    private static final int LEVEL_HUNDRED = 100;
+    private static final int NOT_TAUNTED = 0;
+    private static final int MAX_TAUNT_TIME = 2;
+    private static final int DECREASED_TAUNT_TIME = 1;
+    private static final int ZERO = 0;
+    private PlayerCharacter freshPlayerCharacter;
+
+    @Before
+    public void initialize(){
+        freshPlayerCharacter = new PlayerCharacter(Race.HOBBIT, "freshPlayerCharacter");
+    }
+
     @Test
     public void testAddFiftyXPToPlayerLevelOne() {
         PlayerCharacter playerCharacter = new PlayerCharacter(Race.HOBBIT, "Player 1");
@@ -194,6 +208,7 @@ public class PlayerCharacterTest {
     }
 
     @Test
+
     public void testEquipWeaponAndWeaponRemovedFromInventory(){
         PlayerCharacter playerCharacter = new PlayerCharacter(Race.HOBBIT, "Player 1");
         Item weapon = new Weapon("Sting", WeaponType.SWORD, 25);
@@ -250,7 +265,36 @@ public class PlayerCharacterTest {
         playerCharacter.receiveDamage(29);
         playerCharacter.useComsumableItem(potion);
         assertEquals(playerCharacter.getCurrentHitpoints(), 21);
+
+    public void testNewPlayerCharacterIsNotTaunted(){
+        PlayerCharacter newCharacter = new PlayerCharacter(Race.HOBBIT, "name");
+        assertEquals(NOT_TAUNTED, newCharacter.getTauntTime());
     }
 
+    @Test
+    public void testSetTauntedSetsTauntTimeToTwo(){
+        freshPlayerCharacter.setTaunted();
+        assertEquals(MAX_TAUNT_TIME, freshPlayerCharacter.getTauntTime());
+    }
+
+    @Test
+    public void testDecreaseTauntTimeDecreasesTauntTimeByOne(){
+        freshPlayerCharacter.setTaunted();
+        freshPlayerCharacter.decreaseTauntTime();
+        assertEquals(DECREASED_TAUNT_TIME, freshPlayerCharacter.getTauntTime());
+    }
+
+    @Test
+    public void testDecreaseTauntTimeCantDecreaseBelowZero(){
+        freshPlayerCharacter.decreaseTauntTime();
+        assertEquals(NOT_TAUNTED, freshPlayerCharacter.getTauntTime());
+
+    }
+
+    @Test
+    public void testlevelHundredCharacterDontLevelUp(){
+        freshPlayerCharacter.addXP(MAX_LEVEL);
+        assertEquals(LEVEL_HUNDRED,freshPlayerCharacter.getLevel());
+    }
 
 }

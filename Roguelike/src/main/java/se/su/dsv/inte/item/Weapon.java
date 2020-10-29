@@ -23,4 +23,14 @@ public class Weapon extends Item {
     }
 
 
+    @Override
+    public boolean equals(Object object) {
+        if (object instanceof Weapon) {
+            Weapon other = (Weapon) object;
+            return other.weaponType.equals(weaponType) && other.attackPoints == attackPoints;
+        }
+
+        return false;
+    }
+
 }

@@ -3,13 +3,12 @@ package se.su.dsv.inte.character;
 public class Character {
     private Race race; // Race change? Modifies attributes!
     protected int level;
-    private String name;
+    private final String name; //no set method anyway but w/e
     private int currentHitPoints;
     private int movementSpeedModifier;// Use percentages instead. Round-off errors
     protected Stats stats;
     private boolean isAlive;
     private int stunTime;
-    private boolean taunted;
 
     // Declare throws?
     public Character(Race race, int level) {
@@ -23,12 +22,16 @@ public class Character {
             throw new IllegalArgumentException("Name or race can not be null");
         this.race = race;
         this.level = level;
-        this.name = name;
+        if(name.isEmpty()){
+            this.name = race.getName();
+        }
+        else{
+            this.name = name;
+        }
         this.stats = new Stats(race, level);
         this.currentHitPoints = this.stats.getBaseHitPoints();
         isAlive = true;
         stunTime = 0;
-        taunted = false;
     }
 
     public boolean isAlive(){

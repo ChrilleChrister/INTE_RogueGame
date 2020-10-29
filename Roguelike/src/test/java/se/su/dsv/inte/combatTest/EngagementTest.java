@@ -15,34 +15,35 @@ public class EngagementTest {
 
     private static final PlayerCharacter DEFAULT_PLAYER = new PlayerCharacter(Race.HOBBIT, "DefaultPlayer");
     private static final EnemyCharacter DEFAULT_ENEMY = new EnemyCharacter(Race.DWARF, 1, 3);
-    private static final Engagement DEFAULT_ENGAGEMENT = new Engagement(DEFAULT_PLAYER, DEFAULT_ENEMY);
+    private static final Engagement DEFAULT_ENGAGEMENT = new Engagement(DEFAULT_PLAYER, DEFAULT_ENEMY, DEFAULT_ENEMY);
     private static final double MAX_HIT_CHANCE = 1;
     private static final double MIN_HIT_CHANCE = 0;
     private static final int DEFAULT_DAMAGE_AMOUNT = 5;
     private static final int ZERO_HEALTH = 0;
-    private PlayerCharacter freshPlayer;
-    private static final int MAX_STUN_TIME = 2;
     private static final int DECREASED_STUN_TIME = 1;
-    private static final boolean TAUNTED = true;
-    private static final boolean NOT_TAUNTED = false;
+    private static final double MAX_ESCAPE_CHANCE = 1;
+    private static final double ZERO_ESCAPE_CHANCE = 0;
+    private static final int NOT_TAUNTED = 0;
+    private static final int MAX_TAUNT_TIME = 2;
+    private static final int DECREASED_TAUNT_TIME = 1;
+
+    private PlayerCharacter freshPlayer;
+    private Engagement freshEngagement;
 
     @Before public void initialize(){
         freshPlayer = new PlayerCharacter(Race.HOBBIT, "DefaultPlayer");
+        freshEngagement = new Engagement(freshPlayer, DEFAULT_ENEMY, DEFAULT_ENEMY);
     }
 
     @Test
-    //TileType ska tas in, ej implementerat i denna branch ännu
+    //Implement tiletype
     public void testCtrSetsAttributes(){
-        Engagement engagement = new Engagement(DEFAULT_PLAYER, DEFAULT_ENEMY); //Ambush, borde first turn avgöras i konstruktor?
+        Engagement engagement = new Engagement(DEFAULT_PLAYER, DEFAULT_ENEMY, DEFAULT_ENEMY);
         assertEquals(DEFAULT_PLAYER, engagement.getPlayer());
         assertEquals(DEFAULT_ENEMY, engagement.getEnemy());
-    }
-
-    @Test
-    public void testStartEngagementGivesFirstStrikeToCorrectCharacter(){
-        DEFAULT_ENGAGEMENT.startEngagement(DEFAULT_ENEMY, DEFAULT_PLAYER, DEFAULT_ENEMY); // (enemy, player, firstStriker)
-        assertEquals(DEFAULT_ENEMY, DEFAULT_ENGAGEMENT.getTurnHolder());
-        assertEquals(DEFAULT_PLAYER, DEFAULT_ENGAGEMENT.getTurnSitter());
+        assertEquals(true, engagement.isActive());
+        assertEquals(DEFAULT_ENEMY, engagement.getTurnHolder());
+        assertEquals(DEFAULT_PLAYER, engagement.getTurnSitter());
     }
 
     @Test
@@ -123,11 +124,8 @@ public class EngagementTest {
     @Test
     public void testTauntsetsCharacterToTaunted(){
         DEFAULT_ENGAGEMENT.taunt(freshPlayer);
-        assertEquals(TAUNTED, freshPlayer.isTaunted());
+        assertEquals(MAX_TAUNT_TIME, freshPlayer.getTauntTime());
     }
-
-    @Test
-    public void testPlayerCantEscapeWhenTaunted(){} //implement after escape is implemented
 
     @Test
     public void testTauntSwapsTurnHolder(){
@@ -137,4 +135,44 @@ public class EngagementTest {
         assertEquals(freshPlayer, DEFAULT_ENGAGEMENT.getTurnHolder());
     }
 
+    @Test
+    public void testPlayerCanEscape(){
+        DEFAULT_ENGAGEMENT.escape(DEFAULT_PLAYER, MAX_ESCAPE_CHANCE);
+        assertEquals(false, DEFAULT_ENGAGEMENT.isActive());
+    }
+
+    @Test
+    public void testPlayerCantEscapeWhenTaunted(){
+        freshPlayer.setTaunted();
+        freshEngagement.escape(freshPlayer, MAX_ESCAPE_CHANCE);
+        assertEquals(true, freshEngagement.isActive());
+    }
+
+    @Test
+    public void testFailedEscapeSwapsTurnholder(){
+        DEFAULT_ENGAGEMENT.setTurnHolder(DEFAULT_PLAYER);
+        DEFAULT_ENGAGEMENT.setTurnSitter(DEFAULT_ENEMY);
+        DEFAULT_ENGAGEMENT.escape(DEFAULT_PLAYER, ZERO_ESCAPE_CHANCE);
+        assertEquals(DEFAULT_ENEMY, DEFAULT_ENGAGEMENT.getTurnHolder());
+    }
+
+    @Test
+    public void testPlayerIsOnlyTauntedOneTurn(){
+        freshEngagement.taunt(DEFAULT_PLAYER);
+        freshEngagement.attack(DEFAULT_PLAYER.getStats(), DEFAULT_ENEMY, MAX_HIT_CHANCE);
+        assertEquals(NOT_TAUNTED, freshPlayer.getTauntTime());
+    }
+
+    @Test
+    public void testTauntCanOnlyBeCastWhenEnemyTurn(){
+        freshEngagement.setTurnHolder(freshPlayer);
+        freshEngagement.taunt(freshPlayer);
+        assertEquals(NOT_TAUNTED, freshPlayer.getTauntTime());
+    }
+
+    @Test
+    public void testPlayerTauntTimeIsOneAfterTaunted(){
+        freshEngagement.taunt(freshPlayer);
+        assertEquals(DECREASED_TAUNT_TIME, freshPlayer.getTauntTime());
+    }
 }
