@@ -27,5 +27,13 @@ public class Outfit extends Item {
         return String.format("Name: %s || Outfittype: %s || Defense points: %d", getName(), outfitType, defensePoints);
     }
 
+    @Override
+    public boolean equals(Object object) {
+        if (object instanceof Outfit) {
+            Outfit other = (Outfit) object;
+            return other.outfitType.equals(outfitType) && other.defensePoints == defensePoints;
+        }
 
+        return false;
+    }
 }

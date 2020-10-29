@@ -13,4 +13,6 @@ abstract public class Item {
     }
 
     abstract public String toString();
+
+    abstract public boolean equals(Object object);
 }

@@ -4,12 +4,14 @@ package se.su.dsv.inte.character;
 import se.su.dsv.inte.item.Item;
 import se.su.dsv.inte.item.Outfit;
 import se.su.dsv.inte.item.Weapon;
+import se.su.dsv.inte.quest.QuestManager;
 
 public class PlayerCharacter extends Character {
     private int currentXP;
     private Item[] inventory;
     private Item weapon;
     private Item outfit;
+    private final QuestManager questManager;
     private int tauntTime;
 
     public int getTauntTime(){
@@ -35,6 +37,20 @@ public class PlayerCharacter extends Character {
                 break;
         }
         tauntTime = 0;
+        questManager = new QuestManager(this);
+    }
+
+    public QuestManager getQuestManager() {
+        return questManager;
+    }
+
+    public boolean inventoryContains(Item item) {
+        for (Item i : inventory) {
+            if (i != null && i.getName().equals(item.getName())) { //TODO: fix equals for item
+                return true;
+            }
+        }
+        return false;
     }
 
     public String putItemInInventory(Item item) {
@@ -47,6 +63,7 @@ public class PlayerCharacter extends Character {
                     break;
                 }
             }
+            questManager.updateItemAcquisitionStatus(item);
             return item.getName() + " Added to Inventory";
         }
     }
@@ -71,6 +88,7 @@ public class PlayerCharacter extends Character {
         for (int i = 0; i < inventory.length; i++) {
             if (inventory[i] == null || inventory[i].getName().equals(item.getName())) {
                 inventory[i] = null;
+                questManager.updateItemAcquisitionStatus(item);
             }
         }
     }
@@ -78,7 +96,7 @@ public class PlayerCharacter extends Character {
     //gör om och kolla om ett item redan finns equipat. och eventuellt byt plats på dem och skicka tillbaka det gamla item till inventory
     public void equipItem(Item item) {
         for (int i = 0; i < inventory.length; i++) {
-            if (inventory[i] == null || inventory[i].getName().equals(item.getName())) {
+            if (inventory[i] != null && inventory[i].getName().equals(item.getName())) {
                 if (item instanceof Weapon) {
                     weapon = inventory[i];
                     stats.changeBaseAttackPoints((Weapon) weapon);

@@ -37,4 +37,15 @@ public class Consumable extends Item {
     public String toString() {
         return null;
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object instanceof Consumable) {
+            Consumable other = (Consumable) object;
+            return other.getName().equals(getName()) && other.restorePoints == restorePoints &&
+                    other.stackCounter == stackCounter;
+        }
+
+        return false;
+    }
 }
