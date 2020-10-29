@@ -1,19 +1,4 @@
 package se.su.dsv.inte.map;
-/*
-Fog-of-war
-Treasure chests? (items)
-Environments, grass, snow, mountain, cave (different movement speed, can not walk on)
-Weather effects (affects on weapon)
-(Line of sight)
-//Directions in enum?
-Tranversible/gångbar- boolean.
-occupying character.
-occupying item.
-Kan man lägga idem på ?
-Algorimen, snabbaste vägen i tiles?  Tranversiblemap i en grid?
-Kan den gå eller inte.
-*/
-
 
 public class Tile {
 

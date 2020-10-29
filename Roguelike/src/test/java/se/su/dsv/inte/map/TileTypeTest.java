@@ -1,7 +1,6 @@
-package se.su.dsv.inte.mapTest;
+package se.su.dsv.inte.map;
 
 import org.junit.Test;
-import se.su.dsv.inte.map.TileType;
 
 import static org.junit.Assert.*;
 
@@ -26,6 +25,5 @@ public class TileTypeTest {
         assertEquals("Snow", TileType.SNOW.getName());
         assertEquals(1, TileType.SNOW.getTileTypeMovementSpeed());
         assertTrue(TileType.SNOW.getIfTransversive());
-
     }
 }
