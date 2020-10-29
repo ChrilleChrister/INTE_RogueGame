@@ -12,7 +12,4 @@ abstract public class Item {
         return name;
     }
 
-    abstract public String toString();
-
-    abstract public boolean equals(Object object);
 }

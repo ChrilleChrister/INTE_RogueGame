@@ -6,7 +6,6 @@ public class Character {
     private final String name; //no set method anyway but w/e
     private int currentHitPoints;
     private int movementSpeedModifier;// Use percentages instead. Round-off errors
-    // private Item[] inventory = new Item[getInventorySize()]; // Inventory for player character (move to subclass later)
     protected Stats stats;
     private boolean isAlive;
     private int stunTime;

@@ -4,6 +4,12 @@ public enum Race {
     HOBBIT ("Hobbit", 5, 20, 2, 4),
     DWARF ("Dwarf", 3, 30, 5, 3);
 
+    private String name;
+    private int baseMovementSpeed;
+    private int baseHitPoints;
+    private int baseAttackPoints;
+    private int baseDefensePoints;
+
     Race(String name, int baseMovementSpeed, int baseHitPoints, int baseAttackPoints, int baseDefensePoints) {
         this.name = name;
         this.baseMovementSpeed = baseMovementSpeed;
@@ -12,11 +18,7 @@ public enum Race {
         this.baseDefensePoints = baseDefensePoints;
     }
 
-    private String name;
-    private int baseMovementSpeed;
-    private int baseHitPoints;
-    private int baseAttackPoints;
-    private int baseDefensePoints;
+
 
     public String getName() {
         return name;

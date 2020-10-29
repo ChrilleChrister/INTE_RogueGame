@@ -1,6 +1,6 @@
 package se.su.dsv.inte.character;
 
-import se.su.dsv.inte.item.Consumable;
+
 import se.su.dsv.inte.item.Outfit;
 import se.su.dsv.inte.item.Weapon;
 
@@ -31,11 +31,22 @@ public class Stats {
         baseDefensePoints = race.getBaseDefensePoints() + ((levelToScaleTo - 1) * 2);
     }
 
-    public void changeBaseAttackPoints(Weapon item) {
+    public void equipChangeBaseAttackPoints(Weapon item) {
         baseAttackPoints += item.getAttackPoints();
     }
 
-    public void changeBaseDefensePoints(Outfit item) {
+    public void equipChangeBaseDefensePoints(Outfit item) {
         baseDefensePoints += item.getDefensePoints();
     }
+
+    public void unEquipChangeBaseAttackPoints(Weapon item) {
+        baseAttackPoints -= item.getAttackPoints();
+    }
+
+    public void unEquipChangeBaseDefensePoints(Outfit item) {
+        baseDefensePoints -= item.getDefensePoints();
+    }
+
+
+
 }

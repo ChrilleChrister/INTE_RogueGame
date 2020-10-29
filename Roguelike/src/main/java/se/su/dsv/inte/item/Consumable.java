@@ -6,22 +6,9 @@ public class Consumable extends Item {
     private int stackCounter = 1;
 
 
-    public Consumable(String name, int restore){
+    public Consumable(String name){
         super(name);
-        this.restorePoints = restore;
-    }
-
-    public Consumable(String name) {
-        super(name);
-    }
-
-
-    public void addOneItemToStack(){
-        stackCounter++;
-    }
-
-    public void removeOneItemFromStack(){
-        stackCounter--;
+        this.restorePoints = 20;
     }
 
     public int getStackCounter(){
@@ -31,6 +18,18 @@ public class Consumable extends Item {
     public int getRestorePoints(){
         return restorePoints;
     }
+
+    public void addOneItemToStack(){
+        stackCounter++;
+    }
+
+    public void removeOneItemFromStack(){
+        stackCounter--;
+    }
+
+
+
+
 
 
     @Override
@@ -48,4 +47,5 @@ public class Consumable extends Item {
 
         return false;
     }
+
 }
