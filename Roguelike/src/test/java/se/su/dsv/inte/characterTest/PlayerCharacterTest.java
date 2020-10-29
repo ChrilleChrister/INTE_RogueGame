@@ -15,9 +15,12 @@ import org.junit.Before;
 
 public class PlayerCharacterTest {
 
+    private static final int MAX_LEVEL = 100000000;
+    private static final int LEVEL_HUNDRED = 100;
     private static final int NOT_TAUNTED = 0;
     private static final int MAX_TAUNT_TIME = 2;
     private static final int DECREASED_TAUNT_TIME = 1;
+    private static final int ZERO = 0;
     private PlayerCharacter freshPlayerCharacter;
 
     @Before
@@ -230,5 +233,10 @@ public class PlayerCharacterTest {
         assertEquals(NOT_TAUNTED, freshPlayerCharacter.getTauntTime());
     }
 
+    @Test
+    public void testlevelHundredCharacterDontLevelUp(){
+        freshPlayerCharacter.addXP(MAX_LEVEL);
+        assertEquals(LEVEL_HUNDRED,freshPlayerCharacter.getLevel());
+    }
 
 }

@@ -25,7 +25,7 @@ public class Stats {
         return baseDefensePoints;
     }
 
-    private void updateStats(Race race, int levelToScaleTo) {
+    public void updateStats(Race race, int levelToScaleTo) {
         baseHitPoints = race.getBaseHitPoints() + ((levelToScaleTo - 1) * 5);
         baseAttackPoints = race.getBaseAttackPoints() + ((levelToScaleTo - 1) * 2);
         baseDefensePoints = race.getBaseDefensePoints() + ((levelToScaleTo - 1) * 2);
