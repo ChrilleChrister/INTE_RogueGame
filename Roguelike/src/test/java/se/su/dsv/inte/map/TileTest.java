@@ -1,8 +1,6 @@
-package se.su.dsv.inte.mapTest;
+package se.su.dsv.inte.map;
 
 import org.junit.Test;
-import se.su.dsv.inte.map.TileType;
-import se.su.dsv.inte.map.Tile;
 
 import static org.junit.Assert.*;
 
@@ -14,7 +12,7 @@ public class TileTest {
     private final int Y_POSITION_ONE = 0;
     private TileType TILE_TYPE_GRASS = TileType.GRASS;
     private TileType TILE_TYPE_SNOW = TileType.SNOW;
-    private TileType TILE_TYPE_MOUNTAIN = TileType.MOUNTAIN; 
+    private TileType TILE_TYPE_MOUNTAIN = TileType.MOUNTAIN;
 
     @Test
     public void testCtrSetsAttributesMountain() {
