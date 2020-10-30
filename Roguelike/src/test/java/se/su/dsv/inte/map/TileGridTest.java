@@ -20,7 +20,7 @@ public class TileGridTest {
         new TileGrid(0, HEIGHT);
     }
 
-    @Test //TODO Decide if test is useful
+    @Test
     public void testLengthOfArraysOfTiles() {
         assertEquals(WIDTH, DEFAULT_GRID.getWorldOfTiles().length);
         assertEquals(HEIGHT, DEFAULT_GRID.getWorldOfTiles()[0].length);
@@ -31,59 +31,4 @@ public class TileGridTest {
         TileGrid tg = new TileGrid(WIDTH, HEIGHT);
         tg.makeRandomTileTypesInTheTileGrid(5);
     }
-
-    /*
-    @Test
-    public void getTileTypesOfGrass() {
-        worldOfTiles = new Tile[3][3];
-        for (int i = 0; i < worldOfTiles.length; i++) {
-            for (int j = 0; j < worldOfTiles[i].length; j++) {
-                worldOfTiles[i][j] = new Tile(i * 64, j * 64, TileType.GRASS);
-
-                    assertEquals(worldOfTiles[i][j].getTileType(), TileType.GRASS);
-                    assertEquals(worldOfTiles[i][j].getxPosition(), (i * 64));
-                    assertEquals(worldOfTiles[i][j].getyPosition(), (j * 64));
-            }
-        }
-    }
-
-    @Test
-    public void getTileTypesOfSnow() {
-        worldOfTiles = new Tile[3][3];
-        for (int i = 0; i < worldOfTiles.length; i++) {
-            for (int j = 0; j < worldOfTiles[i].length; j++) {
-                worldOfTiles[i][j] = new Tile(i * 64, j * 64, TileType.SNOW);
-
-                assertEquals(worldOfTiles[i][j].getTileType(), TileType.SNOW);
-                assertEquals(worldOfTiles[i][j].getxPosition(), i * 64);
-                assertEquals(worldOfTiles[i][j].getyPosition(), j * 64);
-            }
-        }
-    }
-
-    @Test
-    public void testmakeRandomTileTypesInTheTileGridCreatesGrassTile(){
-        Tile tile = new Tile(0, 0, DEFAULT_GRID.makeRandomTileTypesInTheTileGrid(GRASS_TILE));
-        Tile tileTwo = new Tile(0, 0, DEFAULT_GRID.makeRandomTileTypesInTheTileGrid(GRASS_TILE_TWO));
-
-        assertEquals(TileType.GRASS, tile.getTileType());
-        assertEquals(TileType.GRASS, tileTwo.getTileType());
-    }
-
-    @Test
-    public void testmakeRandomTileTypesInTheTileGridCreatesSnowTile(){
-        Tile tile = new Tile(0, 0, DEFAULT_GRID.makeRandomTileTypesInTheTileGrid(SNOW_TILE));
-
-        assertEquals(TileType.SNOW, tile.getTileType());
-    }
-
-    @Test
-    public void testmakeRandomTileTypesInTheTileGridCreatesMountainTile(){
-        Tile tile = new Tile(0, 0, DEFAULT_GRID.makeRandomTileTypesInTheTileGrid(MOUNTAIN_TILE));
-
-        assertEquals(TileType.MOUNTAIN, tile.getTileType());
-    }
-
-     */
-
 }
