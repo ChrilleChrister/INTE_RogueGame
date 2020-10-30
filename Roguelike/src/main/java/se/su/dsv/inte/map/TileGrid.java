@@ -56,7 +56,6 @@ public class TileGrid {
                 }
                 return TileType.GRASS;
             default:
-                System.out.println("throwing shit");
                 throw new IllegalArgumentException();
         }
     }
