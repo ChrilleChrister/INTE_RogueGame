@@ -34,6 +34,25 @@ public class QuestManagerTest {
                 new MonsterSlayingObjective(false, "Dragon", 1));
     }
 
+    @Test (expected = NullPointerException.class)
+    public void testPlayerCharacterCanNotStartNullQuest() {
+        player.getQuestManager().startQuest(null);
+    }
+
+    @Test
+    public void testPlayerCharacterCanNotStartAnActiveQuestAgain() {
+        // Add quest first time
+        assertTrue(player.getQuestManager().startQuest(levelOneItemDeliveryQuest));
+        // Add quest second time, quest should not be added
+        assertFalse(player.getQuestManager().startQuest(levelOneItemDeliveryQuest));
+        assertEquals(1, player.getQuestManager().getNumberOfActiveQuests());
+    }
+
+    @Test
+    public void testQuestCanNotBeStartedIfPlayerIsNotRequiredLevel() {
+        assertFalse(player.getQuestManager().startQuest(levelTwoQuest));
+    }
+
     @Test
     public void testNewPlayerCharacterHasEmptyQuestManager() {
         assertNotNull(player.getQuestManager());
@@ -44,11 +63,6 @@ public class QuestManagerTest {
     public void testStartingNewQuestAddsQuestToBeTracked() {
         assertTrue(player.getQuestManager().startQuest(levelOneMonsterSlayingQuest));
         assertTrue(player.getQuestManager().getActiveQuests().contains(levelOneMonsterSlayingQuest));
-    }
-
-    @Test
-    public void testQuestCanNotBeStartedIfPlayerIsNotRequiredLevel() {
-        assertFalse(player.getQuestManager().startQuest(levelTwoQuest));
     }
 
     @Test

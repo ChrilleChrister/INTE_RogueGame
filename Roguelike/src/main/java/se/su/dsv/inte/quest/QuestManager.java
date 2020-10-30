@@ -23,6 +23,10 @@ public class QuestManager {
         if (player.getLevel() < quest.getRequiredLevel())
             return false;
 
+        if (activeQuests.contains(quest))
+            return false;
+
+
         prepareQuestForTracking(quest);
 
         activeQuests.add(quest);
