@@ -14,6 +14,8 @@ public class TileTest {
     private TileType TILE_TYPE_SNOW = TileType.SNOW;
     private TileType TILE_TYPE_MOUNTAIN = TileType.MOUNTAIN;
 
+    //Rest-tankar, testa olika positioner?
+
     @Test
     public void testCtrSetsAttributesMountain() {
         Tile tile = new Tile(X_POSITION_ONE, Y_POSITION_ONE, TILE_TYPE_MOUNTAIN);

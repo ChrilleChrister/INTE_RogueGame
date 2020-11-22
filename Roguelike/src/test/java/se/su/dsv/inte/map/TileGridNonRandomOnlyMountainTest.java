@@ -29,6 +29,8 @@ public class TileGridNonRandomOnlyMountainTest extends TileGrid {
         assertEquals(world.MAX_NUMBER_OF_MOUNTAIN_TILES, world.currentNumberOfMountainTiles);
     }
 
+
+    //Rest-tankar, tveksamt att testa på detta sätt? Varför platser i array om vi har x samt y?
     @Test
     public void testMountainTilesIsReplacedByGrassTilesIfMaxNumberOfMountainTilesIsReachedDuringWorldGeneration() {
         TileGrid world = new TileGridNonRandomOnlyMountainTest();

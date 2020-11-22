@@ -2,6 +2,13 @@ package se.su.dsv.inte.map;
 
 import java.util.Random;
 
+//Henrik förslag, implementera hur snabbt man rör sig exempelvis. Movement-point kan spenderas till att ta slut.
+//Kö av alla spelpjäser el prioritetskö. Spelare som går olika snabbt men prioritetskö. Timern. Tiden tickas ner.
+//Mer tekniskt- generate world. Generera trovärdiga kartor? Norr ut alltid minus 25? För att få bort slump problem.
+//Annan variant på kartor, Olika rum, dungeon crawl- inte super...
+//Fraktaler, matematiskt koncept. (Mandelbrotmängden) Zoomar in på och en del av den blir kartan. Mandelbrotmängdgenerator, den används för att generera karta.
+
+
 //Creates the map/world by creating an array of arrays of tiles, worldOfTiles.
 public class TileGrid {
     private final int worldWidth;
@@ -42,7 +49,6 @@ public class TileGrid {
 
     //The worldOfTiles have a greater chance to contain more grass than snow and mountain.
     protected TileType makeRandomTileTypesInTheTileGrid(int tileType) {
-        System.out.println("tileType: " + tileType);
         switch (tileType) {
             case 0:
             case 1:

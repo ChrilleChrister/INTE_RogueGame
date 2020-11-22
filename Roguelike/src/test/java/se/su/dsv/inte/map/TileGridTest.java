@@ -15,9 +15,16 @@ public class TileGridTest {
     private static final TileGrid DEFAULT_GRID = new TileGrid(WIDTH, HEIGHT);
     public Tile[][] worldOfTiles;
 
+    //Rest-tankar, behöver width vara ok och height för liten och för att testa att världen inte är för liten?
+
+
     @Test (expected = IllegalArgumentException.class)
     public void testWorldSizeTooSmallThrowsIAE() {
         new TileGrid(0, HEIGHT);
+    }
+    @Test (expected = IllegalArgumentException.class)
+    public void testWorldSizeTooSmallHeightThrowsIAE() {
+        new TileGrid(WIDTH, 0);
     }
 
     @Test

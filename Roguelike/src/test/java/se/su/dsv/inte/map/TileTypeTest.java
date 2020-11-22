@@ -6,6 +6,8 @@ import static org.junit.Assert.*;
 
 public class TileTypeTest {
 
+    //Rest-tankar, ändra magisk 2a och 1a?
+
     @Test
     public void testTileTypeGrass() {
         assertEquals("Grass", TileType.GRASS.getName());
