@@ -17,14 +17,115 @@ public class TileGrid {
     protected int currentNumberOfMountainTiles;
     public Tile[][] worldOfTiles;
 
+    // Image size (rest)
+    private final int WIDTH = 60;
+    private final int HEIGHT = 60;
+    //Plot window
+    private final int RE_START = -2;
+    private final int RE_END = 2;
+    private final int IM_START = -2;
+    private final int IM_END = 2;
+    private int xr = 60;
+    private int yi = 60;
+    //MAX_INT kanske kan vara 10?
+
+//    public TileGrid(int worldWidth, int worldHeight) {
+//        if (worldWidth < 1 || worldHeight < 1)
+//            throw new IllegalArgumentException("World size too small");
+//        this.worldWidth = worldWidth;
+//        this.worldHeight = worldHeight;
+//        MAX_NUMBER_OF_MOUNTAIN_TILES = 3;
+//        worldOfTiles = generateWorld();
+//    }
+
+    //Mandelbrotfraction
     public TileGrid(int worldWidth, int worldHeight) {
         if (worldWidth < 1 || worldHeight < 1)
             throw new IllegalArgumentException("World size too small");
         this.worldWidth = worldWidth;
         this.worldHeight = worldHeight;
         MAX_NUMBER_OF_MOUNTAIN_TILES = 3;
-        worldOfTiles = generateWorld();
+        worldOfTiles = GenerateWorldByMandelbrot();
     }
+
+    protected Tile[][] GenerateWorldByMandelbrot() {
+        Tile[][] world = new Tile[WIDTH][HEIGHT];
+        for (int x = 0; x <= world.length; x++) {
+            for (int y = 0; y <= world[x].length; y++) {
+
+
+                world[x][y] = new Tile(x * 64, y * 64, makeTileTypesInTheTileGrid(generateNumberMandelbrot()));
+            }
+        }
+        return world;
+    }
+
+
+    protected TileType makeTileTypesInTheTileGrid(int iteration) {
+
+                if (iteration < 100) {
+                    return TileType.GRASS;
+                }
+                else return TileType.MOUNTAIN;
+            }
+
+    protected int generateNumberMandelbrot() {
+        double c_re = (yi - WIDTH/2.0)*4.0/WIDTH;
+        double c_im = (xr - HEIGHT/2.0)*4.0/WIDTH;
+        double xr = 0, yi = 0;
+        int iteration = 0;
+        while (xr*xr+yi*yi <= 4 && iteration < 100) {
+            double x_new = xr*xr - yi*yi + c_re;
+            yi = 2*xr*yi + c_im;
+            xr = x_new;
+            iteration++;
+        }
+        return iteration;
+    }
+
+
+
+
+
+//Om iterationer blir 100 = mountain tiles, om iterationer under något gräs, mellan det snö?
+
+
+//                while (n <100){
+//                    int aa = a * a - b*b;
+//                    int bb = 2 * a *b;
+//
+//                    a = aa + a;
+//                    b = bb + b;
+//
+//                    if (a + b > 16){
+//                        break;
+//                    }
+//                    n ++;
+//                }
+
+
+
+
+                //Convert pixel??? coordinate to complex number
+//                double c = complex(RE_START + (x / WIDTH) * (RE_END - RE_START),
+//                        IM_START + (y / HEIGHT) * (IM_END - IM_START));
+//                //Compute the number of iterations
+//                int m = mandelbrot(c);
+//                //The color? Tiletype depends on the number of iterations
+//                world[x][y] = new Tile(x * 64, y * 64, makeTileFromMandelbrot(generateRandomNumber()));
+//
+//            }
+//
+//        }
+//        return world;
+//
+//    }
+
+//Tankar, bilden på mandelbrot. varje pixel är ju en färg/komplext tal. Ska jag zooma in till varje pixel och ha karta?
+    //Eller om jag skapar karta, de olika tiletyperna är beroende på hur många pixlar inom varje ruta?
+
+    //Kan man ta random nummer av alla iterations och börja där?
+
 
     public Tile[][] getWorldOfTiles() {
         return worldOfTiles;
@@ -41,7 +142,10 @@ public class TileGrid {
         return world;
     }
 
-    protected int generateRandomNumber(){
+
+
+
+    protected int generateRandomNumber() {
         Random randTile = new Random();
         int upperbound = 4;
         return randTile.nextInt(upperbound);
@@ -65,4 +169,4 @@ public class TileGrid {
                 throw new IllegalArgumentException();
         }
     }
-}
+    }
