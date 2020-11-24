@@ -42,4 +42,16 @@ public class TileGridNonRandomOnlyMountainTest extends TileGrid {
         assertEquals(TileType.GRASS, grid[1][0].getTileType());
         assertEquals(TileType.GRASS, grid[2][2].getTileType());
     }
+
+    @Test
+    public void test() {
+        TileGrid world = new TileGridNonRandomOnlyMountainTest();
+        Tile[][] grid = world.getWorldOfTiles();
+
+        assertEquals(TileType.MOUNTAIN, grid[0][0].getTileType());
+        assertEquals(TileType.MOUNTAIN, grid[0][1].getTileType());
+        assertEquals(TileType.MOUNTAIN, grid[0][2].getTileType());
+        assertEquals(TileType.GRASS, grid[1][0].getTileType());
+        assertEquals(TileType.GRASS, grid[2][2].getTileType());
+    }
 }

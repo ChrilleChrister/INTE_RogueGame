@@ -39,11 +39,11 @@ public class TileGrid {
 //    }
 
     //Mandelbrotfraction
-    public TileGrid(int worldWidth, int worldHeight) {
-        if (worldWidth < 1 || worldHeight < 1)
+    public TileGrid(int WIDTH, int HEIGHT) {
+        if (WIDTH < 1 || HEIGHT < 1)
             throw new IllegalArgumentException("World size too small");
-        this.worldWidth = worldWidth;
-        this.worldHeight = worldHeight;
+        this.WIDTH = WIDTH; // WIDTH? samt HEIGHT?
+        this.HEIGHT = HEIGHT;
         MAX_NUMBER_OF_MOUNTAIN_TILES = 3;
         worldOfTiles = GenerateWorldByMandelbrot();
     }
@@ -54,7 +54,7 @@ public class TileGrid {
             for (int y = 0; y <= world[x].length; y++) {
 
 
-                world[x][y] = new Tile(x * 64, y * 64, makeTileTypesInTheTileGrid(generateNumberMandelbrot()));
+                world[x][y] = new Tile(x * 64, y * 64, generateNumberMandelbrot());
             }
         }
         return world;
@@ -62,25 +62,44 @@ public class TileGrid {
 
 
     protected TileType makeTileTypesInTheTileGrid(int iteration) {
+        System.out.println("tileType: " + iteration);
 
-                if (iteration < 100) {
+        if (iteration < 100) {
                     return TileType.GRASS;
                 }
                 else return TileType.MOUNTAIN;
             }
 
-    protected int generateNumberMandelbrot() {
-        double c_re = (yi - WIDTH/2.0)*4.0/WIDTH;
-        double c_im = (xr - HEIGHT/2.0)*4.0/WIDTH;
-        double xr = 0, yi = 0;
-        int iteration = 0;
-        while (xr*xr+yi*yi <= 4 && iteration < 100) {
-            double x_new = xr*xr - yi*yi + c_re;
-            yi = 2*xr*yi + c_im;
-            xr = x_new;
-            iteration++;
+    protected TileType generateNumberMandelbrot() {
+        int numbersofMountain = 0;
+        for (int row = 0; row < HEIGHT; row++) {
+            for (int col = 0; col < WIDTH; col++) {
+
+                double c_re = (col - WIDTH / 2.0) * 4.0 / WIDTH;
+                double c_im = (row - HEIGHT / 2.0) * 4.0 / WIDTH;
+
+
+                double x = 0, y = 0;
+                int iteration = 0;
+                while (x * x + y * y <= 4 && iteration < 100) {
+                    double x_new = x * x - y * y + c_re;
+                    y = 2 * x * y + c_im;
+                    x = x_new;
+                    iteration++;
+                }
+                if (iteration < 100) {
+                    //Räknare som adderar, är hälften svarta blir de mountain?
+
+                    numbersofMountain++;
+                }
+
+            }
+
         }
-        return iteration;
+        if (numbersofMountain > (HEIGHT * WIDTH / 2)) {
+            return TileType.MOUNTAIN;
+        } else
+            return TileType.GRASS;
     }
 
 
