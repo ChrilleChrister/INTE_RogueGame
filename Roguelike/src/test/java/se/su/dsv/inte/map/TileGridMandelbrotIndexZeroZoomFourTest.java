@@ -4,14 +4,15 @@ package se.su.dsv.inte.map;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
-public class TileGridMandelbrotTest extends TileGrid {
+public class TileGridMandelbrotIndexZeroZoomFourTest extends TileGrid {
     private static final int WORLD_WIDTH = 14;
     private static final int WORLD_HEIGHT = 14;
-    private static final int INDEX_TO_CREATE_MAP_FROM = 0;
-    private static final double ZOOM_IN_ON_MANDELBROT = 4.0;
+    private static final int INDEX_TO_CREATE_MAP_FROM_ZERO = 0;
+    private static final double ZOOM_IN_ON_MANDELBROT_FOUR = 4.0;
 
 
-    public TileGridMandelbrotTest() {
+
+    public TileGridMandelbrotIndexZeroZoomFourTest() {
         super(WORLD_WIDTH, WORLD_HEIGHT);
     }
 
@@ -21,19 +22,18 @@ public class TileGridMandelbrotTest extends TileGrid {
      */
     @Override
     protected int indexOfMapCreation() {
-        return INDEX_TO_CREATE_MAP_FROM;
+        return INDEX_TO_CREATE_MAP_FROM_ZERO;
     }
 
     @Override
     protected double zoomOfMandelbrot() {
-        return ZOOM_IN_ON_MANDELBROT;
+        return ZOOM_IN_ON_MANDELBROT_FOUR;
     }
 
 
     @Test
-    public void testMandelbrot() {
-        TileGrid world = new TileGridMandelbrotTest();
-        Tile[][] grid = world.getWorldOfTiles();
+    public void testMandelbrotIndexZeroZoomFour() {
+        Tile[][] grid = getWorldOfTiles();
 
         assertEquals(TileType.MOUNTAIN, grid[0][0].getTileType());
         assertEquals(TileType.MOUNTAIN, grid[0][1].getTileType());
@@ -43,11 +43,10 @@ public class TileGridMandelbrotTest extends TileGrid {
         assertEquals(TileType.SNOW, grid[0][5].getTileType());
         assertEquals(TileType.SNOW, grid[0][6].getTileType());
         assertEquals(TileType.GRASS, grid[1][0].getTileType());
+        assertEquals(TileType.GRASS, grid[1][3].getTileType());
         assertEquals(TileType.MOUNTAIN, grid[2][0].getTileType());
         assertEquals(TileType.GRASS, grid[3][0].getTileType());
         assertEquals(TileType.MOUNTAIN, grid[4][0].getTileType());
         assertEquals(TileType.SNOW, grid[12][6].getTileType());
-
     }
 }
-
