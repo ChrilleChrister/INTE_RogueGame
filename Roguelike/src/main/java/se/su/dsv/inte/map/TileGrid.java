@@ -13,26 +13,12 @@ import java.util.Random;
 
 //Creates the map/world by creating an array of arrays of tiles, worldOfTiles.
 public class TileGrid {
-//    private final int worldWidth;
-//    private final int worldHeight;
-//    protected final int MAX_NUMBER_OF_MOUNTAIN_TILES;
-    protected int currentNumberOfMountainTiles;
     public Tile[][] worldOfTiles;
     private final int WIDTH;
     private final int HEIGHT;
     protected ArrayList<TileType> arraylistTileType = new ArrayList<TileType>();
     private double zoom;
 
-
-
-//    public TileGrid(int worldWidth, int worldHeight) {
-//        if (worldWidth < 1 || worldHeight < 1)
-//            throw new IllegalArgumentException("World size too small");
-//        this.worldWidth = worldWidth;
-//        this.worldHeight = worldHeight;
-//        MAX_NUMBER_OF_MOUNTAIN_TILES = 3;
-//        worldOfTiles = generateWorld();
-//    }
 
     //Constructor, creates world by using the Mandelbrot fraction
     public TileGrid(int WIDTH, int HEIGHT) {
@@ -60,8 +46,6 @@ public class TileGrid {
                 System.out.println(" " + zoom + " " + index);
             }
         }
-        System.out.println("Skriver jag ut världen två gg?, Svar ja!");
-        //System.out.println("size av arraylist " + arraylistTileType.size() + " höjd och vidd x 2 " + (HEIGHT * WIDTH *2 ) + " index " + indexOfMapCreation);
         return world;
     }
 
@@ -99,7 +83,6 @@ public class TileGrid {
                 //TileType depends on iterations
                 if (iteration >= 450) {
                     t = TileType.GRASS;
-
                 } else if (iteration < 450 && iteration > 150) {
                     t = TileType.SNOW;
                 } else {
@@ -112,41 +95,16 @@ public class TileGrid {
 
     }
 
-
-
-
-
     public Tile[][] getWorldOfTiles() {
         return worldOfTiles;
-    }
-
-//    private Tile[][] generateWorld() {
-//        Tile[][] world = new Tile[worldWidth][worldHeight];
-//        for (int i = 0; i < world.length; i++) { // Y
-//            for (int j = 0; j < world[i].length; j++) { // X
-//
-//                world[i][j] = new Tile(i * 64, j * 64, makeRandomTileTypesInTheTileGrid(generateRandomNumber()));
-//            }
-//        }
-//        return world;
-//    }
-
-
-
-
-    protected int generateRandomNumber() {
-        Random randTile = new Random();
-        int upperbound = 4;
-        return randTile.nextInt(upperbound);
     }
 
     protected int indexOfMapCreation() {
         Random randStart = new Random();
 
-        int indexOfMapCreation = randStart.nextInt(WIDTH);
+        int indexOfMapCreation = randStart.nextInt(WIDTH * 2 -1 );
         return indexOfMapCreation;
     }
-
 
     protected double zoomOfMandelbrot() {
         Random randZoomInt = new Random();
@@ -156,23 +114,4 @@ public class TileGrid {
         double zoomDouble = randZoomDouble.nextDouble();
         return (zoomInt + zoomDouble);
     }
-
-    //The worldOfTiles have a greater chance to contain more grass than snow and mountain.
-//    protected TileType makeRandomTileTypesInTheTileGrid(int tileType) {
-//        switch (tileType) {
-//            case 0:
-//            case 1:
-//                return TileType.GRASS;
-//            case 2:
-//                return TileType.SNOW;
-//            case 3:
-//                if (currentNumberOfMountainTiles < MAX_NUMBER_OF_MOUNTAIN_TILES) {
-//                    currentNumberOfMountainTiles++;
-//                    return TileType.MOUNTAIN;
-//                }
-//                return TileType.GRASS;
-//            default:
-//                throw new IllegalArgumentException();
-//        }
-//    }
-    }
+}

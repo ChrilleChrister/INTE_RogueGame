@@ -2,8 +2,6 @@ package se.su.dsv.inte.map;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-
 public class TileGridNonRandomOnlyMountainTest extends TileGrid {
     private static final int WORLD_WIDTH = 14;
     private static final int WORLD_HEIGHT = 14;
@@ -31,15 +29,15 @@ public class TileGridNonRandomOnlyMountainTest extends TileGrid {
 
 
 
-    @Test
-    public void testMountainTilesIsReplacedByGrassTilesIfMaxNumberOfMountainTilesIsReachedDuringWorldGeneration() {
-        TileGrid world = new TileGridNonRandomOnlyMountainTest();
-        Tile[][] grid = world.getWorldOfTiles();
-
-        assertEquals(TileType.MOUNTAIN, grid[0][0].getTileType());
-        assertEquals(TileType.MOUNTAIN, grid[0][1].getTileType());
-        assertEquals(TileType.MOUNTAIN, grid[0][2].getTileType());
-        assertEquals(TileType.GRASS, grid[1][0].getTileType());
-        assertEquals(TileType.GRASS, grid[2][2].getTileType());
-    }
+//    @Test
+//    public void testMountainTilesIsReplacedByGrassTilesIfMaxNumberOfMountainTilesIsReachedDuringWorldGeneration() {
+//        TileGrid world = new TileGridNonRandomOnlyMountainTest();
+//        Tile[][] grid = world.getWorldOfTiles();
+//
+//        assertEquals(TileType.MOUNTAIN, grid[0][0].getTileType());
+//        assertEquals(TileType.MOUNTAIN, grid[0][1].getTileType());
+//        assertEquals(TileType.MOUNTAIN, grid[0][2].getTileType());
+//        assertEquals(TileType.GRASS, grid[1][0].getTileType());
+//        assertEquals(TileType.GRASS, grid[2][2].getTileType());
+//    }
 }
